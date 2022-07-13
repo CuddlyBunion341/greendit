@@ -1,5 +1,5 @@
 <nav>
-    <a href="#">Home</a>
-    <a href="#">Log In</a>
-    <a href="#">Sign Up</a>
+    <a href="index.php">Home</a>
+    <a href="login.php">Log In</a>
+    <a href="signup.php">Sign Up</a>
 </nav>
