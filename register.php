@@ -1,5 +1,30 @@
 <?php require('templates/header.php'); ?>
 
+<?php
+    function register($username, $password, $verify) {
+        require 'config/db_connect.php';
+        if (empty($username)) return 'Username is required';
+        if (empty($password)) return 'Password is required';
+        if ($password !== $verify) return 'Passwords do not match';
+        $sql = "SELECT username FROM users WHERE username = '$username'";
+        $result = $conn->query($sql);
+        if ($result->num_rows > 0) return 'Username already exists';
+        $password = password_hash($password, PASSWORD_DEFAULT);
+        $sql = "INSERT INTO users (username, password) VALUES ('$username', '$password')";
+        if ($conn->query($sql) !== TRUE) return 'Error: ' . $sql . '<br>' . $conn->error;
+    }
+    if (isset($_POST['username'],$_POST['password'],$_POST['verify'])) {
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        $verify = $_POST['verify'];
+        $error = register($username,$password,$verify);
+        if (empty($error)) {
+            $_SESSION['user_id'] = $user['id'];
+            header('Location: index.php');
+        }
+    }
+?>
+
 <form action="register.php" method="post">
     <div class="container">
         <h1>Sign Up</h1>
