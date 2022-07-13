@@ -14,9 +14,9 @@
         if ($conn->query($sql) !== TRUE) return 'Error: ' . $sql . '<br>' . $conn->error;
     }
     if (isset($_POST['username'],$_POST['password'],$_POST['verify'])) {
-        $username = $_POST['username'];
-        $password = $_POST['password'];
-        $verify = $_POST['verify'];
+        $username = htmlspecialchars($_POST['username']);
+        $password = htmlspecialchars($_POST['password']);
+        $verify = htmlspecialchars($_POST['verify']);
         $error = register($username,$password,$verify);
         if (empty($error)) {
             $_SESSION['user_id'] = $user['id'];

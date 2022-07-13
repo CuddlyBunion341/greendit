@@ -3,8 +3,8 @@
 <?php
     if (isset($_POST['username'],$_POST['password'])) {
         require 'config/db_connect.php';
-        $password = $_POST['password'];
-        $username = $_POST['username'];
+        $password = htmlspecialchars($_POST['password']);
+        $username = htmlspecialchars($_POST['username']);
 
         $sql = "SELECT * FROM users WHERE username = '$username'";
         $result = $conn->query($sql);
