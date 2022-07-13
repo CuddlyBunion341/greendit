@@ -1,6 +1,6 @@
 <?php require('templates/header.php'); ?>
 <main>
-<h1>Welcome to Greendit</h1>
+<h1>Welcome to <span class="green">Greendit</span></h1>
     <p>
         Greendit is a web application similar to Reddit.
         It is a place where you can post and comment on posts.
