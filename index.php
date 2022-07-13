@@ -1,4 +1,5 @@
 <?php require('templates/header.php'); ?>
+<main>
 <h1>Welcome to Greendit</h1>
     <p>
         Greendit is a web application similar to Reddit.
@@ -6,6 +7,8 @@
     </p>
     <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dignissimos ex debitis veritatis magnam dolor ea esse,
         ratione iusto et aliquid sequi sint enim aspernatur facere tempore accusantium impedit quibusdam sunt!</p>
+
+    <h2>Popular posts</h2>
     <div id="feed">
         <?php
             require 'config/db_connect.php';
@@ -23,4 +26,5 @@
             }
         ?>
     </div>
+</main>
 <?php require('templates/footer.php'); ?>
