@@ -17,10 +17,29 @@
             $posts = $result->fetch_all(MYSQLI_ASSOC);
 
             foreach ($posts as $post) {
+                // user
+                $sql = "SELECT * FROM users WHERE user_id = " . $post['user_id'];
+                $result = $conn->query($sql);
+                $user = $result->fetch_assoc();
+                // comments
+                $sql = "SELECT * FROM comments WHERE post_id = " . $post['post_id'];
+                $result = $conn->query($sql);
+                $comments = $result->fetch_all(MYSQLI_ASSOC);
+                // date
+                $date = $post['created_at'];
+                // $date = date("d.m.Y", strtotime($date));
+                $now = time(); // or your date as well
+                $your_date = strtotime($date);
+                $datediff = $now - $your_date;
+
+                $date = round($datediff / (60 * 60 * 24));
+                // todo: likes
                 echo '
                     <div class="post">
                         <h2>' . $post['title'] . '</h2>
                         <p>' . $post['content'] . '</p>
+                        <p> by ' . $user['username'] . ' ' . $date . ' day(s) ago</p>
+                        <p>' . count($comments) . ' comments</p>
                     </div>
                 ';
             }
