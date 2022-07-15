@@ -62,3 +62,13 @@ main {
 .post .head a:hover {
     text-decoration: underline;
 }
+.arrow-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+.arrow-wrapper button {
+    border: 0;
+    background: none;
+    font-weight: bold;
+    padding: 0;
+}

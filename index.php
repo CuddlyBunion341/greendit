@@ -36,9 +36,9 @@
                         
                             <div class="left">
                                 <div class="arrow-wrapper">
-                                    <div class="upvote">⇧</div>
-                                    <div class="like-count">0</div>
-                                    <div class="downvote">⇩</div>
+                                    <button class="upvote">⇧</button>
+                                    <span class="like-count">0</span>
+                                    <button class="downvote">⇩</button>
                                 </div>
                             </div>
                             <div class="right">
