@@ -51,6 +51,14 @@ main {
 .right {
     padding: 4px;
 }
-.post {
-
+.post .head {
+    color: #696969;
+    font-size: 13px;
+}
+.post .head a {
+    color: #696969;
+    text-decoration: none;
+}
+.post .head a:hover {
+    text-decoration: underline;
 }

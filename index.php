@@ -44,7 +44,7 @@
                             <div class="right">
                                 <div class="head">
                                     <a href="subs/main">g/main</a>&nbsp;
-                                    Posted by&nbsp;
+                                    posted by&nbsp;
                                     <a href="user/'.$user['username'].'">
                                     u/'. $user['username'] . '
                                     </a>'. $date . ' days(s) ago
