@@ -15,14 +15,42 @@ main {
     background-color: white;
     border-radius: 2px;
     margin-bottom: 10px;
-    padding: 15px;
+    display: flex;
 }
-
 .post h2 {
     margin-bottom: 0;
     margin-top: 0;
+    font-size: 20px;
 }
-
+.post .right p {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
 .post:hover {
     outline: 1px solid gray;
+}
+.like-count {
+    text-align: center;
+}
+.upvote:hover {
+    color: darkcyan;
+    cursor: pointer;
+}
+.downvote:hover {
+    color: darkcyan;
+    cursor: pointer;
+}
+.post .left {
+    /* display: inline-block; */
+    float: left;
+    background-color: #f1f1f1;
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
+    padding: 6px;
+}
+.right {
+    padding: 4px;
+}
+.post {
+
 }

@@ -27,19 +27,37 @@
                 $comments = $result->fetch_all(MYSQLI_ASSOC);
                 // date
                 $date = $post['created_at'];
-                // $date = date("d.m.Y", strtotime($date));
-                $now = time(); // or your date as well
-                $your_date = strtotime($date);
-                $datediff = $now - $your_date;
+                $datediff = time() - strtotime($date);
 
                 $date = round($datediff / (60 * 60 * 24));
                 // todo: likes
                 echo '
                     <div class="post">
-                        <h2>' . $post['title'] . '</h2>
-                        <p>' . $post['content'] . '</p>
-                        <p> by ' . $user['username'] . ' ' . $date . ' day(s) ago</p>
-                        <p>' . count($comments) . ' comments</p>
+                        
+                            <div class="left">
+                                <div class="arrow-wrapper">
+                                    <div class="upvote">⇧</div>
+                                    <div class="like-count">0</div>
+                                    <div class="downvote">⇩</div>
+                                </div>
+                            </div>
+                            <div class="right">
+                                <div class="head">
+                                    <a href="subs/main">g/main</a>&nbsp;
+                                    Posted by&nbsp;
+                                    <a href="user/'.$user['username'].'">
+                                    u/'. $user['username'] . '
+                                    </a>'. $date . ' days(s) ago
+                                </div>
+                                <h2>' . $post['title'] . '</h2>
+                                <p>' . $post['content'] . '</p>
+                                <div class="footer">
+                                    <button>' . count($comments) . ' comments</button>
+                                    <button>Save</button>
+                                    <button>Share</button>
+                                    <button>Report</button>
+                                </div>  
+                        </div>
                     </div>
                 ';
             }
