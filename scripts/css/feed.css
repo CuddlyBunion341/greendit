@@ -72,3 +72,6 @@ main {
     font-weight: bold;
     padding: 0;
 }
+.arrow-wrapper .downvote {
+    transform: rotate(180deg);
+}
