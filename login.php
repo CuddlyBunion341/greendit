@@ -12,7 +12,8 @@
         if ($user && password_verify($password, $user['password'])) {
             $_SESSION['user_id'] = $user['user_id'];
             $_SESSION['username'] = $user['username'];
-            header('Location: index.php');
+            $location = isset($_SESSION['HTTP_REFERER']) ? $_SESSION['HTTP_REFERER'] : 'index.php';
+            header('Location: '.$location);
         } else {
             $error = 'Incorrect username or password';
         }
@@ -32,5 +33,3 @@
         <p>Not a member?&nbsp;<a href="register.php">SignUp</a></p>
     </div>
 </form>
-
-<!-- <?php require('templates/footer.php'); ?> -->

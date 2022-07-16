@@ -14,13 +14,14 @@
         if ($conn->query($sql) !== TRUE) return 'Error: ' . $sql . '<br>' . $conn->error;
     }
     if (isset($_POST['username'],$_POST['password'],$_POST['verify'])) {
-        $username = htmlspecialchars($_POST['username']);
+        $username = trim(htmlspecialchars($_POST['username']));
         $password = htmlspecialchars($_POST['password']);
         $verify = htmlspecialchars($_POST['verify']);
         $error = register($username,$password,$verify);
         if (empty($error)) {
             $_SESSION['user_id'] = $user['id'];
-            header('Location: index.php');
+            $location = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : 'index.php';
+            header('Location: '.$location);
         }
     }
 ?>
