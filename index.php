@@ -33,7 +33,6 @@
                 // todo: likes
                 echo '
                     <div class="post">
-                        
                             <div class="left">
                                 <div class="arrow-wrapper">
                                     <button class="upvote"><img src="resources/upvote_full.svg"></button>
@@ -43,7 +42,7 @@
                             </div>
                             <div class="right">
                                 <div class="head">
-                                    <a href="subs/main">g/main</a>&nbsp;
+                                    <a href="subs/main">s/main</a>&nbsp;
                                     posted by&nbsp;
                                     <a href="user/'.$user['username'].'">
                                     u/'. $user['username'] . '

@@ -50,6 +50,7 @@ main {
 }
 .right {
     padding: 4px;
+    padding-right: 10px;
 }
 .post .head {
     color: #696969;
@@ -71,6 +72,7 @@ main {
     background: none;
     font-weight: bold;
     padding: 0;
+    width: 13px;
 }
 .arrow-wrapper .downvote {
     transform: rotate(180deg);
