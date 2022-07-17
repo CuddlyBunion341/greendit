@@ -12,37 +12,62 @@
     <div id="feed">
         <?php
             require 'config/db_connect.php';
-            $sql = "SELECT * FROM posts ORDER BY post_id DESC";
+            $sql = 'SELECT * FROM posts ORDER BY post_id DESC';
             $result = $conn->query($sql);
             $posts = $result->fetch_all(MYSQLI_ASSOC);
 
             foreach ($posts as $post) {
                 // user
-                $sql = "SELECT * FROM users WHERE user_id = " . $post['user_id'];
+                $sql = 'SELECT * FROM users WHERE user_id = ' . $post['user_id'];
                 $result = $conn->query($sql);
                 $user = $result->fetch_assoc();
+                // community
+                $sql = 'SELECT * FROM communities WHERE community_id = ' . $post['community_id'];
+                $result = $conn->query($sql);
+                $community = $result->fetch_assoc();
                 // comments
-                $sql = "SELECT * FROM comments WHERE post_id = " . $post['post_id'];
+                $sql = 'SELECT * FROM comments WHERE post_id = ' . $post['post_id'];
                 $result = $conn->query($sql);
                 $comments = $result->fetch_all(MYSQLI_ASSOC);
                 // date
                 $date = $post['created_at'];
                 $datediff = time() - strtotime($date);
-
                 $date = round($datediff / (60 * 60 * 24));
-                // todo: likes
+                // likes
+                $sql = 'SELECT COUNT(*) FROM post_likes WHERE post_id = ' . $post['post_id'];
+                $result = $conn->query($sql);
+                $likes = $result->fetch_row()[0];
+                // dislikes
+                $sql = 'SELECT COUNT(1) FROM post_dislikes WHERE post_id = ' . $post['post_id'];
+                $result = $conn->query($sql);
+                $dislikes = $result->fetch_row()[0];
+                // total likes
+                $totalLikes = $likes - $dislikes;
+                // liked / disliked
+                $liked = 0;
+                $disliked = 0;
+                if (isset($_SESSION['user_id'])) {
+                    // mylike
+                    $sql = 'SELECT * FROM post_likes WHERE post_id = ' . $post['post_id'] . ' AND user_id = ' . $_SESSION['user_id'];
+                    $result = $conn->query($sql);
+                    $liked = mysqli_num_rows($result);
+                    // mydislike
+                    $sql = 'SELECT * FROM post_dislikes WHERE post_id = ' . $post['post_id'] . ' AND user_id = ' . $_SESSION['user_id'];
+                    $result = $conn->query($sql);
+                    $disliked = mysqli_num_rows($result);
+                }
                 echo '
-                    <div class="post">
+                    <div class="post" data-id="'.$post['post_id'].'">
                             <div class="left">
                                 <div class="arrow-wrapper">
-                                    <button class="upvote"><img src="resources/upvote_full.svg"></button>
-                                    <span class="like-count">0</span>
-                                    <button class="downvote"><img src="resources/upvote.svg"></button>
+                                    <button class="upvote"><img src="resources/upvote'.($liked?'_full':'').'.svg"></button>
+                                    <span class="like-count">'.$totalLikes.'</span>
+                                    <button class="downvote"><img src="resources/upvote'.($disliked?'_full':'').'.svg"></button>
                                 </div>
                             </div>
                             <div class="right">
                                 <div class="head">
-                                    <a href="subs/main">s/main</a>&nbsp;
+                                    <a href="subs/'.$community['shortname'].'">s/'.$community['shortname'].'</a>&nbsp;
                                     posted by&nbsp;
                                     <a href="user/'.$user['username'].'">
                                     u/'. $user['username'] . '

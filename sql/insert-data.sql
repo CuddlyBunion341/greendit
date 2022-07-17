@@ -5,7 +5,7 @@ insert into
 values
     (
         'admin',
-        '$2y$10$ATdEWudIU3vJMYoYYsVSCudvWW2H0grGiINlrZPQ/zczarheqEkeK'
+        '$2y$10$tPEyNHgaerznOhUW8e0vfefXrLva24qMue.X5eHeptwEM0r81SPTu'
         -- password: admin
     ),
     (
@@ -39,3 +39,12 @@ values
     ('First post', 'This is the first post!', 1, 1),
     ('Second post', 'Who could have expected this?',1,1),
     ('Need some help!','My code wont run!',4,4);
+
+insert into
+    post_likes(user_id,post_id)
+values
+    (1,1),
+    (1,2),
+    (2,1),
+    (3,2),
+    (4,3);
