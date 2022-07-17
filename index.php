@@ -76,16 +76,17 @@
                                 <h2>' . $post['title'] . '</h2>
                                 <p>' . $post['content'] . '</p>
                                 <div class="footer">
-                                    <button>' . count($comments) . ' comments</button>
-                                    <button>Save</button>
-                                    <button>Share</button>
-                                    <button>Report</button>
+                                    <button class="comment-btn">' . count($comments) . ' comments</button>
+                                    <button class="save-btn">Save</button>
+                                    <button class="share-btn">Share</button>
+                                    <button class="report-btn">Report</button>
                                 </div>  
                         </div>
                     </div>
                 ';
             }
         ?>
+        <script src="scripts/js/feed.js"></script>
     </div>
 </main>
 <?php require('templates/footer.php'); ?>

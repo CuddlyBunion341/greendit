@@ -1,4 +1,10 @@
 var $ = (function () {
+	const formEncode = (json) => {
+		let str = "";
+		for (let key in json) {
+
+		}
+	}
 	const myquery = (selector) => {
 		if (selector instanceof Document) {
 			return {
@@ -176,11 +182,12 @@ var $ = (function () {
 	 */
 	myquery.post = (url, data = {}, callback = (data, status, xhr) => {}) => {
 		const xhr = new XMLHttpRequest();
-		xhr.open("POST", url);
+		xhr.open("POST", url, true);
+		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		xhr.onload = () => {
-			callback(JSON.parse(xhr.responseText), xhr.status, xhr);
+			callback(xhr.responseText, xhr.status, xhr);
 		};
-		xhr.send(JSON.stringify(data));
+		xhr.send(new URLSearchParams(data).toString());
 	};
 	/**
 	 * Creates a GET request to the server
