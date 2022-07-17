@@ -3,13 +3,39 @@ use greendit;
 insert into
     users(username, password)
 values
-    ('admin', '$argon2id$v=19$m=65536,t=4,p=1$ajh0Y0llRXh6Vjk3TDFjSw$mhSvEtFT0HkvrAWyFmxU9zIYFl+txxzDAwj0Rk02c1M'),
-    ('user1','$argon2id$v=19$m=65536,t=4,p=1$cHRlcFdFOVpEeFNLU1RWQg$gRdZ3DSCS9OCIFeh9wcu7bKXyzsI9lYsnvfitG3iqUc'),
-    ('user2', '$argon2id$v=19$m=65536,t=4,p=1$ajh0Y0llRXh6Vjk3TDFjSw$mhSvEtFT0HkvrAWyFmxU9zIYFl+txxzDAwj0Rk02c1M');
+    (
+        'admin',
+        '$2y$10$ATdEWudIU3vJMYoYYsVSCudvWW2H0grGiINlrZPQ/zczarheqEkeK'
+        -- password: admin
+    ),
+    (
+        'cb341',
+        '$2y$10$zl6iDqfSRyY0xuOY11wqjuH68/GBi71nf1LqhqzEWCZVhrUFfRZti'
+        -- password: password
+    ),
+    (
+        'JeJe69',
+        '$2y$10$sscT5dQO17mmP1zWgIQoT.FJh.DPa9c6pJoz78thWJYTX7DYKRNBq'
+        -- password: password
+    ),
+    (
+        'ghwalin',
+        '$2y$10$gvE.Jxpx5igxQptthxY5SuGUqwpvokdUgazu1Cq/fZ96xEw.1QBOu'
+        -- password: test
+    );
 
 insert into
-    posts(title, content, user_id)
+    communities(name, shortname, user_id)
 values
-    ('First post', 'This is the first post.', (select user_id from users where username = 'user1')),
-    ('Second post', 'This is the second post.', (select user_id from users where username = 'user1')),
-    ('Third post', 'This is the third post.', (select user_id from users where username = 'user2'));
+    ('main sub', 'main', 1),
+    ('funny meme sub', 'meme', 2),
+    ('memes about programing', 'programmerHumor', 4),
+    ('the real help sub', 'itSupport', 3),
+    ('pro gamer gaming sub','gaming', 2);
+
+insert into
+    posts(title, content, user_id, community_id)
+values
+    ('First post', 'This is the first post!', 1, 1),
+    ('Second post', 'Who could have expected this?',1,1),
+    ('Need some help!','My code wont run!',4,4);
