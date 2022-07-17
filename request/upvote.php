@@ -8,7 +8,7 @@
         http_response_code(400);
         exit;
     }
-    $upvote = isset($_POST['upvote']) && $_POST['upvote'];
+    $upvote = isset($_POST['upvote']) && $_POST['upvote'] == 'true';
     $table1 = $upvote ? 'post_likes' : 'post_dislikes';
     $table2 = $upvote ? 'post_dislikes' : 'post_likes';
 
@@ -16,7 +16,7 @@
 
     $user_id = $_SESSION['user_id'];
     $post_id = $_POST['post_id'];
-    
+
     require '../config/db_connect.php';
     $sql = "select * from $table1 where user_id=$user_id and post_id=$post_id";
     $added = $conn->query($sql);
@@ -30,8 +30,13 @@
             $response['message'] = 'SQL ERROR: ' . $conn->error;
             $response['error'] = 1;
         }
-        $sql = "delete from $table2 where user_id=$user_id and post_id=$post_id";
-        $conn->query($sql);
+        $sql = "select * from $table2 where user_id=$user_id and post_id=$post_id";
+        $result = $conn->query($sql);
+        if ($result->num_rows > 0) {
+            $sql = "delete from $table2 where user_id=$user_id and post_id=$post_id";
+            $result = $conn->query($sql);
+            $response['increment'] += 1;
+        }
     } else {
         // allready exists
         $sql = "delete from $table1 where user_id=$user_id and post_id=$post_id";
@@ -44,5 +49,4 @@
         }
     }
     echo json_encode($response);
-
 ?>

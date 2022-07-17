@@ -38,7 +38,7 @@
                 $result = $conn->query($sql);
                 $likes = $result->fetch_row()[0];
                 // dislikes
-                $sql = 'SELECT COUNT(1) FROM post_dislikes WHERE post_id = ' . $post['post_id'];
+                $sql = 'SELECT COUNT(*) FROM post_dislikes WHERE post_id = ' . $post['post_id'];
                 $result = $conn->query($sql);
                 $dislikes = $result->fetch_row()[0];
                 // total likes
