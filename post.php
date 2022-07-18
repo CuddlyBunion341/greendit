@@ -1,22 +1,69 @@
 <?php require 'templates/header.php';?>
+<?php
+    function create_post($title, $body, $user_id, $community) {
+        if (empty(prepare($title))) return 'Title must not be empty';
+        if (empty(prepare($body))) return 'Content must not be empty';
+        $community_id = getField('select community_id from communities where shortname = \'' . prepare($community) . '\'');
+        if (empty(prepare($community_id))) return 'Please select a community';
+        $sql = "
+            insert into posts (title, content, user_id, community_id) 
+            values ('$title', '$body', '$user_id', '$community_id')";
+        if (execute($sql) !== TRUE) return 'SQL Error';
+    }
+    function prepare(&$field) {
+        if (!isset($field)) return null;
+        $field = trim(htmlspecialchars($field));
+        return $field;
+    }
+    function value($field) {
+        if (!isset($_POST[$field])) return '';
+        echo $_POST[$field];
+    }
+    if (isset($_POST['submit'])) {
+        require_once 'config/db_connect.php';
+        if (!isset($_SESSION)) session_start();
+        if (!isset($_SESSION['user_id'])) $error = 'You must be logged in to post';
+        if (!isset($_POST['sub'])) $error = 'Community is required';
+        if (!isset($_POST['title'])) $error = 'Title is required';
+        if (!isset($_POST['content'])) $error = 'Content is required';
+        if (empty($error)) {
+            $error = create_post($_POST['title'], $_POST['content'], $_SESSION['user_id'], $_POST['sub']);
+        }
+        if (empty($error)) {
+            header('Location: index.php');
+        }        
+    }
+?>
 <main>
     <link rel="stylesheet" href="scripts/css/post.css">
     <form action="post.php" method="post" class="create-post-form">
         <div class="container">
             <h1>Create a post</h1>
+            <?php
+                if(isset($error)) {
+                    echo '<p class="error">'.$error.'</p>';
+                }
+            ?>
             <select name="sub" id="sub">
                 <option value="" selected hidden disabled>Community</option>
                 <?php
                     require_once('config/db_connect.php');
                     $subs = query('select * from communities order by shortname asc');
                     foreach ($subs as $sub) {
-                        echo '<option value="'.$sub['shortname'].'">s/'.$sub['shortname'].'</option>';
+                        $selected = '';
+                        if (isset($_GET['id']) && $_GET['id'] == $sub['community_id']) {
+                            $selected = 'selected';
+                        }
+                        if (isset($_POST['sub']) && $_POST['sub'] == $sub['shortname']) {
+                            $selected = 'selected';
+                        }
+                        echo '<option '.$selected.' value="'.$sub['shortname'].'">s/'.$sub['shortname'].'</option>';
                     }
                 ?>
             </select>
-            <input type="text" name="title" id="title" placeholder="Title">
-            <textarea name="content" id="content" cols="30" rows="10" placeholder="Text (required)"></textarea>
-            <button type="submit">Post</button>
+            <input type="text" name="title" id="title" placeholder="Title" value="<?php value('title'); ?>">
+            <textarea name="content" id="content" cols="30" rows="10" placeholder="Text (required)"><?php value('content'); ?></textarea>
+            <button type="submit" name="submit">Post</button>
         </div>
     </form>
 </main>

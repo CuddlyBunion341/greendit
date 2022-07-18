@@ -11,6 +11,26 @@
         die("Query failed: " . $conn->error);
     }
 
+    function getField($sql) {
+        global $conn;
+        $result = $conn->query($sql);
+        if (!$result) printSqlErr($sql);
+        echo var_dump($result);
+        if ($result->num_rows > 0) {
+            $result = $result->fetch_array();
+            echo var_dump($result);
+            return $result[0];
+        }
+        return null;
+    }
+
+    function execute($sql) {
+        global $conn;
+        $result = $conn->query($sql);
+        if (!$result) printSqlErr($sql);
+        return $result;
+    }
+
     function query($sql) {
         global $conn;
         $result = $conn->query($sql);
