@@ -72,6 +72,18 @@
                 commentHTML($comment);
             }
         }
+
+        if ($tab_index == 3) {
+            $sql = '
+            select *
+            from post_likes
+            inner join posts on posts.post_id = post_likes.post_id
+            where post_likes.user_id = ' . $user['user_id'] . ';';
+            $liked_posts = query($sql);
+            foreach ($liked_posts as $post) {
+                postHTML($post);
+            }
+        }
     ?>
 </main>
 <?php require('templates/footer.php'); ?>
