@@ -11,6 +11,7 @@ main {
     padding: 10px 10% 10px 10%;
     flex-grow: 1;
 }
+/* ---- Post ----------------------------------------------------------------------------- */
 .post {
     background-color: white;
     border-radius: 2px;
@@ -76,4 +77,23 @@ main {
 }
 .arrow-wrapper .downvote {
     transform: rotate(180deg);
+}
+/* ---- Community ------------------------------------------------------------------------ */
+.community {
+    border-bottom: 1px solid #cdcdcd;
+    margin-bottom: 5px;
+}
+.community-pfp {
+    float:left;
+    margin-right: 10px;
+}
+.community-pfp img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid #ebebeb;
+}
+.community .main p {
+    margin-top: 0;
+    margin-bottom: 0;
 }

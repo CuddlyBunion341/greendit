@@ -8,25 +8,55 @@
     <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dignissimos ex debitis veritatis magnam dolor ea esse,
         ratione iusto et aliquid sequi sint enim aspernatur facere tempore accusantium impedit quibusdam sunt!</p>
 
+    <h2>Trending communities</h2>
+    <?php
+        require 'config/db_connect.php';
+        $sql = 'select * from communities limit 5';
+        $result = $conn->query($sql);
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $community_id = $row['community_id'];
+                $community_name = $row['name'];
+                $sub_name = $row['shortname'];
+                $sql = 'select count(*) as num_posts from posts where community_id='.$community_id;
+                $result2 = $conn->query($sql);
+                $row2 = $result2->fetch_assoc();
+                $num_posts = $row2['num_posts'];
+                echo '
+                    <div class="community">
+                        <div class="community-pfp">
+                            <img src="resources/pfp.png" alt="">
+                        </div>
+                        <div class="main">
+                            <a href="subs/'.$sub_name.'">s/'.$sub_name.'</a>
+                            <p>'.$num_posts.' posts</p>
+                        </div>
+                    </div>
+                ';
+            }
+        } else {
+            echo "No communities found.";
+        }
+    ?>
+
     <h2>Popular posts</h2>
     <div id="feed">
         <?php
-            require 'config/db_connect.php';
-            $sql = 'SELECT * FROM posts ORDER BY post_id DESC';
+            $sql = 'select * from posts order by post_id desc';
             $result = $conn->query($sql);
             $posts = $result->fetch_all(MYSQLI_ASSOC);
 
             foreach ($posts as $post) {
                 // user
-                $sql = 'SELECT * FROM users WHERE user_id = ' . $post['user_id'];
+                $sql = 'select * from users where user_id = ' . $post['user_id'];
                 $result = $conn->query($sql);
                 $user = $result->fetch_assoc();
                 // community
-                $sql = 'SELECT * FROM communities WHERE community_id = ' . $post['community_id'];
+                $sql = 'select * from communities where community_id = ' . $post['community_id'];
                 $result = $conn->query($sql);
                 $community = $result->fetch_assoc();
                 // comments
-                $sql = 'SELECT * FROM comments WHERE post_id = ' . $post['post_id'];
+                $sql = 'select * from comments where post_id = ' . $post['post_id'];
                 $result = $conn->query($sql);
                 $comments = $result->fetch_all(MYSQLI_ASSOC);
                 // date
@@ -34,11 +64,11 @@
                 $datediff = time() - strtotime($date);
                 $date = round($datediff / (60 * 60 * 24));
                 // likes
-                $sql = 'SELECT COUNT(*) FROM post_likes WHERE post_id = ' . $post['post_id'];
+                $sql = 'select count(*) from post_likes where post_id = ' . $post['post_id'];
                 $result = $conn->query($sql);
                 $likes = $result->fetch_row()[0];
                 // dislikes
-                $sql = 'SELECT COUNT(*) FROM post_dislikes WHERE post_id = ' . $post['post_id'];
+                $sql = 'select count(*) from post_dislikes where post_id = ' . $post['post_id'];
                 $result = $conn->query($sql);
                 $dislikes = $result->fetch_row()[0];
                 // total likes
@@ -48,11 +78,11 @@
                 $disliked = 0;
                 if (isset($_SESSION['user_id'])) {
                     // mylike
-                    $sql = 'SELECT * FROM post_likes WHERE post_id = ' . $post['post_id'] . ' AND user_id = ' . $_SESSION['user_id'];
+                    $sql = 'select * from post_likes where post_id = ' . $post['post_id'] . ' AND user_id = ' . $_SESSION['user_id'];
                     $result = $conn->query($sql);
                     $liked = mysqli_num_rows($result);
                     // mydislike
-                    $sql = 'SELECT * FROM post_dislikes WHERE post_id = ' . $post['post_id'] . ' AND user_id = ' . $_SESSION['user_id'];
+                    $sql = 'select * from post_dislikes where post_id = ' . $post['post_id'] . ' AND user_id = ' . $_SESSION['user_id'];
                     $result = $conn->query($sql);
                     $disliked = mysqli_num_rows($result);
                 }
