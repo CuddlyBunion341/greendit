@@ -36,7 +36,7 @@
     margin: 0;
 }
 .community-main {
-    padding: 12px 0 20px 100px;
+    padding: 22px 0 20px 100px;
 }
 .community-main p {
     margin-top: 0;
@@ -51,16 +51,6 @@
 .community-banner a:hover {
     text-decoration: underline;
 }
-.community-stats {
-    margin-top: 10px;
-}
-/* .community-stats p {
-    margin-top: 4px;
-    margin-bottom: 4px;
-}
-.community-info .follow-btn {
-    margin-top: 10px;
-} */
 main {
     background-color: aliceblue;
 }

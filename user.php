@@ -64,7 +64,7 @@
     if ($tab_index == 0 || $tab_index == 1)  {
         $posts = query('select * from posts where user_id = ' . $user['user_id']);
         foreach ($posts as $post) {
-            postHTML($post);
+            postHTML($post,true,false);
         }
         if (!$posts && $tab_index == 1) {
             echo '<p>No posts yet!</p>';
@@ -88,7 +88,7 @@
         where post_likes.user_id = ' . $user['user_id'] . ';';
         $liked_posts = query($sql);
         foreach ($liked_posts as $post) {
-            postHTML($post);
+            postHTML($post,true,false);
         }
         if (!$liked_posts) {
             echo '<p>No likes yet!</p>';

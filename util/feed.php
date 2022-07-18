@@ -1,9 +1,9 @@
 <?php
     if (!isset($_SESSION)) session_start();
     require_once 'config/db_connect.php';
-    function postHTML($post, $show_community = false, $show_user = true) {
+    function postHTML($post, $show_community = true, $show_user = true) {
         $user = row('select * from users where user_id=' . $post['user_id']);
-        $community = query('select * from communities where community_id=' . $post['community_id']);
+        $community = row('select * from communities where community_id=' . $post['community_id']);
         $comments = rows('select * from comments where post_id=' . $post['post_id']);
         $likes = rows('select * from post_likes where post_id=' . $post['post_id']);
         $dislikes = rows('select * from post_dislikes where post_id=' . $post['post_id']);
@@ -22,10 +22,11 @@
         // ---- Post header ----------------------------------------------------------------------
         $post_head = '<div class="head">';
         if ($show_community) {
+            if (!$show_user) $post_head .= 'posted in ';
             $post_head .= '<a href="subs/'.$community['shortname'].'">s/'.$community['shortname'].'</a>&nbsp;';
         }
         if ($show_user) {
-            $post_head .= 'posted by&nbsp;
+            $post_head .= 'posted by
             <a href="user/'.$user['username'].'">
             u/'. $user['username'] . '
             </a>';

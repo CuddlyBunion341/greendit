@@ -43,5 +43,18 @@
     ';
 ?>
 <main>
+    <h2>Popular posts</h2>
+    <div id="feed">
+        <?php
+            require 'util/feed.php';
+            $sql = 'select * from posts where community_id='.$community['community_id'].' order by post_id desc';
+            $posts = query($sql);
+
+            foreach ($posts as $post) {
+                postHTML($post,false);
+            }
+        ?>
+        <script src="scripts/js/feed.js"></script>
+    </div>
 </main>
 <?php require('templates/footer.php'); ?>
