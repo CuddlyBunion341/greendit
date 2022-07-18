@@ -18,9 +18,6 @@
         }
         return $word.'s';
     }
-    $date = $community['created_at'];
-    $datediff = time() - strtotime($date);
-    $date = round($datediff / (60 * 60 * 24));
     $posts = rows('select * from posts where community_id = ' . $community['community_id']);
     $users = rows('select * from joined_communities where community_id = ' . $community['community_id']);
     echo '
@@ -31,16 +28,15 @@
             <div class="community-banner-main">
                 <div class="top">
                     <h2>' . $community['name'] . '</h2>
-                    <button class="join-btn">Join</button>
                 </div>
                 <a href="subs/' . $community['shortname'] . '">s/' . $community['shortname'] . '</a>
-                <p>Created ' . $community['created_at'] . '</p>
             </div>
         </div>
         <div class="community-main">
             <div class="community-stats">
-                <a href="community/' . $community['shortname'] . '/posts">' . $posts . ' '.plural('post',$posts).'</a><br>
-                <a href="community/' . $community['shortname'] . '/members">' . $users . ' '.plural('member',$users).' </a>
+                <p>Created ' . $community['created_at'] . '</p>
+                <p>' . $posts . ' '.plural('post',$posts).'</p>
+                <p>' . $users . ' '.plural('member',$users).'</p>
             </div>
         </div>
     </div>

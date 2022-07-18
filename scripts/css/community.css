@@ -35,6 +35,9 @@
 .community-banner h2 {
     margin: 0;
 }
+.community-main {
+    padding: 12px 0 20px 100px;
+}
 .community-main p {
     margin-top: 0;
     margin-bottom: 0;
