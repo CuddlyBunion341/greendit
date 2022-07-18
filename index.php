@@ -42,6 +42,14 @@
     <h2>Popular posts</h2>
     <div id="feed">
         <?php
+            if (isset($_SESSION['user_id'])) {
+                echo '
+                <div class="create-post">
+                    <a href="user/'.$_SESSION['username'].'"><img class="user-pfp" src="resources/pfp.png"></a>
+                    <button onclick="window.location=\'/greendit/post.php\'">Create post...</button>
+                </div>
+                ';
+            }
             require 'util/feed.php';
             $sql = 'select * from posts order by post_id desc';
             $posts = query($sql);
