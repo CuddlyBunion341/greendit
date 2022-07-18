@@ -1,11 +1,10 @@
-# RewriteEngine On
-
-# RewriteCond %{HTTPS} off 
-# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-
-# RewriteRule ^u/(.*)$ /user.php?q=$1 [L]
-
 RewriteEngine on
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^/?user/(\w+)$ /greendit/user.php?name=$1 [P]
 RewriteRule ^/?user/(\w+)(?:/(.*))?$ /greendit/user.php?name=$1&tab=$2 [P]
+
+ErrorDocument 403 /greendit/error.php
+ErrorDocument 404 /greendit/error.php
+ErrorDocument 500 /greendit/error.php
+
+RewriteRule ^/?error/(\d+)$ /greendit/error.php?code=$1 [P]

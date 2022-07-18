@@ -11,26 +11,7 @@
         require_once 'config/db_connect.php';
         $user = row('select * from users where username = "' . $_GET['name'] . '"');
         if (!$user) {
-            echo '
-                </main>
-                    <style>
-                        body {
-                            display: flex;
-                            flex-direction: column;
-                        }
-                        main {
-                            flex-grow: 1;
-                        }
-                    </style>
-                    <div class="message">
-                        <h1>404</h1>
-                        <h2>User not found</h2>
-                        <p>The user you are looking for does not exist.</p>
-                        <a href="index.php">Go back</a>
-                    </div>
-                </main>
-            ';
-            require('templates/footer.php');
+            header('Location: /greendit/error/418');
             exit;
         }
         $date = $user['created_at'];
