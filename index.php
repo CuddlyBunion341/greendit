@@ -92,7 +92,7 @@
                                 <div class="arrow-wrapper">
                                     <button class="upvote"><img src="resources/upvote'.($liked?'_full':'').'.svg"></button>
                                     <span class="like-count">'.$totalLikes.'</span>
-                                    <button class="downvote"><img src="resources/upvote'.($disliked?'_full':'').'.svg"></button>
+                                    <button class="downvote"><img src="resources/downvote'.($disliked?'_full':'').'.svg"></button>
                                 </div>
                             </div>
                             <div class="right">

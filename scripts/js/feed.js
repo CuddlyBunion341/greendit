@@ -13,11 +13,11 @@ $('#feed').click(function(e) {
                     response = JSON.parse(response);
                     const {increment,message,error} = response;
                     if (error) console.error(message);
-                    target.src = `resources/upvote${increment > 0 ? '_full' : ''}.svg`;
+                    target.src = `resources/${upvote ? 'upvote' : 'downvote'}${increment > 0 ? '_full' : ''}.svg`;
                     const likeCount = parent.parentNode.querySelector('.like-count');
                     likeCount.innerHTML = Number(likeCount.innerHTML) + increment * (upvote ? 1 : -1);
                     const other = parent.parentNode.querySelector(`.${upvote ? 'downvote' : 'upvote'} img`);
-                    other.src = `resources/upvote.svg`;
+                    other.src = `resources/${upvote ? 'downvote' : 'upvote'}.svg`;
                 }
             });
         }
