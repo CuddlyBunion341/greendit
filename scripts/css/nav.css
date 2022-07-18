@@ -29,6 +29,7 @@ header nav a:first-child {
 nav.tabbs {
     overflow: hidden;
     border-bottom: 1px solid gray;
+    margin-bottom: 10px;
 }
 nav.tabbs a {
     float: left;
@@ -39,6 +40,5 @@ nav.tabbs a {
     font-size: 1em;
 }
 nav.tabbs a.active {
-    background-color: #4CAF50;
-    color: white;
+    color: #4CAF50;
 }

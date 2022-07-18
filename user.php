@@ -57,6 +57,7 @@
         <a'.active(2).'href="user/'.$user['username'].'/comments">Comments</a>
         <a'.active(3).'href="user/'.$user['username'].'/likes">Likes</a>
     </nav>
+    <div id="feed" class="ignore-css">
     ';
 
     require_once 'util/feed.php';
@@ -65,11 +66,17 @@
         foreach ($posts as $post) {
             postHTML($post);
         }
+        if (!$posts && $tab_index == 1) {
+            echo '<p>No posts yet!</p>';
+        }
     }
     if ($tab_index == 0 || $tab_index == 2) {
         $comments = query('select * from comments where user_id = ' . $user['user_id']);
         foreach ($comments as $comment) {
             commentHTML($comment);
+        }
+        if (!$comments && $tab_index == 2) {
+            echo '<p>No comments yet!</p>';
         }
     }
 
@@ -83,7 +90,12 @@
         foreach ($liked_posts as $post) {
             postHTML($post);
         }
+        if (!$liked_posts) {
+            echo '<p>No likes yet!</p>';
+        }
     }
 ?>
+</div>
+<script src="scripts/js/feed.js"></script>
 </main>
 <?php require('templates/footer.php'); ?>
