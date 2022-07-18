@@ -25,7 +25,7 @@
                 echo '
                     <div class="community">
                         <div class="community-pfp">
-                            <img src="resources/pfp.png" alt="">
+                            <img src="resources/com.png" alt="">
                         </div>
                         <div class="main">
                             <a href="subs/'.$sub_name.'">s/'.$sub_name.'</a>

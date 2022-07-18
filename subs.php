@@ -24,7 +24,7 @@
     <div class="community-header">
         <img class="community-background" src="resources/community.png" alt="">
         <div class="community-banner">
-            <img class="community-pfp" src="resources/pfp.png" alt="">
+            <img class="community-pfp" src="resources/com.png" alt="">
             <div class="community-banner-main">
                 <div class="top">
                     <h2>' . $community['name'] . '</h2>
@@ -46,6 +46,14 @@
     <h2>Popular posts</h2>
     <div id="feed">
         <?php
+            if (isset($_SESSION['user_id'])) {
+                echo '
+                <div class="create-post">
+                    <a href="user/'.$_SESSION['username'].'"><img class="user-pfp" src="resources/pfp.png"></a>
+                    <button onclick="window.location=\'/greendit/post.php?id='.$community['community_id'].'\'">Create post...</button>
+                </div>
+                ';
+            }
             require 'util/feed.php';
             $sql = 'select * from posts where community_id='.$community['community_id'].' order by post_id desc';
             $posts = query($sql);

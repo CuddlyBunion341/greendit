@@ -106,3 +106,26 @@ main {
 .community a:hover {
     text-decoration: underline;
 }
+/* ---- Create Post ---------------------------------------------------------------------- */
+.create-post {
+    background-color: white;
+    border-radius: 2px;
+    margin-bottom: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.create-post button {
+    flex-grow: 1;
+    text-align: left;
+    height: 30px;
+}
+.create-post .user-pfp {
+    float: left;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid #b5b5b5;
+    margin-right: 10px;
+}

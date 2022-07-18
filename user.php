@@ -23,7 +23,7 @@
         echo '
             <main>
             <div class="user-info">
-                <div class="user-pfp">
+                <div class="user-banner">
                     <img src="resources/pfp.png" alt="">
                 </div>
                 <div class="user-main">
