@@ -102,7 +102,6 @@ main {
 .community a {
     color: #000;
     text-decoration: none;
-
 }
 .community a:hover {
     text-decoration: underline;

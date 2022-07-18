@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Greendit</title>
+    <base href="/greendit/"/>
     <script src="scripts/js/myquery.js"></script>
     <link rel="stylesheet" href="scripts/css/nav.css">
     <link rel="stylesheet" href="scripts/css/feed.css">
