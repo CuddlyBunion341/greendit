@@ -11,6 +11,11 @@ main {
     padding: 10px 10% 10px 10%;
     flex-grow: 1;
 }
+.feed-text {
+    background-color: white;
+    border-radius: 2px;
+    padding: 5px;
+}
 /* ---- Post ----------------------------------------------------------------------------- */
 .post {
     background-color: white;

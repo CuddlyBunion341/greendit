@@ -61,6 +61,9 @@
             foreach ($posts as $post) {
                 postHTML($post,false);
             }
+            if (count($posts) == 0) {
+                echo '<div class="feed-text">No posts yet!</div>';
+            }
         ?>
         <script src="scripts/js/feed.js"></script>
     </div>
