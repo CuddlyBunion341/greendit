@@ -2,7 +2,7 @@
 
 <?php
     function register($username, $password, $verify) {
-        require 'config/db_connect.php';
+        require_once 'config/db_connect.php';
         if (empty($username)) return 'Username is required';
         if (empty($password)) return 'Password is required';
         if ($password !== $verify) return 'Passwords do not match';

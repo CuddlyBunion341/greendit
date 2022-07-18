@@ -7,24 +7,16 @@
             }
             return $word.'s';
         }
+
         if (isset($_GET['name'])) {
-            require 'config/db_connect.php';
-            $sql = 'select * from users where username = "' . $_GET['name'] . '"';
-            $result = $conn->query($sql);
-            $user = $result->fetch_assoc();
-            if ($result->num_rows > 0) {
+            require_once 'config/db_connect.php';
+            $user = row('select * from users where username = "' . $_GET['name'] . '"');
+            if ($user) {
                 $date = $user['created_at'];
                 $datediff = time() - strtotime($date);
                 $date = round($datediff / (60 * 60 * 24));
-                // posts
-                $sql = 'select * from posts where user_id = ' . $user['user_id'];
-                $result = $conn->query($sql);
-                $posts = $result->num_rows;
-                // comments
-                $sql = 'select * from comments where user_id = ' . $user['user_id'];
-                $result = $conn->query($sql);
-                $comments = $result->num_rows;
-
+                $posts = rows('select * from posts where user_id = ' . $user['user_id']);
+                $comments = rows('select * from comments where user_id = ' . $user['user_id']);
                 $user_url = 'user/' . $user['username'];
                 echo '
                     <div class="user-info">
@@ -50,7 +42,7 @@
 
         $tabs = array('overview','posts','comments','likes');
         $tab_index = isset($_GET['tab']) ? array_search($_GET['tab'],$tabs) : 0;
-        
+
         function active($index) {
             global $tab_index;
             if ($index == $tab_index) {
@@ -66,6 +58,20 @@
             <a'.active(3).'href="user/'.$user['username'].'/likes">Likes</a>
         </nav>
         ';
+
+        require_once 'util/feed.php';
+        if ($tab_index == 0 || $tab_index == 1)  {
+            $posts = query('select * from posts where user_id = ' . $user['user_id']);
+            foreach ($posts as $post) {
+                postHTML($post);
+            }
+        }
+        if ($tab_index == 0 || $tab_index == 2) {
+            $comments = query('select * from comments where user_id = ' . $user['user_id']);
+            foreach ($comments as $comment) {
+                commentHTML($comment);
+            }
+        }
     ?>
 </main>
 <?php require('templates/footer.php'); ?>
