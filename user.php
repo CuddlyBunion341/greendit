@@ -47,6 +47,25 @@
                 echo 'User not found.';
             }
         }
+
+        $tabs = array('overview','posts','comments','likes');
+        $tab_index = isset($_GET['tab']) ? array_search($_GET['tab'],$tabs) : 0;
+        
+        function active($index) {
+            global $tab_index;
+            if ($index == $tab_index) {
+                return ' class="active" ';
+            }
+            return ' ';
+        }
+        echo '
+        <nav class="tabbs">
+            <a'.active(0).'href="user/'.$user['username'].'/overview">Overview</a>
+            <a'.active(1).'href="user/'.$user['username'].'/posts">Posts</a>
+            <a'.active(2).'href="user/'.$user['username'].'/comments">Comments</a>
+            <a'.active(3).'href="user/'.$user['username'].'/likes">Likes</a>
+        </nav>
+        ';
     ?>
 </main>
 <?php require('templates/footer.php'); ?>
