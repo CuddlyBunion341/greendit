@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="scripts/css/main.css">
     <link rel="stylesheet" href="scripts/css/form.css">
     <link rel="stylesheet" href="scripts/css/user.css">
-    <link rel="stylesheet" href="scripts/css/community.css">
     <link rel="stylesheet" href="scripts/css/footer.css">
 </head>
 

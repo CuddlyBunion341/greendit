@@ -1,5 +1,5 @@
 <?php require('templates/header.php'); ?>
-<main>
+<link rel="stylesheet" href="scripts/css/community.css">
 <?php
     if (!isset($_GET['name'])) {
         header('Location: /greendit/error/419');
@@ -24,22 +24,28 @@
     $posts = rows('select * from posts where community_id = ' . $community['community_id']);
     $users = rows('select * from joined_communities where community_id = ' . $community['community_id']);
     echo '
-        <div class="community-info">
-            <div class="community-pfp">
-                <img src="resources/pfp.png" alt="">
-            </div>
-            <div class="community-main">
-                <h2>' . $community['name'] . '</h2>
+    <div class="community-header">
+        <img class="community-background" src="resources/community.png" alt="">
+        <div class="community-banner">
+            <img class="community-pfp" src="resources/pfp.png" alt="">
+            <div class="community-banner-main">
+                <div class="top">
+                    <h2>' . $community['name'] . '</h2>
+                    <button class="join-btn">Join</button>
+                </div>
                 <a href="subs/' . $community['shortname'] . '">s/' . $community['shortname'] . '</a>
                 <p>Created ' . $community['created_at'] . '</p>
-                <button class="join-btn">Join</button>
             </div>
+        </div>
+        <div class="community-main">
             <div class="community-stats">
                 <a href="community/' . $community['shortname'] . '/posts">' . $posts . ' '.plural('post',$posts).'</a><br>
                 <a href="community/' . $community['shortname'] . '/members">' . $users . ' '.plural('member',$users).' </a>
             </div>
         </div>
+    </div>
     ';
 ?>
+<main>
 </main>
 <?php require('templates/footer.php'); ?>
