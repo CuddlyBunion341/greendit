@@ -2,6 +2,7 @@ RewriteEngine on
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^/?user/(\w+)$ /greendit/user.php?name=$1 [P]
 RewriteRule ^/?user/(\w+)(?:/(.*))?$ /greendit/user.php?name=$1&tab=$2 [P]
+RewriteRule ^/?subs/(\w+)$ /greendit/subs.php?name=$1 [P]
 
 ErrorDocument 403 /greendit/error.php
 ErrorDocument 404 /greendit/error.php

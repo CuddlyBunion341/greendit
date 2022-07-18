@@ -22,7 +22,7 @@
             404 => ['Not Found','The page you are looking for does not exist.'],
             410 => ['Gone','This page has been deleted.'],
             418 => ['User not found','The user you are looking for does not exist.'],
-            419 => ['Page Expired','Your session has expired.'],
+            419 => ['Community not found','The community you are looking for does not exist.'],
             502 => ['Bad Gateway','The server was unable to process your request.'],
             503 => ['Service Unavailable','The server is currently unavailable.'],
         );
