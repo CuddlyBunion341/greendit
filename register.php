@@ -26,7 +26,7 @@
     }
 ?>
 
-<form action="register.php" method="post">
+<form action="register.php" method="post" class="login">
     <div class="container">
         <h1>Sign Up</h1>
         <?php if (isset($error)): ?>

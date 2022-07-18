@@ -1,0 +1,30 @@
+html,body {
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex-grow: 1;
+    min-height: 0;
+}
+
+#content {
+    resize: vertical;
+}
+
+#title {
+    padding: 0;
+    border-radius: 2px;
+    border: 1px solid gray;
+    padding-left: 5px;
+}
+
+#content, #title, #sub {
+    padding: 4px;
+    margin-bottom: 5px;
+}
+
+.textarea[contenteditable]:empty::before {
+    content: "Text (required)";
+    color: gray;
+}

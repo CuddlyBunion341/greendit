@@ -21,7 +21,7 @@
     }
 ?>
 
-<form action="login.php" method="post">
+<form action="login.php" method="post" class="login">
     <div class="container">
         <h1>Log In</h1>
         <?php if (isset($error)): ?>
