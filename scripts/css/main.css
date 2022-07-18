@@ -1,3 +1,10 @@
+@media screen and (min-width: 1500px) {
+    html {
+        zoom: 1.5;
+        -moz-transform: scale(1.5); 
+        -moz-transform-origin: 0 0;
+    }
+}
 .green {
     color: rgb(105, 255, 105);
 }
