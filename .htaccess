@@ -7,4 +7,5 @@
 
 RewriteEngine on
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^/?user/(.*)$ /greendit/user.php?name=$1 [P]
+RewriteRule ^/?user/(\w+)$ /greendit/user.php?name=$1 [P]
+RewriteRule ^/?user/(\w+)(?:/(.*))?$ /greendit/user.php?name=$1&tab=$2 [P]
