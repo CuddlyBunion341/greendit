@@ -22,6 +22,20 @@ $('#feed').click(function(e) {
             });
         }
         if (name == 'comment-btn') {
+            $.get(`request/post_comments.php?post_id=${post_id}`,(response,status) => {
+                if ($(`[data-post-id="${post_id}"]`)) {
+                    $(`[data-post-id="${post_id}"]`).toggle();
+                    return;
+                }
+                const commentWrapper = $.createElement('div',{
+                    class:'comment-wrapper',
+                    "data-post-id":post_id
+                });
+                $(commentWrapper).html(response);
+                const post = target.closest('.post');
+                post.parentNode.insertBefore(commentWrapper, post.nextSibling);
+            });
+
         }
         if (name == 'share-btn') {
         }
