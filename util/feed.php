@@ -68,7 +68,7 @@
             $disliked = rows('select * from comment_dislikes where comment_id=' . $comment['comment_id'] . ' and user_id=' . $_SESSION['user_id']);
         }
         echo '
-        <div class="comment">
+        <div class="comment" data-id="'.$comment['comment_id'].'">
             <div class="header">
                 <a href="users/'.$user['username'].'">
                     <img src="resources/pfp.png" class="user-pfp">'. $user['username'] . '
