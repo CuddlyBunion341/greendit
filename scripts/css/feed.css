@@ -134,3 +134,44 @@ main {
     border: 1px solid #b5b5b5;
     margin-right: 10px;
 }
+/* ---- Comments ------------------------------------------------------------------------- */
+.comment-wrapper {
+    background-color: white;
+    border-radius: 2px;
+}
+.comment-wrapper:hover {
+    outline: 1px solid gray;
+}
+.comment {
+    margin-left: 20px;
+    border-left: 1px solid #b5b5b5;
+    padding-left: 7px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.comment .header {
+    margin-left: -20px;
+}
+.comment .user-pfp {
+    width: 24px;
+    height: 24px;
+    margin-right: 5px;
+    vertical-align: middle;
+    border-radius: 50%;
+    border: 1px solid #b5b5b5;
+    background: white;
+}
+.comment p {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.arrow-wrapper.horizontal {
+    display: inline;
+}
+.comment .header a {
+    color: #696969;
+    text-decoration: none;
+}
+.comment .header a:hover {
+    text-decoration: underline;
+}

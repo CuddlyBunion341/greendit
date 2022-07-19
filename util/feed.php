@@ -71,8 +71,7 @@
         <div class="comment">
             <div class="header">
                 <a href="users/'.$user['username'].'">
-                    <img src="resources/pfp.png" class="user-pfp">
-                    u/'. $user['username'] . '
+                    <img src="resources/pfp.png" class="user-pfp">'. $user['username'] . '
                 </a>
             </div>
             <p>'.$comment['content'].'</p>
