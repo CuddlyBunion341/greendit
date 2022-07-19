@@ -39,5 +39,20 @@ $('#feed').click(function(e) {
         }
         if (name == 'share-btn') {
         }
+    } else if (target.closest('.comment-wrapper')) {
+        const post_id = target.closest('.comment-wrapper').dataset.postId;
+        if (target.closest('.create-comment')) {
+            const textarea = target.closest('.create-comment').querySelector('.comment-content') 
+            const content = textarea.value;
+            if (name == 'comment-btn') {
+                $.post(`request/create_comment.php?t=${Math.random()}`, {post_id,content}, (response,status) => {
+                    if (!status == 200) return console.error(response);
+                    const comment = $.createElementFromHTML(response);
+                    const commentWrapper = target.closest('.comment-wrapper');
+                    commentWrapper.appendChild(comment);
+                    textarea.value = '';
+                });
+            }
+        }
     }
 });

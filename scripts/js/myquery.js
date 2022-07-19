@@ -260,7 +260,7 @@ var $ = (function () {
 	 */
 	myquery.createElementFromHTML = (html) => {
 		const element = document.createElement("div");
-		element.innerHTML = html;
+		element.innerHTML = html.trim();
 		return element.firstChild;
 	}
 
