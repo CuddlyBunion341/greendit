@@ -1,9 +1,14 @@
+/**
+ * Author: Daniel Bengl
+ * Version: 1.6
+ */
 var $ = (function () {
-	const formEncode = (json) => {
-		let str = "";
-		for (let key in json) {
-
-		}
+	const resolveElement = (selector) => {
+		if (selector instanceof HTMLElement) return selector;
+		if (typeof selector == "string") return document.querySelector(selector);
+		if (selector instanceof NodeList) return selector[0];
+		if (selector) return selector.element;
+		return null;
 	}
 	const myquery = (selector) => {
 		if (selector instanceof Document) {
@@ -13,10 +18,8 @@ var $ = (function () {
 				},
 			};
 		}
-		const element =
-			typeof selector == "string"
-				? document.querySelector(selector)
-				: element;
+		const element = resolveElement(selector);
+		if (!element) return null;
 		return {
 			element,
 			/**
@@ -82,11 +85,40 @@ var $ = (function () {
 			},
 			/**
 			 * Appends a child to the element
-			 * @param {HTMLElement} element - element to append
+			 * @param {*} element - element to append
 			 * @returns myquery object
 			 */
-			append(element) {
-				element.appendChild(element);
+			append(child) {
+				child = resolveElement(child);
+				element.appendChild(child);
+				return myquery;
+			},
+			/**
+			 * Appends element to a parent
+			 * @param {*} parent 
+			 * @returns myquery object
+			 */
+			appendTo(parent) {
+				parent = resolveElement(parent);
+				parent.appendChild(element);
+				return myquery;
+			},
+			/**
+			 * Appends the element after a sibling
+			 * @param {*} element 
+			 */
+			appendAfter(element) {
+				element = resolveElement(element);
+				element.parentNode.insertBefore(myquery.element, element.nextSibling);
+				return myquery;
+			},
+			/**
+			 * Appends the element before a sibling
+			 * @param {*} element
+			 */
+			appendBefore(element) {
+				element = resolveElement(element);
+				element.parentNode.insertBefore(myquery.element, element);
 				return myquery;
 			},
 			/**
@@ -158,9 +190,9 @@ var $ = (function () {
 			 * @returns myquery object
 			 */
 			toggle() {
-				if (element.style.display = "none")
-					myquery.show();
-				else myquery.hide();
+				if (element.style.display == "none")
+					this.show();
+				else this.hide();
 				return myquery;
 			},
 		};
@@ -212,15 +244,25 @@ var $ = (function () {
 	 */
 	myquery.createElement = (tag, attributes = {}, children = []) => {
 		const element = document.createElement(tag);
-		attributes.forEach(key);
 		for (let key in attributes) {
 			element.setAttribute(key, attributes[key]);
 		}
 		for (let child of children) {
 			element.appendChild(child);
 		}
-		return $(element);
+		return element;
 	};
+
+	/**
+	 * Creates a Element from a html string
+	 * @param {string} html - html to parse
+	 * @returns dom element
+	 */
+	myquery.createElementFromHTML = (html) => {
+		const element = document.createElement("div");
+		element.innerHTML = html;
+		return element.firstChild;
+	}
 
 	return myquery;
 })();
