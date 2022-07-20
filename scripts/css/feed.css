@@ -138,6 +138,11 @@ main {
 .comment-wrapper {
     background-color: white;
     border-radius: 2px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+}
+.comment-wrapper > p {
+    padding: 10px;
 }
 .comment-wrapper:hover {
     outline: 1px solid gray;
@@ -146,7 +151,7 @@ main {
     margin-left: 20px;
     border-left: 1px solid #b5b5b5;
     padding-left: 7px;
-    padding-top: 5px;
+    padding-top: 0;
     padding-bottom: 5px;
 }
 .comment .header {
@@ -182,10 +187,8 @@ main {
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    /* border-radius: 2px; */
-    /* margin-bottom: 10px; */
+    margin-bottom: 10px;
     padding: 10px;
-    /* border: 1px solid gray; */
 }
 .create-comment textarea {
     resize: vertical;
@@ -194,11 +197,3 @@ main {
 .create-comment button {
     margin-top: -8px;
 }
-/*.create-comment .user-pfp {
-    float: left;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    border: 1px solid #b5b5b5;
-    margin-right: 10px;
-} */
