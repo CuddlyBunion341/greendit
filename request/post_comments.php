@@ -1,6 +1,6 @@
 <?php
     require_once '../config/db_connect.php';
-    require_once '../util/feed.php';
+    require_once '../require/feed.php';
     if (isset($_SESSION['user_id'])) {
         $user_id = $_SESSION['user_id'];
         echo '

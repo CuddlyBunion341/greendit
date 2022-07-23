@@ -1,4 +1,4 @@
-<?php require('templates/header.php'); ?>
+<?php require('require/header.php'); ?>
 
 <?php
     function register($username, $password, $verify) {

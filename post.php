@@ -1,10 +1,11 @@
-<?php require 'templates/header.php';?>
+<?php require 'require/header.php';?>
 <?php
     function create_post($title, $body, $user_id, $community) {
         if (empty(prepare($title))) return 'Title must not be empty';
         if (empty(prepare($body))) return 'Content must not be empty';
         $community_id = getField('select community_id from communities where shortname = \'' . prepare($community) . '\'');
         if (empty(prepare($community_id))) return 'Please select a community';
+        // todo: add hash to post
         $sql = "
             insert into posts (title, content, user_id, community_id) 
             values ('$title', '$body', '$user_id', '$community_id')";
@@ -35,7 +36,7 @@
     }
 ?>
 <main>
-    <link rel="stylesheet" href="scripts/css/post.css">
+    <link rel="stylesheet" href="css/post.css">
     <form action="post.php" method="post" class="create-post-form">
         <div class="container">
             <h1>Create a post</h1>
@@ -67,4 +68,4 @@
         </div>
     </form>
 </main>
-<?php require 'templates/footer.php';?>
+<?php require 'require/footer.php';?>

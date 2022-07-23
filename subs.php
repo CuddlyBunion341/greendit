@@ -1,5 +1,5 @@
-<?php require('templates/header.php'); ?>
-<link rel="stylesheet" href="scripts/css/community.css">
+<?php require('require/header.php'); ?>
+<link rel="stylesheet" href="css/community.css">
 <?php
     if (!isset($_GET['name'])) {
         header('Location: /greendit/error/419');
@@ -46,7 +46,7 @@
     <h2>Popular posts</h2>
     <div id="feed">
         <?php
-            require 'util/feed.php';
+            require 'require/feed.php';
             if (!isset($_GET['post_hash'],$_GET['comment_hash'])) {
                 // show all posts
                 if (isset($_SESSION['user_id'])) {
@@ -89,7 +89,7 @@
                 commentHTML($comment);
             }
         ?>
-        <script src="scripts/js/feed.js"></script>
+        <script src="js/feed.js"></script>
     </div>
 </main>
-<?php require('templates/footer.php'); ?>
+<?php require('require/footer.php'); ?>

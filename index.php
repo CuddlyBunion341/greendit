@@ -1,4 +1,4 @@
-<?php require('templates/header.php'); ?>
+<?php require('require/header.php'); ?>
 <main>
 <h1>Welcome to <span class="green">Greendit</span></h1>
     <p>
@@ -50,7 +50,7 @@
                 </div>
                 ';
             }
-            require 'util/feed.php';
+            require 'require/feed.php';
             $sql = 'select * from posts order by post_id desc';
             $posts = query($sql);
 
@@ -58,7 +58,7 @@
                 postHTML($post);
             }
         ?>
-        <script src="scripts/js/feed.js"></script>
+        <script src="js/feed.js"></script>
     </div>
 </main>
-<?php require('templates/footer.php'); ?>
+<?php require('require/footer.php'); ?>

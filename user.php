@@ -1,4 +1,4 @@
-<?php require('templates/header.php'); ?>
+<?php require('require/header.php'); ?>
 <?php
     function plural($word,$num) {
         if ($num == 1) {
@@ -60,7 +60,7 @@
     <div id="feed" class="ignore-css">
     ';
 
-    require_once 'util/feed.php';
+    require_once 'require/feed.php';
     if ($tab_index == 0 || $tab_index == 1)  {
         $posts = query('select * from posts where user_id = ' . $user['user_id']);
         foreach ($posts as $post) {
@@ -96,6 +96,6 @@
     }
 ?>
 </div>
-<script src="scripts/js/feed.js"></script>
+<script src="js/feed.js"></script>
 </main>
-<?php require('templates/footer.php'); ?>
+<?php require('require/footer.php'); ?>

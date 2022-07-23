@@ -28,6 +28,7 @@ create table if not exists posts (
     post_id int not null auto_increment,
     title varchar(45) not null,
     content text not null,
+    hash varchar(6) not null,
     user_id int not null,
     community_id int not null,
     created_at datetime not null default current_timestamp,
@@ -41,6 +42,7 @@ create table if not exists posts (
 create table if not exists comments (
     comment_id int not null auto_increment,
     content varchar(250) not null,
+    hash varchar(6) not null,
     post_id int not null,
     user_id int not null,
     parent_id int null,
@@ -55,7 +57,7 @@ create table if not exists comments (
 );
 
 create table if not exists comment_likes (
-    like_id int not null,
+    like_id int not null auto_increment,
     user_id int not null,
     comment_id int not null,
     primary key (like_id),

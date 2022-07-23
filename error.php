@@ -1,4 +1,4 @@
-<?php require 'templates/header.php'; ?>
+<?php require 'require/header.php'; ?>
 <center>
 <style>
     body {
@@ -43,4 +43,4 @@
     ?>
 </div>
 </center>
-<?php require 'templates/footer.php'; ?>
+<?php require 'require/footer.php'; ?>
