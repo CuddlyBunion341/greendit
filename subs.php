@@ -46,23 +46,47 @@
     <h2>Popular posts</h2>
     <div id="feed">
         <?php
-            if (isset($_SESSION['user_id'])) {
-                echo '
-                <div class="create-post">
-                    <a href="user/'.$_SESSION['username'].'"><img class="user-pfp" src="resources/pfp.png"></a>
-                    <button onclick="window.location=\'/greendit/post.php?id='.$community['community_id'].'\'">Create post...</button>
-                </div>
-                ';
-            }
             require 'util/feed.php';
-            $sql = 'select * from posts where community_id='.$community['community_id'].' order by post_id desc';
-            $posts = query($sql);
-
-            foreach ($posts as $post) {
-                postHTML($post,false);
+            if (!isset($_GET['post_hash'],$_GET['comment_hash'])) {
+                // show all posts
+                if (isset($_SESSION['user_id'])) {
+                    echo '
+                    <div class="create-post">
+                        <a href="user/'.$_SESSION['username'].'"><img class="user-pfp" src="resources/pfp.png"></a>
+                        <button onclick="window.location=\'/greendit/post.php?id='.$community['community_id'].'\'">Create post...</button>
+                    </div>
+                    ';
+                }
+                $sql = 'select * from posts where community_id='.$community['community_id'].' order by post_id desc';
+                $posts = query($sql);
+    
+                foreach ($posts as $post) {
+                    postHTML($post,false);
+                }
+                if (count($posts) == 0) {
+                    echo '<div class="feed-text">No posts yet!</div>';
+                }
             }
-            if (count($posts) == 0) {
-                echo '<div class="feed-text">No posts yet!</div>';
+            // show specific post
+            else if (isset($_GET['post_hash'])) {
+                $post = row('select * from posts where post_hash = ' . $_GET['post_hash']);
+                if (!$post) {
+                    http_response_code(404); // todo: post not found
+                    exit;
+                }
+            } else if (isset($_GET['comment_hash'])) {
+                $comment = row('select * from comments where comment_hash = ' . $_GET['comment_hash']);
+                if (!$comment) {
+                    http_response_code(404); // todo: comment not found
+                    exit;
+                }
+                $post = row('select * from posts where post_id = ' . $comment['post_id']);
+            }
+            // hope post exists...
+            postHTML($post,false);
+            $comments = query('select * from comments where post_id = ' . $post['post_id']);
+            foreach ($comments as $comment) {
+                commentHTML($comment);
             }
         ?>
         <script src="scripts/js/feed.js"></script>
