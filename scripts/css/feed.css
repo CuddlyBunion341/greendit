@@ -142,7 +142,7 @@ main {
     padding-bottom: 10px;
 }
 .comment-wrapper > p {
-    padding: 10px;
+    padding-left: 10px;
 }
 .comment-wrapper:hover {
     outline: 1px solid gray;
