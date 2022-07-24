@@ -2,18 +2,17 @@
  * Up / Downvotes a post or comment
  * @param {HTMLElement} button - the button clicked
  */
-function upvote (button) {
-    var isPost, container;
-    if (container = button.closest('.post')) {
-        isPost = true;
-    } else {
-        container = button.closest('.comment');
-        isPost = false;
-    }
+function upvote(button) {
+	var isPost, container;
+	if ((container = button.closest(".post"))) {
+		isPost = true;
+	} else {
+		container = button.closest(".comment");
+		isPost = false;
+	}
 	const hash = container.dataset.hash;
 	const upvote = button.classList == "upvote";
-	const data =
-		isPost ? { post: hash, upvote } : { comment: hash, upvote };
+	const data = isPost ? { post: hash, upvote } : { comment: hash, upvote };
 	$.post(
 		"request/upvote.php?t=" + Math.random(),
 		data,
@@ -36,7 +35,7 @@ function upvote (button) {
 			other.src = `resources/${upvote ? "downvote" : "upvote"}.svg`;
 		}
 	);
-};
+}
 $("#feed").click(function (e) {
 	const target = e.target;
 	const parent = target.parentNode;
@@ -44,13 +43,16 @@ $("#feed").click(function (e) {
 	if (target.closest(".post")) {
 		const post_hash = target.closest(".post").dataset.hash;
 		if (parent.classList == "upvote" || parent.classList == "downvote") {
-            return upvote(parent);
+			return upvote(parent);
 		}
 		if (name == "comment-btn") {
 			window.location.href = `subs/main/posts/${post_hash}/`;
 		}
 		if (name == "share-btn") {
-			alert('post url copied to clipboard!');
+			navigator.clipboard
+				.writeText(`${window.location.host}/greendit/subs/main/posts/${post_hash}/`)
+				.then(() => alert("post url copied to clipboard!"))
+				.catch(() => alert("something went wrong..."));
 		}
 	} else if (target.closest(".comment-wrapper")) {
 		const post_hash = target.closest(".comment-wrapper").dataset.postId;
@@ -74,8 +76,8 @@ $("#feed").click(function (e) {
 				);
 			}
 		}
-        if (parent.classList == "upvote" || parent.classList == "downvote") {
-            upvote(parent);
-        }
+		if (parent.classList == "upvote" || parent.classList == "downvote") {
+			upvote(parent);
+		}
 	}
 });
