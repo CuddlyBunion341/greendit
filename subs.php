@@ -48,7 +48,6 @@
         <?php
             require 'require/feed.php';
             if (!isset($_GET['post']) && !isset($_GET['comment'])) {
-                echo 'unset';
                 // show all posts
                 if (isset($_SESSION['user_id'])) {
                     echo '
