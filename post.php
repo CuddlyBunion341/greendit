@@ -1,14 +1,16 @@
 <?php require 'require/header.php';?>
 <?php
+    require_once 'require/uuid.php';
     function create_post($title, $body, $user_id, $community) {
         if (empty(prepare($title))) return 'Title must not be empty';
         if (empty(prepare($body))) return 'Content must not be empty';
         $community_id = getField('select community_id from communities where shortname = \'' . prepare($community) . '\'');
         if (empty(prepare($community_id))) return 'Please select a community';
-        // todo: add hash to post
+        $hash = random_string(6);
+        // todo: test if hash is unique
         $sql = "
-            insert into posts (title, content, user_id, community_id) 
-            values ('$title', '$body', '$user_id', '$community_id')";
+            insert into posts (title, content, user_id, community_id, hash) 
+            values ('$title', '$body', $user_id, $community_id, '$hash')";
         if (execute($sql) !== TRUE) return 'SQL Error';
     }
     function prepare(&$field) {
