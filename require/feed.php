@@ -27,7 +27,7 @@
         }
         if ($show_user) {
             $post_head .= 'posted by
-            <a href="user/'.$user['username'].'">
+            <a href="users/'.$user['username'].'">
             u/'. $user['username'] . '
             </a>';
         }

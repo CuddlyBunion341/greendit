@@ -19,7 +19,7 @@
         $date = round($datediff / (60 * 60 * 24));
         $posts = rows('select * from posts where user_id = ' . $user['user_id']);
         $comments = rows('select * from comments where user_id = ' . $user['user_id']);
-        $user_url = 'user/' . $user['username'];
+        $user_url = 'users/' . $user['username'];
         echo '
             <main>
             <div class="user-info">
@@ -52,10 +52,10 @@
     }
     echo '
     <nav class="tabbs">
-        <a'.active(0).'href="user/'.$user['username'].'/overview">Overview</a>
-        <a'.active(1).'href="user/'.$user['username'].'/posts">Posts</a>
-        <a'.active(2).'href="user/'.$user['username'].'/comments">Comments</a>
-        <a'.active(3).'href="user/'.$user['username'].'/likes">Likes</a>
+        <a'.active(0).'href="users/'.$user['username'].'/overview">Overview</a>
+        <a'.active(1).'href="users/'.$user['username'].'/posts">Posts</a>
+        <a'.active(2).'href="users/'.$user['username'].'/comments">Comments</a>
+        <a'.active(3).'href="users/'.$user['username'].'/likes">Likes</a>
     </nav>
     <div id="feed" class="ignore-css">
     ';
@@ -88,7 +88,7 @@
         where post_likes.user_id = ' . $user['user_id'] . ';';
         $liked_posts = query($sql);
         foreach ($liked_posts as $post) {
-            postHTML($post,true,false);
+            postHTML($post,true,true);
         }
         if (!$liked_posts) {
             echo '<p>No likes yet!</p>';
