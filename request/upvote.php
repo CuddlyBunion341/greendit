@@ -4,28 +4,27 @@
         http_response_code(401); 
         exit;
     }
-    if (!isset($_POST['post_id']) && !isset($_POST['comment_id'])) {
+    if (!isset($_POST['post']) && !isset($_POST['comment'])) {
         http_response_code(400);
         exit;
     }
     $upvote = isset($_POST['upvote']) && $_POST['upvote'] == 'true';
-    $table = isset($_POST['post_id']) ? 'post' : 'comment';
+    $table = isset($_POST['post']) ? 'post' : 'comment';
     $table1 = $upvote ? $table.'_likes' : $table.'_dislikes';
     $table2 = $upvote ? $table.'_dislikes' : $table.'_likes';
 
     $response = array('increment' => 0, 'error' => 0);
 
     $user_id = $_SESSION['user_id'];
-    $primary = $table.'_id';
-    $id = isset($_POST['post_id']) ? $_POST['post_id'] : $_POST['comment_id'];
-
-    // echo var_dump($_POST);
-
+    $id_column = $table.'_id';
+    $hash = isset($_POST['post']) ? $_POST['post'] : $_POST['comment'];
     require '../config/db_connect.php';
-    $added = rows("select * from $table1 where user_id=$user_id and $primary=$id");
+    $id = getField('select '.$table.'_id from '.$table.'s where hash=\''.$hash.'\'');
+
+    $added = rows("select * from $table1 where user_id=$user_id and $id_column=$id");
     if ($added == 0) {
         // does not exist yet
-        $sql = "insert into $table1(user_id,$primary) values ($user_id,$id);";
+        $sql = "insert into $table1(user_id,$id_column) values ($user_id,$id);";
         if ($conn->query($sql)) {
             $response['increment'] = 1;
             $response['message'] = 'voted post with id ' . $id;
@@ -33,16 +32,16 @@
             $response['message'] = 'SQL ERROR: ' . $conn->error;
             $response['error'] = 1;
         }
-        $sql = "select * from $table2 where user_id=$user_id and $primary=$id";
+        $sql = "select * from $table2 where user_id=$user_id and $id_column=$id";
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
-            $sql = "delete from $table2 where user_id=$user_id and $primary=$id";
+            $sql = "delete from $table2 where user_id=$user_id and $id_column=$id";
             $result = $conn->query($sql);
             $response['increment'] += 1;
         }
     } else {
         // allready exists
-        $sql = "delete from $table1 where user_id=$user_id and $primary=$id";
+        $sql = "delete from $table1 where user_id=$user_id and $id_column=$id";
         if ($conn->query($sql)) {
             $response['increment'] = -1;
             $response['message'] = 'Removed vote from post with id ' . $id;

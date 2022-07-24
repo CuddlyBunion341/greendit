@@ -33,7 +33,7 @@
         }
         $post_head .= $date . ' day(s) ago </div>';
         echo '
-        <div class="post" data-id="'.$post['post_id'].'">
+        <div class="post" data-hash="'.$post['hash'].'">
             <div class="left">
                 <div class="arrow-wrapper">
                     <button class="upvote"><img src="resources/upvote'.($liked?'_full':'').'.svg"></button>
@@ -68,7 +68,7 @@
             $disliked = rows('select * from comment_dislikes where comment_id=' . $comment['comment_id'] . ' and user_id=' . $_SESSION['user_id']);
         }
         echo '
-        <div class="comment" data-id="'.$comment['comment_id'].'">
+        <div class="comment" data-hash="'.$comment['hash'].'">
             <div class="header">
                 <a href="users/'.$user['username'].'">
                     <img src="resources/pfp.png" class="user-pfp">'. $user['username'] . '

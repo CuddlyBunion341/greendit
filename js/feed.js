@@ -10,10 +10,10 @@ function upvote (button) {
         container = button.closest('.comment');
         isPost = false;
     }
-	const id = container.dataset.id;
+	const hash = container.dataset.hash;
 	const upvote = button.classList == "upvote";
 	const data =
-		isPost ? { post_id: id, upvote } : { comment_id: id, upvote };
+		isPost ? { post: hash, upvote } : { comment: hash, upvote };
 	$.post(
 		"request/upvote.php?t=" + Math.random(),
 		data,
@@ -21,7 +21,6 @@ function upvote (button) {
 			if (status == 401) {
 				return alert("Please login!");
 			}
-            console.log(response);
 			response = JSON.parse(response);
 			const { increment, message, error } = response;
 			if (error) console.error(message);
@@ -43,64 +42,18 @@ $("#feed").click(function (e) {
 	const parent = target.parentNode;
 	const name = target.classList;
 	if (target.closest(".post")) {
-		const post_id = target.closest(".post").dataset.id;
+		const post_hash = target.closest(".post").dataset.hash;
 		if (parent.classList == "upvote" || parent.classList == "downvote") {
             return upvote(parent);
-			// const upvote = parent.classList == "upvote";
-            return;
-			$.post(
-				"request/upvote.php?t=" + Math.random(),
-				{ post_id, upvote },
-				(response, status) => {
-					if (status == 401) {
-						alert("Please login!");
-					} else {
-						response = JSON.parse(response);
-						const { increment, message, error } = response;
-						if (error) console.error(message);
-						target.src = `resources/${
-							upvote ? "upvote" : "downvote"
-						}${increment > 0 ? "_full" : ""}.svg`;
-						const likeCount =
-							parent.parentNode.querySelector(".like-count");
-						likeCount.innerHTML =
-							Number(likeCount.innerHTML) +
-							increment * (upvote ? 1 : -1);
-						const other = parent.parentNode.querySelector(
-							`.${upvote ? "downvote" : "upvote"} img`
-						);
-						other.src = `resources/${
-							upvote ? "downvote" : "upvote"
-						}.svg`;
-					}
-				}
-			);
 		}
 		if (name == "comment-btn") {
-			$.get(
-				`request/post_comments.php?post_id=${post_id}`,
-				(response, status) => {
-					if ($(`[data-post-id="${post_id}"]`)) {
-						$(`[data-post-id="${post_id}"]`).toggle();
-						return;
-					}
-					const commentWrapper = $.createElement("div", {
-						class: "comment-wrapper",
-						"data-post-id": post_id,
-					});
-					$(commentWrapper).html(response);
-					const post = target.closest(".post");
-					post.parentNode.insertBefore(
-						commentWrapper,
-						post.nextSibling
-					);
-				}
-			);
+			window.location.href = `subs/main/posts/${post_hash}/`;
 		}
 		if (name == "share-btn") {
+			alert('post url copied to clipboard!');
 		}
 	} else if (target.closest(".comment-wrapper")) {
-		const post_id = target.closest(".comment-wrapper").dataset.postId;
+		const post_hash = target.closest(".comment-wrapper").dataset.postId;
 		if (target.closest(".create-comment")) {
 			const textarea = target
 				.closest(".create-comment")
@@ -109,7 +62,7 @@ $("#feed").click(function (e) {
 			if (name == "comment-btn") {
 				$.post(
 					`request/create_comment.php?t=${Math.random()}`,
-					{ post_id, content },
+					{ post_hash, content },
 					(response, status) => {
 						if (!status == 200) return console.error(response);
 						const comment = $.createElementFromHTML(response);

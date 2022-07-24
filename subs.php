@@ -47,7 +47,8 @@
     <div id="feed">
         <?php
             require 'require/feed.php';
-            if (!isset($_GET['post_hash'],$_GET['comment_hash'])) {
+            if (!isset($_GET['post']) && !isset($_GET['comment'])) {
+                echo 'unset';
                 // show all posts
                 if (isset($_SESSION['user_id'])) {
                     echo '
@@ -66,27 +67,44 @@
                 if (count($posts) == 0) {
                     echo '<div class="feed-text">No posts yet!</div>';
                 }
-            }
-            // show specific post
-            else if (isset($_GET['post_hash'])) {
-                $post = row('select * from posts where post_hash = ' . $_GET['post_hash']);
-                if (!$post) {
-                    http_response_code(404); // todo: post not found
-                    exit;
+            } else {
+                // show specific post
+                if (isset($_GET['post'])) {
+                    $post = row('select * from posts where hash = \'' . $_GET['post'] . '\'');
+                    if (!$post) {
+                        echo 'Post not found :/';
+                    }
+                } else if (isset($_GET['comment'])) {
+                    $comment = row('select * from comments where hash = \'' . $_GET['comment'] . '\'');
+                    if (!$comment) {
+                        echo 'Comment not found :/';
+                    }
+                    $post = row('select * from posts where post_id = ' . $comment['post_id']);
                 }
-            } else if (isset($_GET['comment_hash'])) {
-                $comment = row('select * from comments where comment_hash = ' . $_GET['comment_hash']);
-                if (!$comment) {
-                    http_response_code(404); // todo: comment not found
-                    exit;
+                if ($post) {
+                    postHTML($post,false);
+                    $comments = query('select * from comments where post_id = ' . $post['post_id']);
+                    echo '<div class="comment-wrapper">';
+                    if (isset($_SESSION['user_id'])) {
+                        $user_id = $_SESSION['user_id'];
+                        echo '
+                            <div class="create-comment">
+                                <!--<img src="resources/pfp.png" alt="user" class="user-pfp">-->
+                                <textarea class="comment-content" placeholder="Write a comment..." rows="4"></textarea>
+                                <br>
+                                <button class="comment-btn">Post</button>
+                            </div>
+                        ';
+                    }
+                    if (count($comments) > 0) {
+                        foreach ($comments as $comment) {
+                            commentHTML($comment);
+                        }
+                    } else {
+                        echo '<p>No comments yet.</p>';
+                    }
+                    echo '</div>';
                 }
-                $post = row('select * from posts where post_id = ' . $comment['post_id']);
-            }
-            // hope post exists...
-            postHTML($post,false);
-            $comments = query('select * from comments where post_id = ' . $post['post_id']);
-            foreach ($comments as $comment) {
-                commentHTML($comment);
             }
         ?>
         <script src="js/feed.js"></script>
