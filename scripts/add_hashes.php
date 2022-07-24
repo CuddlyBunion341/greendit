@@ -16,7 +16,7 @@
         return $rand;
     }
 
-    require_once('../config/db_connect.php');
+    require_once('../require/db_connect.php');
     $posts = query('select * from posts');
     foreach ($posts as $post) {
         $rand = unique_hash();

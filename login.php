@@ -2,7 +2,7 @@
 
 <?php
     if (isset($_POST['username'],$_POST['password'])) {
-        require_once 'config/db_connect.php';
+        require_once 'require/db_connect.php';
         $password = htmlspecialchars($_POST['password']);
         $username = htmlspecialchars($_POST['username']);
 

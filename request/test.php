@@ -1,5 +1,5 @@
 <?php
-    require '../config/db_connect.php';
+    require '../require/db_connect.php';
     $sql = 'SELECT COUNT(*) FROM post_likes WHERE post_id = ' . 1;
     $result = $conn->query($sql);
     $likes = $result->fetch_row()[0];

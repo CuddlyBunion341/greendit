@@ -18,7 +18,7 @@
     $user_id = $_SESSION['user_id'];
     $id_column = $table.'_id';
     $hash = isset($_POST['post']) ? $_POST['post'] : $_POST['comment'];
-    require '../config/db_connect.php';
+    require '../require/db_connect.php';
     $id = getField('select '.$table.'_id from '.$table.'s where hash=\''.$hash.'\'');
 
     $added = rows("select * from $table1 where user_id=$user_id and $id_column=$id");

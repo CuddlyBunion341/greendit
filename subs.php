@@ -6,7 +6,7 @@
         exit;
     }
     $name = $_GET['name'];
-    require_once('config/db_connect.php');
+    require_once('require/db_connect.php');
     $community = row('select * from communities where shortname = "' . $name . '"');
     if (!$community) {
         header('Location: /greendit/error/419');

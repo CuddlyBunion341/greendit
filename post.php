@@ -21,7 +21,7 @@
         echo $_POST[$field];
     }
     if (isset($_POST['submit'])) {
-        require_once 'config/db_connect.php';
+        require_once 'require/db_connect.php';
         if (!isset($_SESSION)) session_start();
         if (!isset($_SESSION['user_id'])) $error = 'You must be logged in to post';
         if (!isset($_POST['sub'])) $error = 'Community is required';
@@ -48,7 +48,7 @@
             <select name="sub" id="sub">
                 <option value="" selected hidden disabled>Community</option>
                 <?php
-                    require_once('config/db_connect.php');
+                    require_once('require/db_connect.php');
                     $subs = query('select * from communities order by shortname asc');
                     foreach ($subs as $sub) {
                         $selected = '';

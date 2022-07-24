@@ -8,7 +8,7 @@
     }
 
     if (isset($_GET['name'])) {
-        require_once 'config/db_connect.php';
+        require_once 'require/db_connect.php';
         $user = row('select * from users where username = "' . $_GET['name'] . '"');
         if (!$user) {
             header('Location: /greendit/error/418');

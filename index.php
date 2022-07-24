@@ -10,7 +10,7 @@
 
     <h2>Trending communities</h2>
     <?php
-        require_once 'config/db_connect.php';
+        require_once 'require/db_connect.php';
         $sql = 'select * from communities limit 5';
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {

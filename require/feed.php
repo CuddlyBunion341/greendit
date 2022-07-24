@@ -1,6 +1,6 @@
 <?php
     if (!isset($_SESSION)) session_start();
-    if (!isset($conn)) require_once 'config/db_connect.php'; // todo: refactor this line to work with requests
+    if (!isset($conn)) require_once 'require/db_connect.php'; // todo: refactor this line to work with requests
     function postHTML($post, $show_community = true, $show_user = true) {
         $user = row('select * from users where user_id=' . $post['user_id']);
         $community = row('select * from communities where community_id=' . $post['community_id']);
