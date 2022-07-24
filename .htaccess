@@ -1,7 +1,7 @@
 RewriteEngine on
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^/?user/(\w+)$ /greendit/user.php?name=$1 [P]
-RewriteRule ^/?user/(\w+)(?:/(.*))?$ /greendit/user.php?name=$1&tab=$2 [P]
+RewriteRule ^/?users/(\w+)$ /greendit/user.php?name=$1 [P]
+RewriteRule ^/?users/(\w+)(?:/(.*))?$ /greendit/user.php?name=$1&tab=$2 [P]
 RewriteRule ^/?subs/(\w+)$ /greendit/subs.php?name=$1 [P]
 RewriteRule ^/?subs/(\w+)/posts/(\w+) /greendit/subs.php?name=$1&post=$2 [P]
 RewriteRule ^/?subs/(\w+)/comments/(\w+) /greendit/subs.php?name=$1&comment=$2 [P]
