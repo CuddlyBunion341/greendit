@@ -1,24 +1,33 @@
 <?php
     require_once '../require/db_connect.php';
     require_once '../require/feed.php';
+    require_once '../require/uuid.php';
     if (isset($_SESSION['user_id'])) {
         $user_id = $_SESSION['user_id'];
-        if (!isset($_POST['content'],$_POST['post_id'])) {
+        if (!isset($_POST['content'],$_POST['post'])) {
+            echo 'Missing content or post_id.';
             http_response_code(400);
-            echo '<p>Missing content or post_id.</p>';
             exit();
         }
-        $content = $_POST['content'];
-        $post_id = $_POST['post_id'];
-        // todo: add hash to comment 
-        execute('insert into comments (user_id, post_id, content) values (\''.$user_id.'\', \''.$post_id.'\', \''.$content.'\')');
+        $content = trim(htmlspecialchars($_POST['content']));
+        if (empty($content)) {
+            echo 'Content cannot be empty';
+            http_response_code(400);
+            exit();
+        }
+        $post_id = getField('select post_id from posts where hash = \'' . $_POST['post'] . '\'');
+        $hash = random_string(6);
+        // todo: test if hash is unique
+        execute('insert into comments (user_id, post_id, content, hash) values ('.$user_id.', '.$post_id.', \''.$content.'\', \''.$hash.'\')');
         $comment_id = $conn->insert_id;
         $comment = row('select * from comments where comment_id = '.$comment_id);
         if (!$comment) {
             http_response_code(500);
-            echo '<p>Error creating comment.</p>';
+            echo 'Error creating comment.';
             exit();
         }
         commentHTML($comment);
+    } else {
+        http_response_code(401);
     }
 ?>

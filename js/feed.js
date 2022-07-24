@@ -50,28 +50,35 @@ $("#feed").click(function (e) {
 		}
 		if (name == "share-btn") {
 			navigator.clipboard
-				.writeText(`${window.location.host}/greendit/subs/main/posts/${post_hash}/`)
+				.writeText(
+					`${window.location.host}/greendit/subs/main/posts/${post_hash}/`
+				)
 				.then(() => alert("post url copied to clipboard!"))
 				.catch(() => alert("something went wrong..."));
 		}
 	} else if (target.closest(".comment-wrapper")) {
-		const post_hash = target.closest(".comment-wrapper").dataset.postId;
+		const wrapper = target.closest(".comment-wrapper");
+		const post = target.closest(".comment-wrapper").dataset.hash;
 		if (target.closest(".create-comment")) {
-			const textarea = target
-				.closest(".create-comment")
-				.querySelector(".comment-content");
+			const composer = target.closest(".create-comment");
+			const textarea = composer.querySelector(".comment-content");
 			const content = textarea.value;
+			const error = composer.querySelector(".error");
 			if (name == "comment-btn") {
 				$.post(
 					`request/create_comment.php?t=${Math.random()}`,
-					{ post_hash, content },
+					{ post, content },
 					(response, status) => {
+						console.log(status);
+						if (status == 400)
+							error.innerHTML = "Comment must not be empty";
+						if (status == 200) {
+							const comment = $.createElementFromHTML(response);
+							wrapper.appendChild(comment);
+							textarea.value = "";
+							error.innerHTML = "";
+						}
 						if (!status == 200) return console.error(response);
-						const comment = $.createElementFromHTML(response);
-						const commentWrapper =
-							target.closest(".comment-wrapper");
-						commentWrapper.appendChild(comment);
-						textarea.value = "";
 					}
 				);
 			}

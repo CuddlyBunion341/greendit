@@ -6,7 +6,10 @@
     }
 }
 .green {
-    color: rgb(105, 255, 105);
+    color: #69ff69;
+}
+.error:empty {
+    display: none;
 }
 .message {
     width: 100%;
