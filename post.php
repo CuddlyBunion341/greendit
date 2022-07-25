@@ -6,8 +6,9 @@
         if (empty(prepare($body))) return 'Content must not be empty';
         $community_id = getField('select community_id from communities where shortname = \'' . prepare($community) . '\'');
         if (empty(prepare($community_id))) return 'Please select a community';
-        $hash = random_string(6);
-        // todo: test if hash is unique
+        do {
+            $hash = random_string(6);
+        } while (rows('select * from posts where hash = \'' . $hash .'\'') > 0);
         $sql = "
             insert into posts (title, content, user_id, community_id, hash) 
             values ('$title', '$body', $user_id, $community_id, '$hash')";
