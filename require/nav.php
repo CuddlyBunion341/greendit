@@ -4,7 +4,7 @@
         session_start();
         if (isset($_SESSION['username'],$_SESSION['user_id'])) {
             $username = $_SESSION['username'];
-            echo '<a href="user/'.$username.'">u/'. $username . '</a>';
+            echo '<a href="users/'.$username.'">u/'. $username . '</a>';
             echo '<a href="logout.php">Logout</a>';
         } else {
             echo '<a href="login.php">Login</a>';
