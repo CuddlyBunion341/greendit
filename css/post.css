@@ -3,6 +3,10 @@ html,body {
     flex-direction: column;
 }
 
+form {
+    align-items: initial;
+}
+
 main {
     flex-grow: 1;
     min-height: 0;

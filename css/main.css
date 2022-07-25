@@ -5,6 +5,9 @@
         -moz-transform-origin: 0 0;
     }
 }
+.hidden {
+    display: none;
+}
 .green {
     color: #69ff69;
 }
@@ -26,6 +29,6 @@
     font-size: 60px;
     margin-bottom: 0;
 }
-.ignore-css{
+.ignore-css {
     all: unset !important;
 }

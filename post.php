@@ -65,10 +65,23 @@
                     }
                 ?>
             </select>
+            <div class="tabs">
+                <button type="button" class="post-tab active">Post</button>
+                <button type="button" class="media-tab">Images & Video</button>
+            </div>
             <input type="text" name="title" id="title" placeholder="Title" value="<?php value('title'); ?>">
-            <textarea name="content" id="content" cols="30" rows="10" placeholder="Text (required)"><?php value('content'); ?></textarea>
+            <div class="post-content">
+                <div data-tab="0">
+                    <textarea name="content" id="content" cols="30" rows="10" placeholder="Text (required)"><?php value('content'); ?></textarea>
+                </div>
+                <div data-tab="1" class="hidden">
+                    <label for="upload">File: </label>
+                    <input type="file" name="upload" id="upload">
+                </div>
+            </div>
             <button type="submit" name="submit">Post</button>
         </div>
     </form>
+    <script src="js/create-post.js"></script>
 </main>
 <?php require 'require/footer.php';?>
