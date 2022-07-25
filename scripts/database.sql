@@ -27,7 +27,7 @@ create table if not exists communities (
 create table if not exists posts (
     post_id int not null auto_increment,
     title varchar(45) not null,
-    content text not null,
+    content text,
     hash varchar(6) not null,
     user_id int not null,
     community_id int not null,
