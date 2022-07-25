@@ -75,8 +75,10 @@
                     <textarea name="content" id="content" cols="30" rows="10" placeholder="Text (required)"><?php value('content'); ?></textarea>
                 </div>
                 <div data-tab="1" class="hidden">
-                    <label for="upload">File: </label>
-                    <input type="file" name="upload" id="upload">
+                    <div class="dragdrop">
+                        Drag and drop files or
+                        <input type="file" name="upload" id="upload" vlaue="Upload">
+                    </div>
                 </div>
             </div>
             <button type="submit" name="submit">Post</button>
