@@ -52,7 +52,7 @@
                 if (isset($_SESSION['user_id'])) {
                     echo '
                     <div class="create-post">
-                        <a href="user/'.$_SESSION['username'].'"><img class="user-pfp" src="resources/pfp.png"></a>
+                        <a href="user/'.$_SESSION['username'].'"><img class="user-pfp" src="resources/pfps/'.$_SESSION['username'].'.png"></a>
                         <button onclick="window.location=\'/greendit/post.php?id='.$community['community_id'].'\'">Create post...</button>
                     </div>
                     ';
