@@ -24,7 +24,7 @@
             <main>
             <div class="user-info">
                 <div class="user-banner">
-                    <img src="resources/pfp.png" alt="">
+                    <img src="resources/pfps/'.$user['username'].'.png" alt="">
                 </div>
                 <div class="user-main">
                     <h2>' . $user['username'] . '</h2>

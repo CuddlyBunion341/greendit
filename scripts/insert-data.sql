@@ -34,11 +34,11 @@ values
     ('pro gamer gaming sub','gaming', 2);
 
 insert into
-    posts(title, content, user_id, community_id)
+    posts(title, content, user_id, community_id, hash)
 values
-    ('First post', 'This is the first post!', 1, 1),
-    ('Second post', 'Who could have expected this?',1,1),
-    ('Need some help!','My code wont run!',4,4);
+    ('First post', 'This is the first post!', 1, 1, 'yczptu'),
+    ('Second post', 'Who could have expected this?',1,1, 'yhxvwx'),
+    ('Need some help!','My code wont run!',4,4, 'gklypi');
 
 insert into
     post_likes(user_id,post_id)

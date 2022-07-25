@@ -67,11 +67,13 @@
             $liked = rows('select * from comment_likes where comment_id=' . $comment['comment_id'] . ' and user_id=' . $_SESSION['user_id']);
             $disliked = rows('select * from comment_dislikes where comment_id=' . $comment['comment_id'] . ' and user_id=' . $_SESSION['user_id']);
         }
+        $pfp = 'pfps/'.$user['username'];
+        // $pfp = file_exists($pfp) ? $pfp : 'default_pfp'; // todo: fix
         echo '
         <div class="comment" data-hash="'.$comment['hash'].'">
             <div class="header">
                 <a href="users/'.$user['username'].'">
-                    <img src="resources/pfp.png" class="user-pfp">'. $user['username'] . '
+                    <img src="resources/'.$pfp.'.png" class="user-pfp">'. $user['username'] . '
                 </a>
             </div>
             <p>'.$comment['content'].'</p>
