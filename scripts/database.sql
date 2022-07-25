@@ -31,6 +31,7 @@ create table if not exists posts (
     hash varchar(6) not null,
     user_id int not null,
     community_id int not null,
+    status enum('public','draft','removed'),
     created_at datetime not null default current_timestamp,
     primary key (post_id),
     index fk_posts_users (user_id asc) visible,
@@ -142,4 +143,13 @@ create table if not exists joined_communities (
     index fk_communities1_idx (community_id asc) visible,
     constraint fk_users8 foreign key (user_id) references users (user_id) on delete cascade,
     constraint fk_communities1 foreign key (community_id) references communities (community_id) on delete cascade
+);
+
+create table if not exists post_media (
+    media_id int not null auto_increment,
+    post_id int not null,
+    file_name varchar(40) not null,
+    primary key (media_id),
+    index fk_post_idx (post_id asc) visible,
+    constraint fk_post foreign key (post_id) references posts (post_id) on delete cascade
 );
