@@ -1,6 +1,7 @@
 <?php require 'require/header.php';?>
 <?php
     require_once 'require/uuid.php';
+    $tab = 0;
     function create_post($title, $community, $body, $tab, $file, $user_id) {
         if (empty($title)) return 'Title must not be empty';
         $community_id = getField('select community_id from communities where shortname = \'' . $community . '\'');
@@ -43,7 +44,14 @@
         if (!isset($_POST[$field])) return '';
         echo $_POST[$field];
     }
+    function showTab($index) {
+        global $tab;
+        if ($tab != $index) {
+            echo 'class="hidden"';
+        }
+    }
     if (isset($_POST['submit'])) {
+        $tab = get('tab');
         require_once 'require/db_connect.php';
         if (!isset($_SESSION)) session_start();
         if (!isset($_SESSION['user_id'])) $error = 'You must be logged in to post';
@@ -54,7 +62,7 @@
                 get('title'),
                 get('sub'),
                 get('content'),
-                get('tab'),
+                $tab,
                 $_FILES['media'],
                 $_SESSION['user_id']
             );
@@ -97,20 +105,20 @@
             </div>
             <input type="text" name="title" id="title" placeholder="Title" value="<?php value('title'); ?>">
             <div class="post-content">
-                <div data-tab="0">
+                <div data-tab="0" <?php showTab(0); ?>>
                     <textarea name="content" id="content" cols="30" rows="10" placeholder="Text (required)"><?php value('content'); ?></textarea>
                 </div>
-                <div data-tab="1" class="hidden">
+                <div data-tab="1" <?php showTab(1); ?>>
                     <div class="file-select">
                         <button type="button" id="upload">Upload</button>
-                        <input type="file" name="media" id="media" class="hidden">
+                        <input type="file" name="media" id="media" class="hidden" accept="image/*">
                     </div>
                     <div id="preview">
                         <p>No file currently selected for upload</p>
                     </div>
                 </div>
             </div>
-            <input type="hidden" name="tab" value="0" id="tab-val">
+            <input type="hidden" name="tab" value="<?php echo $tab; ?>" id="tab-val">
             <button type="submit" name="submit">Post</button>
         </div>
     </form>

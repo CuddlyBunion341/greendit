@@ -47,12 +47,12 @@ main {
     cursor: pointer;
 }
 .post .left {
-    /* display: inline-block; */
     float: left;
     background-color: #f1f1f1;
     border-top-left-radius: 2px;
     border-bottom-left-radius: 2px;
     padding: 6px;
+    width: 13px;
 }
 .right {
     padding: 4px;
