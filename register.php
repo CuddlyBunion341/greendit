@@ -1,11 +1,12 @@
 <?php require('require/header.php'); ?>
-
 <?php
     require_once 'require/db_connect.php';
     function register($username, $password, $verify) {
         global $conn;
         if (empty($username)) return 'Username is required';
+        if (!preg_match("/\w{3,25}/",$username)) return 'Username invalid';
         if (empty($password)) return 'Password is required';
+        if (!preg_match("/.{6,}/",$password)) return 'Password must be at least 6 characters long';
         if ($password !== $verify) return 'Passwords do not match';
         $sql = "SELECT username FROM users WHERE username = '$username'";
         $result = rows($sql);
