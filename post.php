@@ -9,7 +9,12 @@
         if ($tab == 0) {
             if (empty($body)) return 'Post content must not be empty';
         }
-        // ---- Execute Command ------------------------------------------------------------------
+        if ($tab == 1) {
+            if ($file['error'] != 0) return 'Attachments cannot be empty';
+            $valid_extensions = array('png','jpg','gif','tiff','bmp','webp');
+            $extension = pathinfo($file['name'])['extension'];
+            if (!(in_array($extension,$valid_extensions))) return 'Uploads must be images';
+        }
         do {
             $hash = random_string(6);
         } while (rows('select * from posts where hash = \'' . $hash .'\'') > 0);
@@ -17,7 +22,6 @@
             insert into posts (title, content, user_id, community_id, hash) 
             values ('$title', '$body', $user_id, $community_id, '$hash')";
         if (execute($sql) !== TRUE) return 'SQL Error';
-        // ---- Files ----------------------------------------------------------------------------
         if ($tab == 1) {
             $post_id = getField('select post_id from posts where hash = \'' . $hash . '\'');
             add_attachments($post_id, $file);
@@ -31,7 +35,6 @@
     }
     function add_attachments($post_id, $file) {
         $extension = pathinfo($file['name'])['extension'];
-        // todo: delete post if invalid extension
         $name = md5_file($file['tmp_name']) .'.'.$extension;
         move_uploaded_file($file['tmp_name'],'resources/uploads/'.$name);
         execute('insert into post_media (post_id,file_name) values('.$post_id.',\''.$name.'\')');
@@ -47,7 +50,7 @@
         if (!isset($_POST['sub'])) $error = 'Community is required';
         if (!isset($_POST['title'])) $error = 'Title is required';
         if (empty($error)) {
-            create_post(
+            $error = create_post(
                 get('title'),
                 get('sub'),
                 get('content'),
