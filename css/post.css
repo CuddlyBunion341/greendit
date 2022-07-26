@@ -33,6 +33,24 @@ main {
     color: gray;
 }
 
+#preview img {
+    width: 100px;
+    height: 100px;
+    background-size: contain;
+    object-fit: cover;
+    border-radius: 5px;
+    opacity: 0.6;
+}
+
+#preview img:hover {
+    opacity: 1;
+}
+
+#preview img.selected {
+    border: 2px solid coral;
+    padding: 5px;
+}
+
 .dragdrop {
     width: 100%;
     height: 100px;
