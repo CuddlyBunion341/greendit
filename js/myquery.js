@@ -38,7 +38,10 @@ var $ = (function () {
 			 * @returns myquery object
 			 */
 			click(callback) {
-				this.on("click", callback);
+				if (!callback) {
+					const event = new MouseEvent("click");
+					element.dispatchEvent(event);
+				} else this.on("click", callback);
 				return myquery;
 			},
 			/**

@@ -99,7 +99,8 @@
                 </div>
                 <div data-tab="1" class="hidden">
                     <div class="file-select">
-                        <input type="file" name="media" id="media" value="Upload">
+                        <button type="button" id="upload">Upload</button>
+                        <input type="file" name="media" id="media" class="hidden">
                     </div>
                     <div id="preview">
                         <p>No file currently selected for upload</p>

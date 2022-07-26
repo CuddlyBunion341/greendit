@@ -12,6 +12,11 @@ $(".media-tab").click(() => {
 	$('#tab-val').value("1");
 });
 
+$("#upload").click(() => {
+	console.log("click");
+	$('#media').click();
+})
+
 $("#media").on("change", () => {
 	const preview = $("#preview").element;
 	while (preview.firstChild) {
