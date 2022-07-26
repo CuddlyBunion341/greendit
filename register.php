@@ -35,6 +35,11 @@
             header('Location: index.php');
         }
     }
+    function value($field) {
+        if (isset($_POST[$field])) {
+            echo $_POST[$field];
+        }
+    }
 ?>
 
 <form action="register.php" method="post" class="login" enctype="multipart/form-data">
@@ -43,11 +48,16 @@
         <?php if (isset($error)): ?>
             <p class="error"><?php echo $error; ?></p>
         <?php endif; ?>
-        <input type="text" name="username" id="username" placeholder="Username">
+        <div class="pfp-container">
+            <span>profile picture:</span>
+            <img class="pfp" id="user-pfp" alt="">
+            <button type="button" id="next-pfp-btn">random();</button>
+        </div>
+        <input type="text" name="username" id="username" placeholder="Username" value="<?php value('username'); ?>">
         <input type="password" name="password" id="password" placeholder="Password">
         <input type="password" name="verify" id="verify" placeholder="Verify Password">
         <input type="submit" name="submit" value="Sign Up">
-        <input type="hidden" name="pfp" id="pfp">
+        <input type="hidden" name="pfp" id="pfp" value="<?php value('pfp')?>">
         <p>Allready a member?&nbsp;<a href="login.php">LogIn</a></p>
     </div>
     <script src="js/register.js"></script>

@@ -45,8 +45,18 @@ function createPfp() {
 	return canvas.toDataURL();
 }
 
-$("form").on("submit", () => {
-	const dataUrl = createPfp();
-	$("#pfp").value(dataUrl);
-	return true;
-});
+function updateImg(pfp) {
+	document.querySelector("img.pfp").src = pfp;
+}
+
+if (!$("#pfp").value()) nextPfp();
+updateImg($("#pfp").value());
+
+function nextPfp() {
+	const pfp = createPfp();
+	$("#pfp").value(pfp);
+	updateImg(pfp);
+	return pfp;
+}
+
+$("#next-pfp-btn").click(nextPfp);
