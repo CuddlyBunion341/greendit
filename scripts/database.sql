@@ -31,7 +31,7 @@ create table if not exists posts (
     hash varchar(6) not null,
     user_id int not null,
     community_id int not null,
-    status enum('public','draft','removed'),
+    status enum('public','draft','removed') not null,
     created_at datetime not null default current_timestamp,
     primary key (post_id),
     index fk_posts_users (user_id asc) visible,

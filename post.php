@@ -48,6 +48,14 @@
         global $tab;
         if ($tab != $index) {
             echo 'class="hidden"';
+        } else {
+            echo 'class="active"';
+        }
+    }
+    function activeBtn($index) {
+        global $tab;
+        if ($tab == $index) {
+            echo 'active';
         }
     }
     if (isset($_POST['submit'])) {
@@ -75,8 +83,8 @@
 <main>
     <link rel="stylesheet" href="css/post.css">
     <form action="post.php" method="post" class="create-post-form" enctype='multipart/form-data'>
-        <div class="container">
-            <h1>Create a post</h1>
+        <h1>Create a post</h1>
+        <div class="composer">
             <?php
                 if(isset($error)) {
                     echo '<p class="error">'.$error.'</p>';
@@ -100,8 +108,8 @@
                 ?>
             </select>
             <div class="tabs">
-                <button type="button" class="post-tab active">Post</button>
-                <button type="button" class="media-tab">Images & Video</button>
+                <button type="button" class="post-tab <?php activeBtn(0); ?>">Post</button>
+                <button type="button" class="media-tab <?php activeBtn(1); ?>">Images & Video</button>
             </div>
             <input type="text" name="title" id="title" placeholder="Title" value="<?php value('title'); ?>">
             <div class="post-content">

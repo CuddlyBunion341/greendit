@@ -14,6 +14,7 @@ main {
 
 #content {
     resize: vertical;
+    font-family: Arial, Helvetica, sans-serif
 }
 
 #title {
@@ -23,14 +24,17 @@ main {
     padding-left: 5px;
 }
 
+#title, #content {
+    width: calc(100% - 10px);
+}
+
 #content, #title, #sub {
     padding: 4px;
     margin-bottom: 5px;
 }
 
-.textarea[contenteditable]:empty::before {
-    content: "Text (required)";
-    color: gray;
+#preview {
+    padding-top: 5px;
 }
 
 #preview img {
@@ -39,14 +43,38 @@ main {
     background-size: contain;
     object-fit: cover;
     border-radius: 5px;
-    opacity: 0.6;
 }
 
-#preview img:hover {
+#preview picture {
+    opacity: 0.6;
+    position: relative;
+}
+
+#preview picture:hover {
     opacity: 1;
 }
+#preview picture:hover .rm-btn {
+    display: flex;
+}
 
-#preview img.selected {
+#preview picture .rm-btn {
+    all:unset;
+    position: absolute;
+    margin: 7px;
+    right: 0;
+    font-weight: bold;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    color:white;
+    justify-content: center;
+    align-items: center;
+    font-size: 7px;
+    background-color: black;
+    display: none;
+}
+
+#preview picture.selected {
     border: 2px solid coral;
     padding: 5px;
 }
@@ -58,4 +86,50 @@ main {
     align-items: center;
     justify-content: center;
     border: 1px dotted gray;
+}
+
+.tabs {
+    margin-left: -10px;
+    width: calc(100% + 20px);
+    background-color: white;
+    border-bottom: 1px solid #a6a6a6;
+    margin-bottom: 5px;
+}
+
+.tabs button {
+    all: unset;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    color: rgb(162, 162, 162);
+    position: relative;
+}
+
+.tabs button.active {
+    color: black;
+}
+
+.tabs button.active::after {
+    content: " ";
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    bottom: -1px;
+    height: 1px;
+    background-color: black;
+}
+
+.composer {
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    padding: 10px;
+    width: 50%;
+    border: 1px solid #a6a6a6;
+}
+
+.error {
+    color: black;
+    margin-top: 0;
+    margin-bottom: 3px;
+    font-weight: bold;
 }
