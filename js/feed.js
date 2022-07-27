@@ -75,7 +75,7 @@ $("#feed").click(function (e) {
 	}
 });
 
-$(".create-comment").on("submit", function(e) {
+$(".create-comment")?.on("submit", function(e) {
 	e.preventDefault();
 	const wrapper = this.closest('.comment-wrapper');
 	const post = wrapper.dataset.hash;

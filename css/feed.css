@@ -35,15 +35,28 @@ main {
 .post:hover {
     outline: 1px solid gray;
 }
+/* ---- Upvotes -------------------------------------------------------------------------- */
+.arrow-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+.arrow-wrapper button {
+    border: 0;
+    background: none;
+    font-weight: bold;
+    padding: 0;
+    width: 13px;
+    position: relative;
+    cursor: pointer;
+}
+.arrow-wrapper .downvote {
+    transform: rotate(180deg);
+}
 .like-count {
     text-align: center;
     margin: 3px 0 3px 0;
 }
-.upvote,.downvote {
-    position: relative;
-}
-.upvote::after,
-.downvote::after {
+.arrow-wrapper button::after {
     content: "";
     width: 100%;
     height: 100%;
@@ -51,42 +64,27 @@ main {
     top:0;
     left:0;
 }
-
-.upvote svg,
-.downvote svg {
+.arrow-wrapper svg {
     float: left;
 }
-.upvote svg .cls-1,
-.downvote svg .cls-1 {
+.arrow-wrapper svg * {
     fill: none;
 }
-.upvote.active svg .cls-1 {
+.upvote.active svg * {
     fill: #00a651;
 }
-.downvote.active svg .cls-1 {
+.downvote.active svg * {
     fill: #016965;
 }
-.upvote:disabled,
-.downvote:disabled {
-    cursor: not-allowed !important;
+.arrow-wrapper button:disabled {
+    cursor: not-allowed;
 }
-.upvote:disabled svg *,
-.downvote:disabled svg *  {
+.arrow-wrapper button:disabled svg * {
     stroke: gray;
     fill: #e0e0e0;
 }
-
-.upvote:disabled.active svg *,
-.downvote:disabled.active svg *  {
+.arrow-wrapper button:disabled.active svg * {
     fill: #bfbfbf;
-}
-.upvote:hover {
-    color: darkcyan;
-    cursor: pointer;
-}
-.downvote:hover {
-    color: darkcyan;
-    cursor: pointer;
 }
 .post .left {
     float: left;
@@ -114,20 +112,6 @@ main {
 }
 .post .footer {
     margin-top: 5px;
-}
-.arrow-wrapper {
-    display: flex;
-    flex-direction: column;
-}
-.arrow-wrapper button {
-    border: 0;
-    background: none;
-    font-weight: bold;
-    padding: 0;
-    width: 13px;
-}
-.arrow-wrapper .downvote {
-    transform: rotate(180deg);
 }
 .image-collage {
     display: flex;
