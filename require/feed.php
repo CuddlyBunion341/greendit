@@ -81,7 +81,7 @@
             <div class="right">
                 '.$post_head.'
                 <h2>' . $title . '</h2>
-                '.$content.'
+                <p>'.$content.'</p>
                 <div class="footer">
                     <button name="comment-btn" class="comment-btn">' . $comments . ' comments</button>
                     <button name="save-btn" class="save-btn">Save</button>
