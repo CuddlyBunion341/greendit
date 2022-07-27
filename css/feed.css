@@ -238,15 +238,24 @@ main {
     background-color: white;
     border-bottom: 1px solid #b5b5b5;
     display: flex;
-    flex-direction: column;
-    align-items: stretch;
+    flex-direction: row;
+    align-items: center;
     margin-bottom: 10px;
     padding: 10px;
+    margin-top: -10px;
 }
-.create-comment textarea {
+.create-comment .user-pfp {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    border: 1px solid #ebebeb;
+}
+.create-comment input {
     resize: vertical;
     padding: 8px;
-}
-.create-comment button {
-    margin-top: -8px;
+    flex-grow: 1;
+    border: none;
+    margin-left: 10px;
+    margin-right: 10px;
+    border-bottom: 1px solid #ccc;
 }

@@ -86,15 +86,13 @@
                     $comments = query('select * from comments where post_id = ' . $post['post_id']);
                     echo '<div class="comment-wrapper" data-hash="'.$post['hash'].'">';
                     if (isset($_SESSION['user_id'])) {
-                        $user_id = $_SESSION['user_id'];
+                        $username = $_SESSION['username'];
                         echo '
-                            <div class="create-comment">
-                                <!--<img src="resources/pfp.png" alt="user" class="user-pfp">-->
-                                <p class="error"></p>
-                                <textarea class="comment-content" placeholder="Write a comment..." rows="4"></textarea>
-                                <br>
-                                <button class="comment-btn">Post</button>
-                            </div>
+                            <form class="create-comment">
+                                <img src="resources/pfps/'.$username.'.png" alt="user" class="user-pfp">
+                                <input type="text" class="comment-content" placeholder="Write a comment..." rows="4">
+                                <button name="comment-btn" type="submit" name="submit" class="comment-btn">Post</button>
+                            </form>
                         ';
                     }
                     if (count($comments) > 0) {

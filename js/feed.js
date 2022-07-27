@@ -61,21 +61,19 @@ $("#feed").click(function (e) {
 		const comment = target.closest(".comment");
 		if (target.closest(".create-comment")) {
 			const composer = target.closest(".create-comment");
-			const textarea = composer.querySelector(".comment-content");
-			const content = textarea.value;
+			const input = composer.querySelector(".comment-content");
+			const content = input.value;
 			const error = composer.querySelector(".error");
 			if (name == "comment-btn") {
 				$.post(
 					`request/create_comment.php?t=${Math.random()}`,
 					{ post, content },
 					(response, status) => {
-						if (status == 400)
-							error.innerHTML = "Comment must not be empty";
 						if (status == 200) {
+							console.log(response);
 							const comment = $.createElementFromHTML(response);
 							wrapper.appendChild(comment);
-							textarea.value = "";
-							error.innerHTML = "";
+							input.value = "";
 						}
 						if (!status == 200) return console.error(response);
 					}
@@ -95,3 +93,8 @@ $("#feed").click(function (e) {
 		}
 	}
 });
+
+$('.create-comment').on('submit', (e) => {
+	e.preventDefault();
+	console.log("WORLD!!");
+})
