@@ -44,6 +44,7 @@ create table if not exists comments (
     comment_id int not null auto_increment,
     content varchar(250) not null,
     hash varchar(6) not null,
+    status enum('public','removed') not null,
     post_id int not null,
     user_id int not null,
     parent_id int null,
