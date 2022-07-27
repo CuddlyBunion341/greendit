@@ -38,6 +38,29 @@ main {
 .like-count {
     text-align: center;
 }
+.upvote,.downvote {
+    position: relative;
+}
+.upvote::after,
+.downvote::after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    outline: 1px solid coral;
+    top:0;
+    left:0;
+}
+.upvote svg .cls-1,
+.downvote svg .cls-1 {
+    fill: none;
+}
+.upvote.active svg .cls-1 {
+    fill: #00a651;
+}
+.downvote.active svg .cls-1 {
+    fill: #016965;
+}
 .upvote:hover {
     color: darkcyan;
     cursor: pointer;

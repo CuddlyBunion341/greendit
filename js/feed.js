@@ -11,8 +11,9 @@ function upvote(button) {
 		isPost = false;
 	}
 	const hash = container.dataset.hash;
-	const upvote = button.classList == "upvote";
-	const data = isPost ? { post: hash, upvote } : { comment: hash, upvote };
+	const upvote = button.getAttribute("name") == "upvote-btn";
+	const data = { upvote };
+	data[isPost ? "post" : "comment"] = hash;
 	$.post(
 		"request/upvote.php?t=" + Math.random(),
 		data,
@@ -23,35 +24,33 @@ function upvote(button) {
 			response = JSON.parse(response);
 			const { increment, message, error } = response;
 			if (error) console.error(message);
-			button.querySelector("img").src = `resources/${
-				upvote ? "upvote" : "downvote"
-			}${increment > 0 ? "_full" : ""}.svg`;
+			if (increment > 0) button.classList.add("active");
+			else button.classList.remove("active");
 			const likeCount = container.querySelector(".like-count");
 			likeCount.innerHTML =
 				Number(likeCount.innerHTML) + increment * (upvote ? 1 : -1);
 			const other = container.querySelector(
-				`.${upvote ? "downvote" : "upvote"} img`
+				`.${upvote ? "downvote" : "upvote"}`
 			);
-			other.src = `resources/${upvote ? "downvote" : "upvote"}.svg`;
+			other.classList.remove("active");
 		}
 	);
 }
 $("#feed").click(function (e) {
 	const target = e.target;
-	const parent = target.parentNode;
-	const name = target.classList;
+	const name = target.getAttribute("name");
 	if (target.closest(".post")) {
-		const post_hash = target.closest(".post").dataset.hash;
-		if (parent.classList == "upvote" || parent.classList == "downvote") {
-			return upvote(parent);
+		const hash = target.closest(".post").dataset.hash;
+		if (name == "upvote-btn" || name == "downvote-btn") {
+			return upvote(target);
 		}
 		if (name == "comment-btn") {
-			window.location.href = `subs/main/posts/${post_hash}/`;
+			window.location.href = `subs/main/posts/${hash}/`;
 		}
 		if (name == "share-btn") {
 			navigator.clipboard
 				.writeText(
-					`${window.location.host}/greendit/subs/main/posts/${post_hash}/`
+					`${window.location.host}/greendit/subs/main/posts/${hash}/`
 				)
 				.then(() => alert("post url copied to clipboard!"))
 				.catch(() => alert("something went wrong..."));
@@ -70,7 +69,6 @@ $("#feed").click(function (e) {
 					`request/create_comment.php?t=${Math.random()}`,
 					{ post, content },
 					(response, status) => {
-						console.log(status);
 						if (status == 400)
 							error.innerHTML = "Comment must not be empty";
 						if (status == 200) {
@@ -85,14 +83,15 @@ $("#feed").click(function (e) {
 			}
 		}
 		if (name == "share-btn") {
-			navigator.clipboard.writeText(
-				`${window.location.host}/greendit/subs/main/posts/${post}/comment/${comment.dataset.hash}`
-			)
-			.then(() => alert("comment url copied to clipboard!"))
-			.catch(() => alert("something went wrong..."));
+			navigator.clipboard
+				.writeText(
+					`${window.location.host}/greendit/subs/main/posts/${post}/comment/${comment.dataset.hash}`
+				)
+				.then(() => alert("comment url copied to clipboard!"))
+				.catch(() => alert("something went wrong..."));
 		}
-		if (parent.classList == "upvote" || parent.classList == "downvote") {
-			upvote(parent);
+		if (name == "upvote-btn" || name == "downvote-btn") {
+			upvote(target);
 		}
 	}
 });

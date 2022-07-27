@@ -69,9 +69,13 @@
         <div class="post" data-hash="'.$post['hash'].'">
             <div class="left">
                 <div class="arrow-wrapper">
-                    <button class="upvote"><img src="resources/upvote'.($liked?'_full':'').'.svg"></button>
+                    <button name="upvote-btn" class="upvote'.($liked?' active':'').'">
+                        '.file_get_contents('resources/upvote.svg').'
+                    </button>
                     <span class="like-count">'.$totalLikes.'</span>
-                    <button class="downvote"><img src="resources/downvote'.($disliked?'_full':'').'.svg"></button>
+                    <button name="downvote-btn" class="downvote'.($disliked?' active':'').'">
+                        '.file_get_contents('resources/upvote.svg').'
+                    </button>
                 </div>
             </div>
             <div class="right">
@@ -79,10 +83,10 @@
                 <h2>' . $title . '</h2>
                 '.$content.'
                 <div class="footer">
-                    <button class="comment-btn">' . $comments . ' comments</button>
-                    <button class="save-btn">Save</button>
-                    <button class="share-btn">Share</button>
-                    <button class="report-btn">Report</button>
+                    <button name="comment-btn" class="comment-btn">' . $comments . ' comments</button>
+                    <button name="save-btn" class="save-btn">Save</button>
+                    <button name="share-btn" class="share-btn">Share</button>
+                    <button name="report-btn" class="report-btn">Report</button>
                 </div>  
             </div>
         </div>
@@ -113,14 +117,18 @@
             <p>'.$content.'</p>
             <div class="footer">
                 <div class="arrow-wrapper horizontal">
-                    <button class="upvote"><img src="resources/upvote'.($liked?'_full':'').'.svg"></button>
-                    <span class="like-count">'.$likes.'</span>
-                    <button class="downvote"><img src="resources/downvote'.($disliked?'_full':'').'.svg"></button>
+                <button name="upvote-btn" class="upvote'.($liked?' active':'').'">
+                    '.file_get_contents('resources/upvote.svg').'
+                </button>
+                <span class="like-count">'.$likes.'</span>
+                <button name="downvote-btn" class="downvote'.($disliked?' active':'').'">
+                    '.file_get_contents('resources/upvote.svg').'
+                </button>
                 </div>
-                <button class="comment-btn">Reply</button>
-                <button class="save-btn">Save</button>
-                <button class="share-btn">Share</button>
-                <button class="report-btn">Report</button>
+                <button name="comment-btn" class="comment-btn">Reply</button>
+                <button name="save-btn" class="save-btn">Save</button>
+                <button name="share-btn" class="share-btn">Share</button>
+                <button name="report-btn" class="report-btn">Report</button>
             </div>
         </div>
         ';
