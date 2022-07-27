@@ -71,7 +71,7 @@
                 get('sub'),
                 get('content'),
                 $tab,
-                $_FILES['media'],
+                $_FILES['image'],
                 $_SESSION['user_id']
             );
         }
@@ -109,7 +109,8 @@
             </select>
             <div class="tabs">
                 <button type="button" class="post-tab <?php activeBtn(0); ?>">Post</button>
-                <button type="button" class="media-tab <?php activeBtn(1); ?>">Images & Video</button>
+                <button type="button" class="image-tab <?php activeBtn(1); ?>">Images</button>
+                <button type="button" class="video-tab <?php activeBtn(2); ?>">Video</button>
             </div>
             <input type="text" name="title" id="title" placeholder="Title" value="<?php value('title'); ?>">
             <div class="post-content">
@@ -118,12 +119,18 @@
                 </div>
                 <div data-tab="1" <?php showTab(1); ?>>
                     <div class="file-select">
-                        <button type="button" id="upload">Upload</button>
-                        <input type="file" name="media" id="media" class="hidden" accept="image/*">
+                        <button type="button" name="upload-btn">Upload</button>
+                        <input type="file" name="image" id="image-input" class="hidden" accept="image/*">
                     </div>
                     <div id="preview">
-                        <p>No file currently selected for upload</p>
                     </div>
+                </div>
+                <div data-tab="2" <?php showTab(2); ?>>
+                    <div class="file-select">
+                        <button type="button" name="upload-btn">Upload</button>
+                        <input type="file" name="video" id="video-input" class="hidden" accept="video/*">
+                    </div>
+                    <video class="hidden" controls></video>
                 </div>
             </div>
             <input type="hidden" name="tab" value="<?php echo $tab; ?>" id="tab-val">

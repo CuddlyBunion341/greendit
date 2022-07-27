@@ -1,30 +1,34 @@
-$(".post-tab").click(() => {
-	$(".post-tab").add("active");
-	$(".media-tab").remove("active");
-	$('.post-content [data-tab="0"]').remove("hidden");
-	$('.post-content [data-tab="1"]').add("hidden");
-	$('#tab-val').value("0");
-});
+// myquery does not support querySelectorAll yet...
+document.querySelectorAll(".tabs button").forEach(button => {
+	$(button).click(function(e) {
+		const parent = this.parentNode;
+		const children = [...parent.children];
+		children.forEach(sibling => sibling.classList.remove("active"));
+		this.classList.add("active");
+		const index = children.indexOf(this);
 
-$(".media-tab").click(() => {
-	$(".post-tab").remove("active");
-	$(".media-tab").add("active");
-	$('.post-content [data-tab="0"]').add("hidden");
-	$('.post-content [data-tab="1"]').remove("hidden");
-	$('#tab-val').value("1");
-});
+		const contents = document.querySelectorAll('.post-content > div');
+		contents.forEach(tab => tab.classList.add("hidden"));
+		contents[index].classList.remove("hidden");
 
-$("#upload").click(() => {
-	console.log("click");
-	$('#media').click();
+		$('#tab-val').value(index);
+	});
 })
 
-$("#media").on("change", () => {
+document.querySelectorAll('button[name="upload-btn"]').forEach(button => {
+	$(button).click(function(e) {
+		const parent = this.parentNode;
+		const input = parent.querySelector('input[type="file"]');
+		$(input).click();
+	});
+})
+
+$("#image-input").on("change", () => {
 	const preview = $("#preview").element;
 	while (preview.firstChild) {
 		preview.removeChild(preview.firstChild);
 	}
-	const input = $("#media").element;
+	const input = $("#image-input").element;
 	for (const file of input.files) {
 		const url = URL.createObjectURL(file);
 		const img = $.createElementFromHTML(`
@@ -46,3 +50,15 @@ $("#media").on("change", () => {
 		$(preview).append(img);
 	}
 });
+
+$("#video-input").on("change",function(e) {
+	this.parentNode.classList.add("hidden");
+	const file = this.files[0];
+	const url = URL.createObjectURL(file);
+
+	const video = this.parentNode.parentNode.querySelector('video');
+
+	video.classList.remove('hidden');
+	const source = $.createElementFromHTML(`<source src="${url}">`);
+	video.appendChild(source);
+})

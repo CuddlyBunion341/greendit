@@ -133,3 +133,8 @@ main {
     margin-bottom: 3px;
     font-weight: bold;
 }
+
+video {
+    max-width: 100%;
+    max-height: 600px;
+}
