@@ -37,6 +37,7 @@ main {
 }
 .like-count {
     text-align: center;
+    margin: 3px 0 3px 0;
 }
 .upvote,.downvote {
     position: relative;
@@ -47,9 +48,12 @@ main {
     width: 100%;
     height: 100%;
     position: absolute;
-    outline: 1px solid coral;
     top:0;
     left:0;
+}
+.upvote svg,
+.downvote svg {
+    float: left;
 }
 .upvote svg .cls-1,
 .downvote svg .cls-1 {
