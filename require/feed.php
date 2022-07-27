@@ -21,9 +21,11 @@
         }
         // ---- Media ----------------------------------------------------------------------------
         $title = $post['title'];
+        $disabled = '';
         if ($post['status'] == 'removed') {
             $title = '[Removed]';
             $content = '[Removed]';
+            $disabled = 'disabled';
         } else {
             $post_media = query('select * from post_media where post_id = ' . $post['post_id']);
             if (count($post_media) > 0) {
@@ -69,11 +71,11 @@
         <div class="post" data-hash="'.$post['hash'].'">
             <div class="left">
                 <div class="arrow-wrapper">
-                    <button name="upvote-btn" class="upvote'.($liked?' active':'').'">
+                    <button name="upvote-btn" class="upvote'.($liked?' active':'').'" '.$disabled.'>
                         '.file_get_contents('resources/upvote.svg').'
                     </button>
                     <span class="like-count">'.$totalLikes.'</span>
-                    <button name="downvote-btn" class="downvote'.($disliked?' active':'').'">
+                    <button name="downvote-btn" class="downvote'.($disliked?' active':'').'" '.$disabled.'>
                         '.file_get_contents('resources/upvote.svg').'
                     </button>
                 </div>
@@ -100,7 +102,13 @@
         $total_dislikes = rows('select * from comment_dislikes where comment_id=' . $comment['comment_id']);
         $likes = $total_likes - $total_dislikes;
         $liked = $disliked = 0;
-        $content = $comment['status'] == 'public' ? $comment['content'] : '[Removed]';
+        if ($comment['status'] == 'public') {
+            $content = $comment['content'];
+            $disabled = '';
+        } else {
+            $content = '[Removed]';
+            $disabled = 'disabled';
+        }
         if (isset($_SESSION['user_id'])) {
             $liked = rows('select * from comment_likes where comment_id=' . $comment['comment_id'] . ' and user_id=' . $_SESSION['user_id']);
             $disliked = rows('select * from comment_dislikes where comment_id=' . $comment['comment_id'] . ' and user_id=' . $_SESSION['user_id']);
@@ -117,11 +125,11 @@
             <p>'.$content.'</p>
             <div class="footer">
                 <div class="arrow-wrapper horizontal">
-                <button name="upvote-btn" class="upvote'.($liked?' active':'').'">
+                <button name="upvote-btn" class="upvote'.($liked?' active':'').'" '.$disabled.'>
                     '.file_get_contents('resources/upvote.svg').'
                 </button>
                 <span class="like-count">'.$likes.'</span>
-                <button name="downvote-btn" class="downvote'.($disliked?' active':'').'">
+                <button name="downvote-btn" class="downvote'.($disliked?' active':'').'" '.$disabled.'>
                     '.file_get_contents('resources/upvote.svg').'
                 </button>
                 </div>

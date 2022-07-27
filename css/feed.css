@@ -51,6 +51,7 @@ main {
     top:0;
     left:0;
 }
+
 .upvote svg,
 .downvote svg {
     float: left;
@@ -64,6 +65,16 @@ main {
 }
 .downvote.active svg .cls-1 {
     fill: #016965;
+}
+.upvote:disabled svg *,
+.downvote:disabled svg *  {
+    stroke: gray;
+    fill: #e0e0e0;
+}
+
+.upvote:disabled.active svg *,
+.downvote:disabled.active svg *  {
+    fill: #bfbfbf;
 }
 .upvote:hover {
     color: darkcyan;
