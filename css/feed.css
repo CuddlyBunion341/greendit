@@ -66,6 +66,10 @@ main {
 .downvote.active svg .cls-1 {
     fill: #016965;
 }
+.upvote:disabled,
+.downvote:disabled {
+    cursor: not-allowed !important;
+}
 .upvote:disabled svg *,
 .downvote:disabled svg *  {
     stroke: gray;

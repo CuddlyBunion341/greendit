@@ -115,6 +115,10 @@
         }
         $pfp = 'pfps/'.$user['username'];
         // $pfp = file_exists($pfp) ? $pfp : 'default_pfp'; // todo: fix
+        $resource_path = 'resources/';
+        if ($_SERVER['PHP_SELF'] == '/greendit/request/create_comment.php') {
+            $resource_path = '../'.$resource_path;
+        }
         echo '
         <div class="comment" data-hash="'.$comment['hash'].'" id="comment-'.$comment['hash'].'">
             <div class="header">
@@ -126,11 +130,11 @@
             <div class="footer">
                 <div class="arrow-wrapper horizontal">
                 <button name="upvote-btn" class="upvote'.($liked?' active':'').'" '.$disabled.'>
-                    '.file_get_contents('resources/upvote.svg').'
+                    '.file_get_contents($resource_path.'/upvote.svg').'
                 </button>
                 <span class="like-count">'.$likes.'</span>
                 <button name="downvote-btn" class="downvote'.($disliked?' active':'').'" '.$disabled.'>
-                    '.file_get_contents('resources/upvote.svg').'
+                '.file_get_contents($resource_path.'/upvote.svg').'
                 </button>
                 </div>
                 <button name="comment-btn" class="comment-btn">Reply</button>

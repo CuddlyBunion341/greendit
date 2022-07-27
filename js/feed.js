@@ -60,25 +60,6 @@ $("#feed").click(function (e) {
 		const post = target.closest(".comment-wrapper").dataset.hash;
 		const comment = target.closest(".comment");
 		if (target.closest(".create-comment")) {
-			const composer = target.closest(".create-comment");
-			const input = composer.querySelector(".comment-content");
-			const content = input.value;
-			const error = composer.querySelector(".error");
-			if (name == "comment-btn") {
-				$.post(
-					`request/create_comment.php?t=${Math.random()}`,
-					{ post, content },
-					(response, status) => {
-						if (status == 200) {
-							console.log(response);
-							const comment = $.createElementFromHTML(response);
-							wrapper.appendChild(comment);
-							input.value = "";
-						}
-						if (!status == 200) return console.error(response);
-					}
-				);
-			}
 		}
 		if (name == "share-btn") {
 			navigator.clipboard
@@ -94,7 +75,23 @@ $("#feed").click(function (e) {
 	}
 });
 
-$('.create-comment').on('submit', (e) => {
+$(".create-comment").on("submit", function(e) {
 	e.preventDefault();
-	console.log("WORLD!!");
-})
+	const wrapper = this.closest('.comment-wrapper');
+	const post = wrapper.dataset.hash;
+	const composer = this.closest(".create-comment");
+	const input = composer.querySelector(".comment-content");
+	const content = input.value;
+	$.post(
+		`request/create_comment.php?t=${Math.random()}`,
+		{ post, content },
+		(response, status) => {
+			if (status == 200) {
+				const comment = $.createElementFromHTML(response);
+				wrapper.appendChild(comment);
+				input.value = "";
+			}
+			if (!status == 200) return console.error(response);
+		}
+	);
+});

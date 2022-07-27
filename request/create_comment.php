@@ -15,7 +15,12 @@
             http_response_code(400);
             exit();
         }
-        $post_id = getField('select post_id from posts where hash = \'' . $_POST['post'] . '\'');
+        $comment = row('select * from posts where hash =\'' . $_POST['post'] . '\'');
+        $post_id = $comment['post_id'];
+        if ($comment['status'] == 'removed') {
+            http_response_code(400);
+            exit();
+        }
         $hash = random_string(6);
         // todo: test if hash is unique
         execute('insert into comments (user_id, post_id, content, hash) values ('.$user_id.', '.$post_id.', \''.$content.'\', \''.$hash.'\')');
