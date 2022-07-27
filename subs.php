@@ -47,7 +47,7 @@
     <div id="feed">
         <?php
             require 'require/feed.php';
-            if (!isset($_GET['post']) && !isset($_GET['comment'])) {
+            if (!isset($_GET['post'])) {
                 // show all posts
                 if (isset($_SESSION['user_id'])) {
                     echo '
@@ -73,13 +73,14 @@
                     if (!$post) {
                         echo 'Post not found :/';
                     }
-                } else if (isset($_GET['comment'])) {
-                    $comment = row('select * from comments where hash = \'' . $_GET['comment'] . '\'');
-                    if (!$comment) {
-                        echo 'Comment not found :/';
-                    }
-                    $post = row('select * from posts where post_id = ' . $comment['post_id']);
                 }
+                // } else if (isset($_GET['comment'])) {
+                //     $comment = row('select * from comments where hash = \'' . $_GET['comment'] . '\'');
+                //     if (!$comment) {
+                //         echo 'Comment not found :/';
+                //     }
+                //     $post = row('select * from posts where post_id = ' . $comment['post_id']);
+                // }
                 if ($post) {
                     postHTML($post,false);
                     $comments = query('select * from comments where post_id = ' . $post['post_id']);
@@ -104,6 +105,16 @@
                         echo '<p>No comments yet.</p>';
                     }
                     echo '</div>';
+                    if (isset($_GET['comment'])) {
+                        echo '
+                        <script>
+                            document.addEventListener("DOMContentLoaded",() => {
+                                const comment = document.querySelector("#comment-'.$_GET['comment'].'");
+                                comment.scrollIntoView();
+                            });
+                        </script>
+                        ';
+                    }
                 }
             }
         ?>

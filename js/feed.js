@@ -59,6 +59,7 @@ $("#feed").click(function (e) {
 	} else if (target.closest(".comment-wrapper")) {
 		const wrapper = target.closest(".comment-wrapper");
 		const post = target.closest(".comment-wrapper").dataset.hash;
+		const comment = target.closest(".comment");
 		if (target.closest(".create-comment")) {
 			const composer = target.closest(".create-comment");
 			const textarea = composer.querySelector(".comment-content");
@@ -82,6 +83,13 @@ $("#feed").click(function (e) {
 					}
 				);
 			}
+		}
+		if (name == "share-btn") {
+			navigator.clipboard.writeText(
+				`${window.location.host}/greendit/subs/main/posts/${post}/comment/${comment.dataset.hash}`
+			)
+			.then(() => alert("comment url copied to clipboard!"))
+			.catch(() => alert("something went wrong..."));
 		}
 		if (parent.classList == "upvote" || parent.classList == "downvote") {
 			upvote(parent);

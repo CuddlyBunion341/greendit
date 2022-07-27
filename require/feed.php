@@ -98,7 +98,7 @@
         $pfp = 'pfps/'.$user['username'];
         // $pfp = file_exists($pfp) ? $pfp : 'default_pfp'; // todo: fix
         echo '
-        <div class="comment" data-hash="'.$comment['hash'].'">
+        <div class="comment" data-hash="'.$comment['hash'].'" id="comment-'.$comment['hash'].'">
             <div class="header">
                 <a href="users/'.$user['username'].'">
                     <img src="resources/'.$pfp.'.png" class="user-pfp">'. $user['username'] . '
