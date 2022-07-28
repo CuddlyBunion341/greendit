@@ -47,7 +47,7 @@
     if ($toggle == -1) {
         $message = $conn -> error;
     } else {
-        $message = ($toggle==0?'un':'').'saved '.(isset($_POST['post'])?'post':'comment').' with hash = ' . $hash;
+        $message = ($toggle==1?'un':'').'saved '.(isset($_POST['post'])?'post':'comment').' with hash = ' . $hash;
     }
     $response['message'] = $message;
 

@@ -36,6 +36,38 @@ function upvote(button) {
 		}
 	);
 }
+/**
+ * Saves / Unsaves a post or comment
+ * @param {HTMLElement} button 
+ */
+function save(button) {
+	var isPost, container;
+	if ((container = button.closest(".post"))) {
+		isPost = true;
+	} else {
+		container = button.closest(".comment");
+		isPost = false;
+	}
+	const hash = container.dataset.hash;
+	const data = {};
+	data[isPost ? "post" : "comment"] = hash;
+	$.post(
+		"request/save.php?t=" + Math.random(),
+		data,
+		(response, status) => {
+			if (status == 401)  {
+				return alert("Please login!");
+			} else if (status != 200) {
+				return alert("Unknown Error");
+			}
+			console.log(response);
+			response = JSON.parse(response);
+			const {toggle,message} = response;
+			if (toggle == -1) console.error(message);
+			else button.classList.toggle("active");
+		}
+	)
+}
 $("#feed").click(function (e) {
 	const target = e.target;
 	const name = target.getAttribute("name");
@@ -55,12 +87,12 @@ $("#feed").click(function (e) {
 				.then(() => alert("post url copied to clipboard!"))
 				.catch(() => alert("something went wrong..."));
 		}
+		if (name == "save-btn") {
+			return save(target);
+		}
 	} else if (target.closest(".comment-wrapper")) {
-		const wrapper = target.closest(".comment-wrapper");
 		const post = target.closest(".comment-wrapper").dataset.hash;
 		const comment = target.closest(".comment");
-		if (target.closest(".create-comment")) {
-		}
 		if (name == "share-btn") {
 			navigator.clipboard
 				.writeText(
@@ -71,6 +103,9 @@ $("#feed").click(function (e) {
 		}
 		if (name == "upvote-btn" || name == "downvote-btn") {
 			upvote(target);
+		}
+		if (name == "save-btn") {
+			return save(target);
 		}
 	}
 });
@@ -87,6 +122,8 @@ $(".create-comment")?.on("submit", function(e) {
 		{ post, content },
 		(response, status) => {
 			if (status == 200) {
+				const p = document.querySelector('.comment-wrapper > p');
+				if (p) wrapper.removeChild(p);
 				const comment = $.createElementFromHTML(response);
 				wrapper.appendChild(comment);
 				input.value = "";

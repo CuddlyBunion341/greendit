@@ -19,6 +19,9 @@
             $liked = rows('select * from post_likes where post_id=' . $post['post_id'] . ' and user_id=' . $_SESSION['user_id']);
             $disliked = rows('select * from post_dislikes where post_id=' . $post['post_id'] . ' and user_id=' . $_SESSION['user_id']);
         }
+        // ---- Saved ----------------------------------------------------------------------------
+        $saved = rows('select * from saved_posts where post_id='.$post['post_id'].' and user_id='.$_SESSION['user_id']);
+        $save_active = $saved > 0 ? ' active' : '';
         // ---- Media ----------------------------------------------------------------------------
         $title = $post['title'];
         $disabled = '';
@@ -88,9 +91,8 @@
                 '.$content.'
                 <div class="footer">
                     <button name="comment-btn" class="comment-btn">' . $comments . ' comments</button>
-                    <button name="save-btn" class="save-btn">Save</button>
+                    <button name="save-btn" class="save-btn'.$save_active.'"></button>
                     <button name="share-btn" class="share-btn">Share</button>
-                    <button name="report-btn" class="report-btn">Report</button>
                 </div>  
             </div>
         </div>
@@ -115,6 +117,8 @@
             $liked = rows('select * from comment_likes where comment_id=' . $comment['comment_id'] . ' and user_id=' . $_SESSION['user_id']);
             $disliked = rows('select * from comment_dislikes where comment_id=' . $comment['comment_id'] . ' and user_id=' . $_SESSION['user_id']);
         }
+        $saved = rows('select * from saved_comments where user_id=' . $comment['user_id'] . ' and comment_id='. $comment['comment_id']);
+        $save_active = $saved > 0 ? ' active' : '';
         $pfp = 'pfps/'.$user['username'];
         // $pfp = file_exists($pfp) ? $pfp : 'default_pfp'; // todo: fix
         $resource_path = 'resources/';
@@ -140,9 +144,8 @@
                 </button>
                 </div>
                 <button name="comment-btn" class="comment-btn">Reply</button>
-                <button name="save-btn" class="save-btn">Save</button>
+                <button name="save-btn" class="save-btn'.$save_active.'"></button>
                 <button name="share-btn" class="share-btn">Share</button>
-                <button name="report-btn" class="report-btn">Report</button>
             </div>
         </div>
         ';

@@ -129,6 +129,12 @@ main {
 .post video {
     min-width: 100%;
 }
+.save-btn::after {
+    content: 'Save';
+}
+.save-btn.active::after {
+    content: 'Unsave';
+}
 /* ---- Community ------------------------------------------------------------------------ */
 .community {
     border-bottom: 1px solid #cdcdcd;

@@ -55,11 +55,11 @@
 
     function toggle($query, $insert, $delete) {
         if (rows($query) == 0) {
-            if (execute($delete)) {
+            if (execute($insert)) {
                 return 0;
             };
         } else {
-            if (execute($insert)) {
+            if (execute($delete)) {
                 return 1;
             };
         }
