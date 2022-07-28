@@ -1,39 +1,53 @@
 <?php
     if (!isset($_SESSION)) session_start();
-    if (!isset($conn)) require_once 'require/db_connect.php'; // todo: refactor this line to work with requests
-    function postHTML($post, $show_community = true, $show_user = true) {
-        $user = row('select * from users where user_id=' . $post['user_id']);
-        $community = row('select * from communities where community_id=' . $post['community_id']);
-        $comments = rows('select * from comments where post_id=' . $post['post_id']);
-        $likes = rows('select * from post_likes where post_id=' . $post['post_id']);
-        $dislikes = rows('select * from post_dislikes where post_id=' . $post['post_id']);
-        $totalLikes = $likes - $dislikes;
-        // ---- Date -----------------------------------------------------------------------------
-        $date = $post['created_at'];
+    if (!isset($conn)) require_once __DIR__.'/db_connect.php';
+    function getPostData($post) {
+        extract($post);
+        // ---- Objects --------------------------------------------------------------------------
+        $user = row('select * from users where user_id='.$user_id);
+        $community = row('select * from communities where community_id='.$community_id);
+        $media = query('select * from post_media where post_id='.$post_id);
+        // ---- Stats ----------------------------------------------------------------------------
+        $comments = rows('select * from comments where post_id='.$post_id);
+        $likes = rows('select * from post_likes where post_id='.$post_id);
+        $dislikes = rows('select * from post_dislikes where post_id='.$post_id);
+        $total_likes = $likes - $dislikes;
+        $date = $created_at;
         $datediff = time() - strtotime($date);
         $date = round($datediff / (60 * 60 * 24));
-        // ---- likes / dislikes -----------------------------------------------------------------
-        $liked = 0;
-        $disliked = 0;
+        // ---- User data ------------------------------------------------------------------------
+        $liked = $disliked = $saved = false;
         if (isset($_SESSION['user_id'])) {
-            $liked = rows('select * from post_likes where post_id=' . $post['post_id'] . ' and user_id=' . $_SESSION['user_id']);
-            $disliked = rows('select * from post_dislikes where post_id=' . $post['post_id'] . ' and user_id=' . $_SESSION['user_id']);
+            $session_user = $_SESSION['user_id'];
+            $liked = exists("select * from post_likes where post_id=$post_id and user_id=$session_user");
+            $disliked = exists("select * from post_dislikes where post_id=$post_id and user_id=$session_user");
+            $saved = exists("select * from saved_posts where post_id=$post_id and user_id=$session_user");
         }
-        // ---- Saved ----------------------------------------------------------------------------
-        $save_active = '';
-        if (isset($_SESSION['user_id'])) {
-            $saved = rows('select * from saved_posts where post_id='.$post['post_id'].' and user_id='.$_SESSION['user_id']);
-            $save_active = $saved > 0 ? ' active' : '';
-        }
-        // ---- Media ----------------------------------------------------------------------------
-        $title = $post['title'];
-        $disabled = '';
-        if ($post['status'] == 'removed') {
+        return array(
+            'username' => $user['username'],
+            'sub' => $community['shortname'],
+            'removed' => $status == 'removed',
+            'hash' => $hash,
+            'title' => $title,
+            'content' => $content,
+            'media' => $media,
+            'likes' => $total_likes,
+            'comments' => $comments,
+            'date' => $created_at,
+            'days' => $date,
+            'liked' => $liked,
+            'disliked' => $disliked,
+            'saved' => $saved
+        );
+    }
+    function postHTML($post, $show_community = true, $show_user = true) {
+        $post_data = getPostData($post);
+        extract($post_data);
+        if ($removed) {
             $title = '[Removed]';
             $content = '[Removed]';
-            $disabled = 'disabled';
         } else {
-            $post_media = query('select * from post_media where post_id = ' . $post['post_id']);
+            $post_media = $media;
             if (count($post_media) > 0) {
                 $file_name = $post_media[0]['file_name'];
                 $extension = explode('.',$file_name)[1];
@@ -57,36 +71,25 @@
                     </div>
                     ';
                 }
-            } else {
-                // text content
-                $content = '<p>'.$post['content'].'</p>';
             }
         }
         // ---- Post header ----------------------------------------------------------------------
         $post_head = '<div class="head">';
         if ($show_community) {
             if (!$show_user) $post_head .= 'posted in ';
-            $post_head .= '<a href="subs/'.$community['shortname'].'">s/'.$community['shortname'].'</a>&nbsp;';
+            $post_head .= '<a href="subs/'.$sub.'">s/'.$sub.'</a>&nbsp;';
         }
         if ($show_user) {
             $post_head .= 'posted by
-            <a href="users/'.$user['username'].'">
-            u/'. $user['username'] . '
+            <a href="users/'.$username.'">
+            u/'. $username . '
             </a>';
         }
         $post_head .= $date . ' day(s) ago </div>';
         echo '
-        <div class="post" data-hash="'.$post['hash'].'">
+        <div class="post" data-hash="'.$hash.'">
             <div class="left">
-                <div class="arrow-wrapper">
-                    <button name="upvote-btn" class="upvote'.($liked?' active':'').'" '.$disabled.'>
-                        '.file_get_contents('resources/upvote.svg').'
-                    </button>
-                    <span class="like-count">'.$totalLikes.'</span>
-                    <button name="downvote-btn" class="downvote'.($disliked?' active':'').'" '.$disabled.'>
-                        '.file_get_contents('resources/upvote.svg').'
-                    </button>
-                </div>
+                '.arrow_wrapper($liked,$disliked,$likes,false,$removed).'
             </div>
             <div class="right">
                 '.$post_head.'
@@ -94,7 +97,7 @@
                 '.$content.'
                 <div class="footer">
                     <button name="comment-btn" class="comment-btn">' . $comments . ' comments</button>
-                    <button name="save-btn" class="save-btn'.$save_active.'"></button>
+                    <button name="save-btn" class="save-btn'.activeClass($saved).'"></button>
                     <button name="share-btn" class="share-btn">Share</button>
                 </div>  
             </div>
@@ -111,17 +114,17 @@
         $liked = $disliked = 0;
         if ($comment['status'] == 'public') {
             $content = $comment['content'];
-            $disabled = '';
+            $disabled = false;
         } else {
             $content = '[Removed]';
-            $disabled = 'disabled';
+            $disabled = true;
         }
         if (isset($_SESSION['user_id'])) {
             $liked = rows('select * from comment_likes where comment_id=' . $comment['comment_id'] . ' and user_id=' . $_SESSION['user_id']);
             $disliked = rows('select * from comment_dislikes where comment_id=' . $comment['comment_id'] . ' and user_id=' . $_SESSION['user_id']);
         }
         $saved = rows('select * from saved_comments where user_id=' . $comment['user_id'] . ' and comment_id='. $comment['comment_id']);
-        $save_active = $saved > 0 ? ' active' : '';
+        $save_active = $saved > 0 ? ' activeClass' : '';
         $pfp = 'pfps/'.$user['username'];
         // $pfp = file_exists($pfp) ? $pfp : 'default_pfp'; // todo: fix
         $resource_path = 'resources/';
@@ -137,15 +140,7 @@
             </div>
             <p>'.$content.'</p>
             <div class="footer">
-                <div class="arrow-wrapper horizontal">
-                <button name="upvote-btn" class="upvote'.($liked?' active':'').'" '.$disabled.'>
-                    '.file_get_contents($resource_path.'/upvote.svg').'
-                </button>
-                <span class="like-count">'.$likes.'</span>
-                <button name="downvote-btn" class="downvote'.($disliked?' active':'').'" '.$disabled.'>
-                '.file_get_contents($resource_path.'/upvote.svg').'
-                </button>
-                </div>
+                '.arrow_wrapper($liked,$disliked,$likes,true,$disabled).'
                 <button name="comment-btn" class="comment-btn">Reply</button>
                 <button name="save-btn" class="save-btn'.$save_active.'"></button>
                 <button name="share-btn" class="share-btn">Share</button>
@@ -153,4 +148,28 @@
         </div>
         ';
     }
-?>
+    function activeClass($bool,$class='active') {
+        if ($bool) {
+            return ' '.$class;
+        }
+        return '';
+    }
+    function arrow_wrapper($liked=false,$disliked=false,$count=0,$horizontal=false,$disabled=false) {
+        return '
+        <div class="arrow-wrapper'.activeClass($horizontal,'horizontal').'">
+            <button name="upvote-btn" class="upvote'.activeClass($liked).'" '.activeClass($disabled,'disabled').'>
+                '.file_get_contents(__DIR__.'/../resources/upvote.svg').'
+            </button>
+            <span class="like-count">
+                '.$count.'
+            </span>
+            <button name="downvote-btn" class="downvote'.activeClass($disliked).'" '.activeClass($disabled,'disabled').'>
+                '.file_get_contents(__DIR__.'/../resources/upvote.svg').'
+            </button>
+        </div>
+        ';
+
+    }
+    function overview_post($post) {
+
+    }

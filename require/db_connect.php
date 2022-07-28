@@ -53,6 +53,10 @@
         return $result->fetch_assoc();
     }
 
+    function exists($sql) {
+        return rows($sql) > 0;
+    }
+
     function toggle($query, $insert, $delete) {
         if (rows($query) == 0) {
             if (execute($insert)) {
