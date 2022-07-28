@@ -20,8 +20,11 @@
             $disliked = rows('select * from post_dislikes where post_id=' . $post['post_id'] . ' and user_id=' . $_SESSION['user_id']);
         }
         // ---- Saved ----------------------------------------------------------------------------
-        $saved = rows('select * from saved_posts where post_id='.$post['post_id'].' and user_id='.$_SESSION['user_id']);
-        $save_active = $saved > 0 ? ' active' : '';
+        $save_active = '';
+        if (isset($_SESSION['user_id'])) {
+            $saved = rows('select * from saved_posts where post_id='.$post['post_id'].' and user_id='.$_SESSION['user_id']);
+            $save_active = $saved > 0 ? ' active' : '';
+        }
         // ---- Media ----------------------------------------------------------------------------
         $title = $post['title'];
         $disabled = '';
