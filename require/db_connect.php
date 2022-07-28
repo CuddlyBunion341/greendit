@@ -25,7 +25,10 @@
     function execute($sql) {
         global $conn;
         $result = $conn->query($sql);
-        if (!$result) printSqlErr($sql);
+        if (!$result) {
+            printSqlErr($sql);
+            return false;
+        }
         return $result;
     }
 
@@ -48,5 +51,18 @@
         $result = $conn->query($sql);
         if (!$result) printSqlErr($sql);
         return $result->fetch_assoc();
+    }
+
+    function toggle($query, $insert, $delete) {
+        if (rows($query) == 0) {
+            if (execute($delete)) {
+                return 0;
+            };
+        } else {
+            if (execute($insert)) {
+                return 1;
+            };
+        }
+        return -1;
     }
 ?>
