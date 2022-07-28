@@ -24,7 +24,7 @@ main {
     display: flex;
 }
 .post h2 {
-    margin-bottom: 0;
+    margin-bottom: 5px;
     margin-top: 0;
     font-size: 20px;
 }
@@ -97,6 +97,7 @@ main {
 .right {
     padding: 4px;
     padding-right: 10px;
+    padding-left: 10px;
     width: 100%;
 }
 .post .head {
@@ -113,15 +114,20 @@ main {
 .post .footer {
     margin-top: 5px;
 }
-.image-collage {
+.image-collage,
+.video-container {
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.image-collage img {
+.image-collage img,
+.post video {
      max-width: 100%;
      max-height: 512px;
      object-fit: contain;
+}
+.post video {
+    min-width: 100%;
 }
 /* ---- Community ------------------------------------------------------------------------ */
 .community {

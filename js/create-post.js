@@ -23,12 +23,30 @@ document.querySelectorAll('button[name="upload-btn"]').forEach(button => {
 	});
 })
 
+$('button[name="remove-btn"]').click(function(e) {
+	const parent = this.parentNode;
+	const video = parent.querySelector('video');
+	$(this).add("hidden");
+	video.classList.add("hidden");
+	while (video.firstChild) {
+		video.removeChild(video.firstChild);
+	}
+	// clear files
+	const input = parent.querySelector('input[type="file"]');
+	const dt = new DataTransfer();
+	input.files = dt.files;
+	// show video selection
+	input.parentNode.classList.remove("hidden");
+});
+
 $("#image-input").on("change", () => {
 	const preview = $("#preview").element;
 	while (preview.firstChild) {
 		preview.removeChild(preview.firstChild);
 	}
 	const input = $("#image-input").element;
+	if (input.files.length == 0) $(preview).add("hidden");
+	else $(preview).remove("hidden");
 	for (const file of input.files) {
 		const url = URL.createObjectURL(file);
 		const img = $.createElementFromHTML(`
@@ -45,6 +63,10 @@ $("#image-input").on("change", () => {
 				if (file != f) dt.add(f);
 			}
 
+			if (dt.files.length == 0) {
+				$(preview).add("hidden");
+			}
+
 			input.files = dt.files;
 		})
 		$(preview).append(img);
@@ -59,6 +81,7 @@ $("#video-input").on("change",function(e) {
 	const video = this.parentNode.parentNode.querySelector('video');
 
 	video.classList.remove('hidden');
+	$('button[name="remove-btn"]').remove("hidden");
 	const source = $.createElementFromHTML(`<source src="${url}">`);
 	video.appendChild(source);
 })

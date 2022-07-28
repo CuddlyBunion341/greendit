@@ -42,11 +42,13 @@
                     $content .= '</div>';
                 } else if (in_array($extension, $video_extensions)) {
                     // todo: create functional video player
-                    echo '
-                    <video width="XXX" height="XXX">
-                        <source src="resources/uploads/fullres/' . $post_media[0]['file_name'] . '" type="XXX">
-                        Your browser does not support the video tag.
-                    </video>
+                    $content = '
+                    <div class="video-container">
+                        <video controls>
+                            <source src="resources/uploads/' . $post_media[0]['file_name'] . '">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
                     ';
                 }
             } else {
@@ -83,7 +85,7 @@
             <div class="right">
                 '.$post_head.'
                 <h2>' . $title . '</h2>
-                <p>'.$content.'</p>
+                '.$content.'
                 <div class="footer">
                     <button name="comment-btn" class="comment-btn">' . $comments . ' comments</button>
                     <button name="save-btn" class="save-btn">Save</button>

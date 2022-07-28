@@ -2,7 +2,7 @@
 <?php
     require_once 'require/uuid.php';
     $tab = 0;
-    function create_post($title, $community, $body, $tab, $file, $user_id) {
+    function create_post($title, $community, $body, $tab, $image, $video, $user_id) {
         if (empty($title)) return 'Title must not be empty';
         $community_id = getField('select community_id from communities where shortname = \'' . $community . '\'');
         if (empty($community_id)) return 'Please select a community';
@@ -11,10 +11,20 @@
             if (empty($body)) return 'Post content must not be empty';
         }
         if ($tab == 1) {
-            if ($file['error'] != 0) return 'Attachments cannot be empty';
+            if ($image['error'] != 0) return 'Attachments cannot be empty';
             $valid_extensions = array('png','jpg','gif','tiff','bmp','webp');
-            $extension = pathinfo($file['name'])['extension'];
+            $extension = pathinfo($image['name'])['extension'];
             if (!(in_array($extension,$valid_extensions))) return 'Uploads must be images';
+        }
+        if ($tab == 2) {
+            if ($video['error'] != 0) return 'Attached video cannot be empty';
+            $valid_extensions = array('mov','mp4','avi','wmv','mp2');
+            echo var_dump($video);
+            echo '<br>';
+            echo '<br>';
+            echo var_dump(pathinfo($video['name']));
+            $extension = pathinfo($video['name'])['extension'];
+            if (!(in_array($extension,$valid_extensions))) return 'Upload must be a video';
         }
         do {
             $hash = random_string(6);
@@ -23,7 +33,8 @@
             insert into posts (title, content, user_id, community_id, hash) 
             values ('$title', '$body', $user_id, $community_id, '$hash')";
         if (execute($sql) !== TRUE) return 'SQL Error';
-        if ($tab == 1) {
+        if ($tab == 1 || $tab == 2) {
+            $file = $tab == 1 ? $image : $video;
             $post_id = getField('select post_id from posts where hash = \'' . $hash . '\'');
             add_attachments($post_id, $file);
         }
@@ -71,7 +82,8 @@
                 get('sub'),
                 get('content'),
                 $tab,
-                $_FILES['image'],
+                isset($_FILES['image']) ? $_FILES['image'] : array('error' => 1),
+                isset($_FILES['video']) ? $_FILES['video'] : array('error' => 1),
                 $_SESSION['user_id']
             );
         }
@@ -122,7 +134,7 @@
                         <button type="button" name="upload-btn">Upload</button>
                         <input type="file" name="image" id="image-input" class="hidden" accept="image/*">
                     </div>
-                    <div id="preview">
+                    <div id="preview" class="hidden">
                     </div>
                 </div>
                 <div data-tab="2" <?php showTab(2); ?>>
@@ -131,6 +143,7 @@
                         <input type="file" name="video" id="video-input" class="hidden" accept="video/*">
                     </div>
                     <video class="hidden" controls></video>
+                    <button name="remove-btn" type="button" class="hidden">Remove</button>
                 </div>
             </div>
             <input type="hidden" name="tab" value="<?php echo $tab; ?>" id="tab-val">
