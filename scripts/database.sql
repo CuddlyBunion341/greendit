@@ -136,7 +136,7 @@ create table if not exists followers (
 );
 
 create table if not exists joined_communities (
-    link_id int not null,
+    link_id int not null auto_increment,
     user_id int not null,
     community_id int not null,
     primary key (link_id),

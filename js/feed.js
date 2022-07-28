@@ -60,7 +60,6 @@ function save(button) {
 			} else if (status != 200) {
 				return alert("Unknown Error");
 			}
-			console.log(response);
 			response = JSON.parse(response);
 			const {toggle,message} = response;
 			if (toggle == -1) console.error(message);
@@ -131,4 +130,26 @@ $(".create-comment")?.on("submit", function(e) {
 			if (!status == 200) return console.error(response);
 		}
 	);
+});
+
+$(".join-btn")?.click(function(e) {
+	const subName = this.dataset.name;
+	$.post(
+		"request/join.php?t=" + Math.random(),
+		{name: subName},
+		(response,status) => {
+			if (status == 401) {
+				return alert("Please login!");
+			} else if (status != 200) {
+				return alert("Unknown Error");
+			}
+			response = JSON.parse(response);
+			const {toggle,message} = response;
+			if (toggle == -1) return console.error(message);
+			this.classList.toggle("active");
+			const increment = toggle == 0 ? 1 : -1;
+			const span = $("span#members").element;
+			span.innerHTML = Number(span.innerHTML) + increment;
+		}
+	)
 });

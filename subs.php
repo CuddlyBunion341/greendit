@@ -20,6 +20,8 @@
     }
     $posts = rows('select * from posts where community_id = ' . $community['community_id']);
     $users = rows('select * from joined_communities where community_id = ' . $community['community_id']);
+    $joined = rows('select * from joined_communities where community_id = ' . $community['community_id'] . ' and user_id = ' . $_SESSION['user_id']);
+    $join_active = $joined > 0 ? ' active' : '';
     echo '
     <div class="community-header">
         <img class="community-background" src="resources/community.png" alt="">
@@ -28,6 +30,7 @@
             <div class="community-banner-main">
                 <div class="top">
                     <h2>' . $community['name'] . '</h2>
+                    <button class="join-btn'.$join_active.'" name="join-btn" data-name="'.$community['shortname'].'"></button>
                 </div>
                 <a href="subs/' . $community['shortname'] . '">s/' . $community['shortname'] . '</a>
             </div>
@@ -36,7 +39,7 @@
             <div class="community-stats">
                 <p>Created ' . $community['created_at'] . '</p>
                 <p>' . $posts . ' '.plural('post',$posts).'</p>
-                <p>' . $users . ' '.plural('member',$users).'</p>
+                <p><span id="members">' . $users . '</span> '.plural('member',$users).'</p>
             </div>
         </div>
     </div>
@@ -74,13 +77,6 @@
                         echo 'Post not found :/';
                     }
                 }
-                // } else if (isset($_GET['comment'])) {
-                //     $comment = row('select * from comments where hash = \'' . $_GET['comment'] . '\'');
-                //     if (!$comment) {
-                //         echo 'Comment not found :/';
-                //     }
-                //     $post = row('select * from posts where post_id = ' . $comment['post_id']);
-                // }
                 if ($post) {
                     postHTML($post,false);
                     $comments = query('select * from comments where post_id = ' . $post['post_id']);
