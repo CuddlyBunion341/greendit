@@ -52,7 +52,7 @@
         ';
     }
 
-    $tabs = array('overview','posts','comments','likes');
+    $tabs = array('overview','posts','comments','likes','followers');
     $tab_index = isset($_GET['tab']) ? array_search($_GET['tab'],$tabs) : 0;
 
     function active($index) {
@@ -68,6 +68,7 @@
         <a'.active(1).'href="users/'.$user['username'].'/posts">Posts</a>
         <a'.active(2).'href="users/'.$user['username'].'/comments">Comments</a>
         <a'.active(3).'href="users/'.$user['username'].'/likes">Likes</a>
+        <a'.active(4).'href="users/'.$user['username'].'/followers">Followers</a>
     </nav>
     <div id="feed" class="ignore-css">
     ';
@@ -92,17 +93,28 @@
     }
 
     if ($tab_index == 3) {
-        $sql = '
-        select *
-        from post_likes
-        inner join posts on posts.post_id = post_likes.post_id
-        where post_likes.user_id = ' . $user['user_id'] . ';';
-        $liked_posts = query($sql);
+        $liked_posts = query('
+            select * from post_likes
+            inner join posts on posts.post_id = post_likes.post_id
+            where post_likes.user_id = ' . $user['user_id']);
         foreach ($liked_posts as $post) {
             postHTML($post,true,true);
         }
         if (!$liked_posts) {
             echo '<p>No likes yet!</p>';
+        }
+    }
+
+    if ($tab_index == 4) {
+        $followers = query('
+            select follower_id,users.username from followers
+            inner join users on users.user_id = followers.follower_id
+            where followers.user_id = ' . $user['user_id']);
+        foreach ($followers as $follower) {
+            echo '<p>'.$follower['username'].'</p>';
+        }
+        if (!$followers) {
+            echo '<p>No followers yet!</p>';
         }
     }
 ?>

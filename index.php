@@ -16,7 +16,7 @@
         $communities = query('
             select name, shortname, count(post_id) as num_posts from communities 
             inner join posts on communities.community_id = posts.community_id 
-            group by communities.community_id limit 10');
+            group by communities.community_id order by num_posts desc limit 10');
         if (count($communities)) {
             foreach($communities as $community) {
                 $community_name = $community['name'];
@@ -46,7 +46,7 @@
         $users = query('
             select username, count(post_id) as num_posts from users 
             inner join posts on users.user_id = posts.user_id 
-            group by users.user_id limit 10');
+            group by users.user_id order by num_posts desc limit 10');
         if (count($users) > 0) {
             foreach($users as $user) {
                 $username = $user['username'];
