@@ -11,7 +11,7 @@
     <h2>Trending communities</h2>
     <?php
         require_once 'require/db_connect.php';
-        $sql = 'select * from communities limit 5';
+        $sql = 'select * from communities limit 10';
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {

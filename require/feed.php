@@ -40,6 +40,33 @@
             'saved' => $saved
         );
     }
+    function getCommentData($comment) {
+        extract($comment);
+        // ---- Objects --------------------------------------------------------------------------
+        $user = row('select * from users where user_id='.$user_id);
+        // ---- Stats ----------------------------------------------------------------------------
+        $likes = rows('select * from comment_likes where comment_id='.$comment_id);
+        $dislikes = rows('select * from comment_dislikes where comment_id='.$comment_id);
+        $total_likes = $likes - $dislikes;
+        // ---- User data ------------------------------------------------------------------------
+        $liked = $disliked = $saved = false;
+        if (isset($_SESSION['user_id'])) {
+            $session_user = $_SESSION['user_id'];
+            $liked = exists("select * from comment_likes where comment_id=$comment_id and user_id=$session_user");
+            $disliked = exists("select * from comment_dislikes where comment_id=$comment_id and user_id=$session_user");
+            $saved = exists("select * from saved_comments where comment_id=$comment_id and user_id=$session_user");
+        }
+        return array(
+            'username' => $user['username'],
+            'content' => $content,
+            'removed' => $status == 'removed',
+            'hash' => $hash,
+            'likes' => $total_likes,
+            'liked' => $liked,
+            'disliked' => $disliked,
+            'saved' => $saved
+        );
+    }
     function postHTML($post, $show_community = true, $show_user = true) {
         $post_data = getPostData($post);
         extract($post_data);
@@ -85,7 +112,7 @@
             u/'. $username . '
             </a>';
         }
-        $post_head .= $date . ' day(s) ago </div>';
+        $post_head .= $days . ' day(s) ago </div>';
         echo '
         <div class="post" data-hash="'.$hash.'">
             <div class="left">
@@ -105,44 +132,24 @@
         ';
     }
     function commentHTML($comment) {
-        // user
-        $user = row('select * from users where user_id=' . $comment['user_id']);
-        // likes / dislikes
-        $total_likes = rows('select * from comment_likes where comment_id=' . $comment['comment_id']);
-        $total_dislikes = rows('select * from comment_dislikes where comment_id=' . $comment['comment_id']);
-        $likes = $total_likes - $total_dislikes;
-        $liked = $disliked = 0;
-        if ($comment['status'] == 'public') {
-            $content = $comment['content'];
-            $disabled = false;
-        } else {
+        $comment_data = getCommentData($comment);
+        extract($comment_data);
+        if ($removed) {
             $content = '[Removed]';
-            $disabled = true;
         }
-        if (isset($_SESSION['user_id'])) {
-            $liked = rows('select * from comment_likes where comment_id=' . $comment['comment_id'] . ' and user_id=' . $_SESSION['user_id']);
-            $disliked = rows('select * from comment_dislikes where comment_id=' . $comment['comment_id'] . ' and user_id=' . $_SESSION['user_id']);
-        }
-        $saved = rows('select * from saved_comments where user_id=' . $comment['user_id'] . ' and comment_id='. $comment['comment_id']);
-        $save_active = $saved > 0 ? ' activeClass' : '';
-        $pfp = 'pfps/'.$user['username'];
-        // $pfp = file_exists($pfp) ? $pfp : 'default_pfp'; // todo: fix
-        $resource_path = 'resources/';
-        if ($_SERVER['PHP_SELF'] == '/greendit/request/create_comment.php') {
-            $resource_path = '../'.$resource_path;
-        }
+        $pfp = 'resources/pfps/'.$username.'.png';
         echo '
-        <div class="comment" data-hash="'.$comment['hash'].'" id="comment-'.$comment['hash'].'">
+        <div class="comment" data-hash="'.$hash.'" id="comment-'.$hash.'">
             <div class="header">
-                <a href="users/'.$user['username'].'">
-                    <img src="resources/'.$pfp.'.png" class="user-pfp">'. $user['username'] . '
+                <a href="users/'.$username.'">
+                    <img src="'.$pfp.'" class="user-pfp">'. $username . '
                 </a>
             </div>
             <p>'.$content.'</p>
             <div class="footer">
-                '.arrow_wrapper($liked,$disliked,$likes,true,$disabled).'
+                '.arrow_wrapper($liked,$disliked,$likes,true,$removed).'
                 <button name="comment-btn" class="comment-btn">Reply</button>
-                <button name="save-btn" class="save-btn'.$save_active.'"></button>
+                <button name="save-btn" class="save-btn'.activeClass($saved).'"></button>
                 <button name="share-btn" class="share-btn">Share</button>
             </div>
         </div>
@@ -170,6 +177,4 @@
         ';
 
     }
-    function overview_post($post) {
-
-    }
+?>
