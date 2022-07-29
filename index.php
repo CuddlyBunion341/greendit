@@ -8,20 +8,20 @@
     <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dignissimos ex debitis veritatis magnam dolor ea esse,
         ratione iusto et aliquid sequi sint enim aspernatur facere tempore accusantium impedit quibusdam sunt!</p>
 
+    <div class="trends">
+    <div>
     <h2>Trending communities</h2>
     <?php
         require_once 'require/db_connect.php';
-        $sql = 'select * from communities limit 10';
-        $result = $conn->query($sql);
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                $community_id = $row['community_id'];
-                $community_name = $row['name'];
-                $sub_name = $row['shortname'];
-                $sql = 'select count(*) as num_posts from posts where community_id='.$community_id;
-                $result2 = $conn->query($sql);
-                $row2 = $result2->fetch_assoc();
-                $num_posts = $row2['num_posts'];
+        $communities = query('
+            select name, shortname, count(post_id) as num_posts from communities 
+            inner join posts on communities.community_id = posts.community_id 
+            group by communities.community_id limit 10');
+        if (count($communities)) {
+            foreach($communities as $community) {
+                $community_name = $community['name'];
+                $sub_name = $community['shortname'];
+                $num_posts = $community['num_posts'];
                 echo '
                     <div class="community">
                         <div class="community-pfp">
@@ -38,6 +38,37 @@
             echo "No communities found.";
         }
     ?>
+    </div>
+    <div>
+    <h2>Active users</h2>
+    <?php
+        require_once 'require/db_connect.php';
+        $users = query('
+            select username, count(post_id) as num_posts from users 
+            inner join posts on users.user_id = posts.user_id 
+            group by users.user_id limit 10');
+        if (count($users) > 0) {
+            foreach($users as $user) {
+                $username = $user['username'];
+                $num_posts = $user['num_posts'];
+                if ($num_posts > 0) {
+                    echo '
+                    <div class="community">
+                        <div class="community-pfp">
+                            <img src="resources/pfps/'.$username.'.png">
+                        </div>
+                        <div class="main">
+                            <a href="users/'.$username.'">'.$username.'</a>
+                            <p>'.$num_posts.' posts</p>
+                        </div>
+                    </div>
+                    ';
+                }
+            }
+        }
+    ?>
+    </div>
+    </div>
 
     <h2>Popular posts</h2>
     <div id="feed">
