@@ -207,6 +207,9 @@ main {
     padding-top: 0;
     padding-bottom: 5px;
 }
+.comment.highlighted {
+    background: #ececec;
+}
 .comment .header {
     margin-left: -20px;
 }

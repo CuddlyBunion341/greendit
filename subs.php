@@ -85,7 +85,9 @@
                         $username = $_SESSION['username'];
                         echo '
                             <form class="create-comment">
-                                <img src="resources/pfps/'.$username.'.png" alt="user" class="user-pfp">
+                                <a href="users/'.$username.'">
+                                    <img src="resources/pfps/'.$username.'.png" alt="user" class="user-pfp">
+                                </a>
                                 <input type="text" class="comment-content" placeholder="Write a comment..." rows="4">
                                 <button name="comment-btn" type="submit" name="submit" class="comment-btn">Post</button>
                             </form>
@@ -104,6 +106,7 @@
                         <script>
                             document.addEventListener("DOMContentLoaded",() => {
                                 const comment = document.querySelector("#comment-'.$_GET['comment'].'");
+                                comment.classList.add("highlighted");
                                 comment.scrollIntoView();
                             });
                         </script>

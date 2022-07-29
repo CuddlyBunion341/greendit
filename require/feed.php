@@ -44,6 +44,9 @@
         extract($comment);
         // ---- Objects --------------------------------------------------------------------------
         $user = row('select * from users where user_id='.$user_id);
+        $post = row('select * from posts where post_id='.$post_id);
+        $community = row('select * from communities where community_id='.$post['community_id']);
+        $post_author = row('select * from users where user_id='.$post['user_id']);
         // ---- Stats ----------------------------------------------------------------------------
         $likes = rows('select * from comment_likes where comment_id='.$comment_id);
         $dislikes = rows('select * from comment_dislikes where comment_id='.$comment_id);
@@ -61,6 +64,10 @@
             'content' => $content,
             'removed' => $status == 'removed',
             'hash' => $hash,
+            'sub' => $community['shortname'],
+            'post' => $post,
+            'title' => $post['title'],
+            'post_author' => $post_author['username'],
             'likes' => $total_likes,
             'liked' => $liked,
             'disliked' => $disliked,
@@ -182,26 +189,43 @@
         if ($removed) return;
 
         echo  '
-            <div class="post overview" data-hash="'.$hash.'">
-                <div class="left">
-                    '.arrow_wrapper($liked,$disliked,$likes).'
+        <div class="post overview" data-hash="'.$hash.'">
+            <div class="left">
+                '.arrow_wrapper($liked,$disliked,$likes).'
+            </div>
+            <div class="thumb">
+                <i class="fa-solid fa-align-justify"></i>
+            </div>
+            <div class="right">
+                <div class="head">
+                    posted in <a href="subs/'.$sub.'">s/'.$sub.'</a>
+                    '.$days.' day(s) ago
                 </div>
-                <div class="thumb">
-                    <i class="fa-solid fa-align-justify"></i>
-                </div>
-                <div class="right">
-                    <div class="head">
-                        posted in <a href="subs/'.$sub.'">s/'.$sub.'</a>
-                        '.$days.' day(s) ago
-                    </div>
-                    <h2>'.$title.'</h2>
-                    <div class="footer">
-                        <button name="comment-btn" class="comment-btn">'.$comments.' comments</button>
-                        <button name="save-btn" class="save-btn'.activeClass($saved).'"></button>
-                        <button name="share-btn" class="share-btn">Share</button>
-                    </div>
+                <h2>'.$title.'</h2>
+                <div class="footer">
+                    <button name="comment-btn" class="comment-btn">'.$comments.' comments</button>
+                    <button name="save-btn" class="save-btn'.activeClass($saved).'"></button>
+                    <button name="share-btn" class="share-btn">Share</button>
                 </div>
             </div>
+        </div>
+        ';
+    }
+    function overviewCommentHTML($comment) {
+        $comment_data = getCommentData($comment);
+        extract($comment_data);
+        if ($removed) return;
+
+        echo '
+        <div class="comment overview" data-hash="'.$hash.'">
+            <div class="header">
+                <a href="users/'.$username.'">'.$username.'</a>
+                commented on <a href="subs/'.$sub.'/posts/'.$post['hash'].'">'.$title.'</a> 
+                <a href="subs/'.$sub.'">s/'.$sub.'</a>
+                Posted by <a href="u/'.$post_author.'">'.$post_author.'</a>
+            </div>
+            <p>'.$content.'</p>
+        </div>
         ';
     }
 ?>

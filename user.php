@@ -73,7 +73,7 @@
     if ($tab_index == 0 || $tab_index == 2) {
         $comments = query('select * from comments where user_id = ' . $user['user_id']);
         foreach ($comments as $comment) {
-            commentHTML($comment);
+            overviewCommentHTML($comment);
         }
         if (!$comments && $tab_index == 2) {
             echo '<p>No comments yet!</p>';

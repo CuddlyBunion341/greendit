@@ -103,10 +103,10 @@ $("#feed").click(function (e) {
 				.then(() => alert("comment url copied to clipboard!"))
 				.catch(() => alert("something went wrong..."));
 		}
-		if (name == "upvote-btn" || name == "downvote-btn") {
+		else if (name == "upvote-btn" || name == "downvote-btn") {
 			upvote(target);
 		}
-		if (name == "save-btn") {
+		else if (name == "save-btn") {
 			return save(target);
 		}
 	}
