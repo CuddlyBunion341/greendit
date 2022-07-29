@@ -75,10 +75,10 @@ $("#feed").click(function (e) {
 		if (name == "upvote-btn" || name == "downvote-btn") {
 			return upvote(target);
 		}
-		if (name == "comment-btn") {
+		else if (name == "comment-btn") {
 			window.location.href = `subs/main/posts/${hash}/`;
 		}
-		if (name == "share-btn") {
+		else if (name == "share-btn") {
 			navigator.clipboard
 				.writeText(
 					`${window.location.host}/greendit/subs/main/posts/${hash}/`
@@ -86,8 +86,11 @@ $("#feed").click(function (e) {
 				.then(() => alert("post url copied to clipboard!"))
 				.catch(() => alert("something went wrong..."));
 		}
-		if (name == "save-btn") {
+		else if (name == "save-btn") {
 			return save(target);
+		}
+		else if (target.closest(".post.overview")) {
+			window.location = `/greendit/subs/main/posts/${hash}/`;
 		}
 	} else if (target.closest(".comment-wrapper")) {
 		const post = target.closest(".comment-wrapper").dataset.hash;

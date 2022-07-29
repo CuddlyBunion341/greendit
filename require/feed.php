@@ -175,6 +175,33 @@
             </button>
         </div>
         ';
+    }
+    function overviewPostHTML($post) {
+        $post_data = getPostData($post);
+        extract($post_data);
+        if ($removed) return;
 
+        echo  '
+            <div class="post overview" data-hash="'.$hash.'">
+                <div class="left">
+                    '.arrow_wrapper($liked,$disliked,$likes).'
+                </div>
+                <div class="thumb">
+                    <i class="fa-solid fa-align-justify"></i>
+                </div>
+                <div class="right">
+                    <div class="head">
+                        posted in <a href="subs/'.$sub.'">s/'.$sub.'</a>
+                        '.$days.' day(s) ago
+                    </div>
+                    <h2>'.$title.'</h2>
+                    <div class="footer">
+                        <button name="comment-btn" class="comment-btn">'.$comments.' comments</button>
+                        <button name="save-btn" class="save-btn'.activeClass($saved).'"></button>
+                        <button name="share-btn" class="share-btn">Share</button>
+                    </div>
+                </div>
+            </div>
+        ';
     }
 ?>

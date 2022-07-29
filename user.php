@@ -64,7 +64,7 @@
     if ($tab_index == 0 || $tab_index == 1)  {
         $posts = query('select * from posts where user_id = ' . $user['user_id']);
         foreach ($posts as $post) {
-            postHTML($post,true,false);
+            $tab_index == 0 ? postHTML($post,true,false) : overviewPostHTML($post);
         }
         if (!$posts && $tab_index == 1) {
             echo '<p>No posts yet!</p>';

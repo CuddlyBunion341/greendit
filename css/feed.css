@@ -259,3 +259,19 @@ main {
     margin-right: 10px;
     border-bottom: 1px solid #ccc;
 }
+/* ---- Overview Items ------------------------------------------------------------------- */
+.post.overview {
+    margin-bottom: 0;
+    cursor: pointer;
+}
+.thumb {
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    padding: 0 20px 0 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background: #f0f0f0;
+    justify-content: center;
+    margin-left: 10px;
+}
