@@ -223,8 +223,9 @@
                 commented on <a href="subs/'.$sub.'/posts/'.$post['hash'].'">'.$title.'</a> 
                 <a href="subs/'.$sub.'">s/'.$sub.'</a>
                 Posted by <a href="u/'.$post_author.'">'.$post_author.'</a>
-            </div>
-            <p>'.$content.'</p>
+            </div>';
+            commentHTML($comment);
+        echo '
         </div>
         ';
     }

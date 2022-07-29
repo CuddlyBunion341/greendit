@@ -278,3 +278,32 @@ main {
     justify-content: center;
     margin-left: 10px;
 }
+.comment.overview {
+    border: none;
+    padding: 0;
+    margin-bottom: 10px;
+}
+.comment.overview p {
+    color: #00a651;
+    margin: 0;
+}
+.comment.overview > .header {
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+    margin-left: 0;
+    padding: 5px;
+}
+.comment.overview .content {
+    padding-left: 5px;
+}
+.comment.overview .content p {
+    background-color: #016965;
+    border-radius: 2px;
+    padding: 5px;
+}
+.comment.overview > .header:hover {
+    outline: 1px solid gray;
+}
+.comment.overview .content:hover {
+    outline: 1px solid gray;
+}
