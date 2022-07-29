@@ -7,6 +7,8 @@
         return $word.'s';
     }
 
+    require_once 'require/feed.php';
+
     if (isset($_GET['name'])) {
         require_once 'require/db_connect.php';
         $user = row('select * from users where username = "' . $_GET['name'] . '"');
@@ -14,28 +16,38 @@
             header('Location: /greendit/error/418');
             exit;
         }
+        $username = $user['username'];
         $date = $user['created_at'];
         $datediff = time() - strtotime($date);
         $date = round($datediff / (60 * 60 * 24));
         $posts = rows('select * from posts where user_id = ' . $user['user_id']);
         $comments = rows('select * from comments where user_id = ' . $user['user_id']);
-        $user_url = 'users/' . $user['username'];
+        $user_url = 'users/' . $username;
+
+        $follow_active = false;
+        if (isset($_SESSION['user_id'])) {
+            $session_user = $_SESSION['user_id'];
+            $user_id = $user['user_id'];
+            $follow_active = exists("select * from followers where user_id=$user_id and follower_id=$session_user");
+        }
+
+
         echo '
             <main>
             <div class="user-info">
                 <div class="user-banner">
-                    <img src="resources/pfps/'.$user['username'].'.png" alt="">
+                    <img src="resources/pfps/'.$username.'.png" alt="">
                 </div>
                 <div class="user-main">
-                    <h2>' . $user['username'] . '</h2>
-                    <a href="'.$user_url.'">u/' . $user['username'] . '</a>
+                    <h2>' . $username . '</h2>
+                    <a href="'.$user_url.'">u/' . $username . '</a>
                     <p>Joined ' . $date . ' '.plural('day',$date).' ago</p>
                 </div>
                 <div class="user-stats">
                     <a href="'.$user_url.'/posts">' . $posts . ' '.plural('post',$posts).'</a><br>
                     <a href="'.$user_url.'/comments">' . $comments . ' '.plural('comment',$comments).' </a>
                 </div>
-                <button class="follow-btn">Follow</button>
+                <button class="follow-btn'.activeClass($follow_active).'" data-username="'.$username.'"></button>
             </div>
         ';
     }
@@ -60,7 +72,6 @@
     <div id="feed" class="ignore-css">
     ';
 
-    require_once 'require/feed.php';
     if ($tab_index == 0 || $tab_index == 1)  {
         $posts = query('select * from posts where user_id = ' . $user['user_id']);
         foreach ($posts as $post) {

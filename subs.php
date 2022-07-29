@@ -18,10 +18,15 @@
         }
         return $word.'s';
     }
-    $posts = rows('select * from posts where community_id = ' . $community['community_id']);
-    $users = rows('select * from joined_communities where community_id = ' . $community['community_id']);
-    $joined = rows('select * from joined_communities where community_id = ' . $community['community_id'] . ' and user_id = ' . $_SESSION['user_id']);
-    $join_active = $joined > 0 ? ' active' : '';
+    require 'require/feed.php';
+    $community_id = $community['community_id'];
+    $posts = rows('select * from posts where community_id='.$community_id);
+    $users = rows('select * from joined_communities where community_id='.$community_id);
+    $joined = false;
+    if (isset($_SESSION['user_id'])) {
+        $session_user = $_SESSION['user_id'];
+        $joined = exists("select * from joined_communities where community_id=$community_id and user_id=$session_user");
+    }
     echo '
     <div class="community-header">
         <img class="community-background" src="resources/community.png" alt="">
@@ -30,7 +35,7 @@
             <div class="community-banner-main">
                 <div class="top">
                     <h2>' . $community['name'] . '</h2>
-                    <button class="join-btn'.$join_active.'" name="join-btn" data-name="'.$community['shortname'].'"></button>
+                    <button class="join-btn'.activeClass($joined).'" name="join-btn" data-name="'.$community['shortname'].'"></button>
                 </div>
                 <a href="subs/' . $community['shortname'] . '">s/' . $community['shortname'] . '</a>
             </div>
@@ -49,7 +54,6 @@
     <h2>Popular posts</h2>
     <div id="feed">
         <?php
-            require 'require/feed.php';
             if (!isset($_GET['post'])) {
                 // show all posts
                 if (isset($_SESSION['user_id'])) {

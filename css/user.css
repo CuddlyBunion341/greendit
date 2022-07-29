@@ -46,3 +46,12 @@
 .user-info .follow-btn {
     margin-top: 10px;
 }
+.follow-btn::after {
+	content: "Follow";
+}
+.follow-btn.active::after {
+	content: "Following";
+}
+.follow-btn.active:hover::after {
+    content: "Unfollow";
+}

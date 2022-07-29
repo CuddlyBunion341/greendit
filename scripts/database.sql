@@ -125,7 +125,7 @@ create table if not exists saved_comments (
 );
 
 create table if not exists followers (
-    link_id varchar(45) not null,
+    link_id int not null auto_increment,
     user_id int not null,
     follower_id int not null,
     primary key (link_id),

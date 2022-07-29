@@ -156,3 +156,21 @@ $(".join-btn")?.click(function(e) {
 		}
 	)
 });
+$(".follow-btn")?.click(function(e) {
+	const username = this.dataset.username;
+	$.post(
+		"request/follow.php?t=" + Math.random(),
+		{username},
+		(response,status) => {
+			if (status == 401) {
+				return alert("Please login!");
+			} else if (status != 200) {
+				return alert("Unknown Error");
+			}
+			response = JSON.parse(response);
+			const {toggle,message} = response;
+			if (toggle == -1) return console.error(message);
+			this.classList.toggle("active");
+		}
+	);
+})

@@ -286,6 +286,7 @@ main {
 }
 .comment.overview p {
 	margin: 0;
+	margin-bottom: 5px;
 }
 .comment.overview > .header {
 	border-top-left-radius: 2px;
@@ -304,8 +305,6 @@ main {
     border-bottom-right-radius: 2px;
 }
 .comment.overview .content {
-	/* background-color: #d8ffdb; */
-	border-radius: 2px;
 	padding: 5px;
 }
 .comment.overview > .header:hover {
