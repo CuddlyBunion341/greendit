@@ -219,13 +219,26 @@
         echo '
         <div class="comment overview" data-hash="'.$hash.'">
             <div class="header">
+                <i class="fa-regular fa-message"></i>
                 <a href="users/'.$username.'">'.$username.'</a>
                 commented on <a href="subs/'.$sub.'/posts/'.$post['hash'].'">'.$title.'</a> 
-                <a href="subs/'.$sub.'">s/'.$sub.'</a>
-                Posted by <a href="u/'.$post_author.'">'.$post_author.'</a>
-            </div>';
-            commentHTML($comment);
-        echo '
+                in <a href="subs/'.$sub.'">s/'.$sub.'</a>
+                Posted by <a href="users/'.$post_author.'">u/'.$post_author.'</a>
+            </div>
+            <div class="content">
+                <div class="indent">
+                    <div class="header">
+                        <a href="users/'.$username.'">'.$username.'</a>
+                        XXX days ago
+                    </div>
+                    <p>'.$content.'</p>
+                    <div class="footer">
+                        <button name="comment-btn" class="comment-btn">Reply</button>
+                        <button name="save-btn" class="save-btn'.activeClass($saved).'"></button>
+                        <button name="share-btn" class="share-btn">Share</button>
+                    </div>
+                </div>
+            </div>
         </div>
         ';
     }
