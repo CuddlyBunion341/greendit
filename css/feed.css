@@ -8,13 +8,18 @@ main {
 	padding: 0 0 0 0;
 	background-color: lightgray;
 	margin: 0 -20px 0 -20px;
-	padding: 10px 10% 10px 10%;
+	padding: 10px 20% 10px 20%;
 	flex-grow: 1;
 }
 .feed-text {
 	background-color: white;
 	border-radius: 2px;
 	padding: 5px;
+}
+@media screen and (max-width: 600px) {
+	#feed {
+		padding: 10px 25px 10px 25px;
+	}
 }
 /* ---- Post ----------------------------------------------------------------------------- */
 .post {
