@@ -120,9 +120,9 @@
                 ?>
             </select>
             <div class="tabs">
-                <button type="button" class="post-tab <?php activeBtn(0); ?>">Post</button>
-                <button type="button" class="image-tab <?php activeBtn(1); ?>">Images</button>
-                <button type="button" class="video-tab <?php activeBtn(2); ?>">Video</button>
+                <button type="button" class="post-tab <?php activeBtn(0); ?>"><i class="fa-solid fa-font"></i></i>Post</button>
+                <button type="button" class="image-tab <?php activeBtn(1); ?>"><i class="fa-solid fa-images"></i>Images</button>
+                <button type="button" class="video-tab <?php activeBtn(2); ?>"><i class="fa-solid fa-film"></i>Video</button>
             </div>
             <input type="text" name="title" id="title" placeholder="Title" value="<?php value('title'); ?>">
             <div class="post-content">
@@ -152,4 +152,3 @@
     </form>
     <script src="js/create-post.js"></script>
 </main>
-<?php require 'require/footer.php';?>

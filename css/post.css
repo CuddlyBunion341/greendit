@@ -1,20 +1,23 @@
-html,body {
-    display: flex;
-    flex-direction: column;
+:root {
+    --light-border: 1px solid #dedede;
 }
-
 form {
     align-items: initial;
-}
-
-main {
-    flex-grow: 1;
-    min-height: 0;
 }
 
 #content {
     resize: vertical;
     font-family: Arial, Helvetica, sans-serif
+}
+
+main {
+    display: flex;
+    min-height: 0;
+    align-items: center;
+}
+
+form {
+    width: 50%;
 }
 
 #title {
@@ -35,6 +38,23 @@ main {
 
 #preview {
     padding-top: 5px;
+}
+
+.file-select {
+    width: calc(100% - 10px);
+    height: 200px;
+    border: 1px dashed #b5b5b5;
+    border-radius: 2px;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.file-select.hidden {
+    display: none;
+}
+.file-select::before {
+    content: "Drag and drop media or \00a0";
 }
 
 #preview img {
@@ -85,14 +105,14 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px dotted gray;
+    border: var(--light-border);
 }
 
 .tabs {
     margin-left: -10px;
     width: calc(100% + 20px);
-    background-color: white;
-    border-bottom: 1px solid #a6a6a6;
+    background-color: #f6f6f6;
+    border-bottom: var(--light-border);
     margin-bottom: 5px;
 }
 
@@ -105,8 +125,13 @@ main {
     position: relative;
 }
 
+.tabs i {
+    margin-right: 10px;
+}
+
 .tabs button.active {
     color: black;
+    background-color: #cfffcf;
 }
 
 .tabs button.active::after {
@@ -120,11 +145,11 @@ main {
 }
 
 .composer {
-    background-color: #f1f1f1;
+    background-color: white;
     border-radius: 5px;
     padding: 10px;
-    width: 50%;
-    border: 1px solid #a6a6a6;
+    width: 100%;
+    border: 1px solid #dedede;
 }
 
 .error {
