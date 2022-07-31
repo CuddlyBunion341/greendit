@@ -326,3 +326,39 @@ main {
 	padding-left: 5px;
 	border-left: 2px dashed #d6d6d6;
 }
+/* ---- Icons ---------------------------------------------------------------------------- */
+.comment-btn::before {
+	content: '\f075';
+	font-family: "Font Awesome 6 Free";
+    font-weight: 400;
+	margin-right: 5px;
+}
+.save-btn::before {
+	content: '\f02e';
+	font-family: "Font Awesome 6 Free";
+    font-weight: 400;
+	margin-right: 5px;
+}
+.save-btn.active::before {
+	content: '\f02e';
+	font-family: "Font Awesome 6 Free";
+    font-weight: 600;
+	margin-right: 5px;
+}
+.share-btn::before {
+	content: '\e09a';
+	font-family: "Font Awesome 6 Free";
+	font-weight: 900;
+	margin-right: 5px;
+}
+/* ---- Button  styling ------------------------------------------------------------------ */
+.post .footer button {
+	background-color: white;
+	border: none;
+	border-radius: 2px;
+	padding: 5px;
+	float: left;
+}
+.post .footer button:hover {
+	background-color: #e9e9e9;
+}
