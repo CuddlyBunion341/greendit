@@ -1,0 +1,7 @@
+@mixin link {
+    color: #696969;
+    text-decoration: none;
+    &:hover {
+        text-decoration: underline;
+    }
+}

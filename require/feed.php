@@ -143,13 +143,13 @@
         $pfp = 'resources/pfps/'.$username.'.png';
         echo '
         <div class="comment" data-hash="'.$hash.'" id="comment-'.$hash.'">
-            <div class="header">
+            <div class="comment__header">
                 <a href="users/'.$username.'">
-                    <img src="'.$pfp.'" class="user-pfp">'. $username . '
+                    <img src="'.$pfp.'" class="pfp small">'. $username . '
                 </a>
             </div>
-            <p>'.$content.'</p>
-            <div class="footer">
+            <p class="comment__content">'.$content.'</p>
+            <div class="comment__footer">
                 '.arrow_wrapper($liked,$disliked,$likes,true,$removed).'
                 <button name="comment-btn" class="comment-btn">Reply</button>
                 <button name="save-btn" class="save-btn'.activeClass($saved).'"></button>

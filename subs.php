@@ -89,7 +89,7 @@
                         echo '
                             <form class="create-comment">
                                 <a href="users/'.$username.'">
-                                    <img src="resources/pfps/'.$username.'.png" alt="user" class="user-pfp">
+                                    <img src="resources/pfps/'.$username.'.png" alt="user" class="pfp medium">
                                 </a>
                                 <input type="text" class="comment-content" placeholder="Write a comment..." rows="4">
                                 <button name="comment-btn" type="submit" name="submit" class="comment-btn">Post</button>

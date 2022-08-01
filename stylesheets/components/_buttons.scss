@@ -9,9 +9,10 @@
 	    content: "Unsave";
     }
 }
-.post,
-.comment {
-    .footer button {
+.footer,
+.comment__footer {
+    overflow: auto;
+    & > button {
         background-color: white;
         border: none;
         border-radius: 2px;

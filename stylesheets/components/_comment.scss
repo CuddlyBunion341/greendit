@@ -14,8 +14,28 @@
 
 .comment {
     margin-left: 20px;
-    border-left: 1px solid #b5b5b5;
+    border-left: 2px solid #e5e5e5;
     padding-left: 7px;
     padding-bottom: 6px;
     padding-top: 0;
+    &.highlighted {
+        background-color: #ececec;
+    }
+    &__header {
+        margin-left: -24px;
+        .pfp {
+            margin-right: 5px;
+            vertical-align: middle
+        }
+        a {
+            @include link;
+        }
+    }
+    &__content {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+    &__footer {
+        
+    }
 }

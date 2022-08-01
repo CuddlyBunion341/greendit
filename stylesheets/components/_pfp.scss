@@ -3,3 +3,17 @@
     background-color: white;
     border: 1px solid  #b5b5b5;
 }
+.pfp {
+    border-radius: 50%;
+    aspect-ratio: 1;
+    border: 1px solid #b5b5b5;
+    &.small {
+        width: 30px;
+    }
+    &.medium {
+        width: 34px;
+    }
+    &.large {
+        width: 70px;
+    }
+}
