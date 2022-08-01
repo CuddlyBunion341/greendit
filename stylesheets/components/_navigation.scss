@@ -1,0 +1,32 @@
+header nav {
+    overflow: hidden;
+    background-color: #1f1f1f;
+    a {
+        float: right;
+        color: #fff;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 1em;
+        &:first-child {
+            color: #69ff69;
+            float: left;
+        }
+    }
+}
+nav.tabbs {
+    overflow: hidden;
+    border-bottom: 1px solid gray;
+    margin-bottom: 10px;
+    a {
+        float: left;
+        color: black;
+        text-align: center;
+        padding: 8px 16px;
+        text-decoration: none;
+        font-size: 1em;
+        &.active {
+            color: #4CAF50;
+        }
+    }
+}

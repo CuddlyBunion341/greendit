@@ -93,7 +93,6 @@
     }
 ?>
 <main>
-    <link rel="stylesheet" href="css/post.css">
     <form action="post.php" method="post" class="create-post-form" enctype='multipart/form-data'>
         <h1>Create a post</h1>
         <div class="composer">

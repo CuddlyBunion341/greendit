@@ -1,0 +1,21 @@
+.comment-wrapper {
+    background-color: white;
+    border-radius: 2px;
+    margin-bottom: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    & > p {
+        padding-left: 10px;
+    }
+    &:hover {
+        outline: 1px solid gray;
+    }
+}
+
+.comment {
+    margin-left: 20px;
+    border-left: 1px solid #b5b5b5;
+    padding-left: 7px;
+    padding-bottom: 6px;
+    padding-top: 0;
+}

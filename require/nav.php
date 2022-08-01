@@ -1,5 +1,5 @@
 <nav>
-    <a href="index.php" class="green">Greendit</a>
+    <a href="index.php">Greendit</a>
     <?php
         session_start();
         if (isset($_SESSION['username'],$_SESSION['user_id'])) {

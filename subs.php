@@ -1,5 +1,4 @@
 <?php require('require/header.php'); ?>
-<link rel="stylesheet" href="css/community.css">
 <?php
     if (!isset($_GET['name'])) {
         header('Location: /greendit/error/419');

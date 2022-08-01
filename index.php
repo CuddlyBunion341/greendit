@@ -8,9 +8,8 @@
     <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dignissimos ex debitis veritatis magnam dolor ea esse,
         ratione iusto et aliquid sequi sint enim aspernatur facere tempore accusantium impedit quibusdam sunt!</p>
 
-    <div class="trends">
-    <div>
     <h2>Trending communities</h2>
+    <ul class="trending">
     <?php
         require_once 'require/db_connect.php';
         $communities = query('
@@ -23,24 +22,26 @@
                 $sub_name = $community['shortname'];
                 $num_posts = $community['num_posts'];
                 echo '
-                    <div class="community">
-                        <div class="community-pfp">
-                            <img src="resources/com.png" alt="">
+                    <li>
+                        <div class="trend">
+                            <div class="pfp">
+                                <img src="resources/com.png" alt="">
+                            </div>
+                            <div class="main">
+                                <a href="subs/'.$sub_name.'">s/'.$sub_name.'</a>
+                                <p>'.$num_posts.' posts</p>
+                            </div>
                         </div>
-                        <div class="main">
-                            <a href="subs/'.$sub_name.'">s/'.$sub_name.'</a>
-                            <p>'.$num_posts.' posts</p>
-                        </div>
-                    </div>
+                    </li>
                 ';
             }
         } else {
             echo "No communities found.";
         }
     ?>
-    </div>
-    <div>
+    </ul>
     <h2>Active users</h2>
+    <ul class="trending">
     <?php
         require_once 'require/db_connect.php';
         $users = query('
@@ -53,22 +54,23 @@
                 $num_posts = $user['num_posts'];
                 if ($num_posts > 0) {
                     echo '
-                    <div class="community">
-                        <div class="community-pfp">
-                            <img src="resources/pfps/'.$username.'.png">
+                    <li>
+                        <div class="trend">
+                            <div class="pfp">
+                                <img src="resources/pfps/'.$username.'.png">
+                            </div>
+                            <div class="main">
+                                <a href="users/'.$username.'">'.$username.'</a>
+                                <p>'.$num_posts.' posts</p>
+                            </div>
                         </div>
-                        <div class="main">
-                            <a href="users/'.$username.'">'.$username.'</a>
-                            <p>'.$num_posts.' posts</p>
-                        </div>
-                    </div>
+                    <li>
                     ';
                 }
             }
         }
     ?>
-    </div>
-    </div>
+    </ul>
 
     <h2>Popular posts</h2>
     <div id="feed">

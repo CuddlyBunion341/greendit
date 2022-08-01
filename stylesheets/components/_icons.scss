@@ -1,0 +1,11 @@
+.icon {
+    width: 15px;
+    height: 15px;
+    float: left;
+    margin-right: 5px;
+    &-bookmark {
+        .fill {
+            fill: #0000
+        }
+    }
+}

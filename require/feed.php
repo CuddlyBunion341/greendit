@@ -129,11 +129,7 @@
                 '.$post_head.'
                 <h2>' . $title . '</h2>
                 '.$content.'
-                <div class="footer">
-                    <button name="comment-btn" class="comment-btn">' . $comments . ' comments</button>
-                    <button name="save-btn" class="save-btn'.activeClass($saved).'"></button>
-                    <button name="share-btn" class="share-btn">Share</button>
-                </div>  
+                '.footerHTML($saved,$comments).'
             </div>
         </div>
         ';
@@ -202,11 +198,7 @@
                     '.$days.' day(s) ago
                 </div>
                 <h2>'.$title.'</h2>
-                <div class="footer">
-                    <button name="comment-btn" class="comment-btn">'.$comments.' comments</button>
-                    <button name="save-btn" class="save-btn'.activeClass($saved).'"></button>
-                    <button name="share-btn" class="share-btn">Share</button>
-                </div>
+                '.footerHTML($saved, $comments).'
             </div>
         </div>
         ';
@@ -240,6 +232,23 @@
                 </div>
             </div>
         </div>
+        ';
+    }
+    function footerHTML($saved,$comments) {
+        return '
+            <div class="footer">
+                <button name="comment-btn" class="comment-btn">
+                    '.file_get_contents(__DIR__.'/../resources/icons/comment.svg').'
+                    '.$comments.' comments
+                </button>
+                <button name="save-btn" class="save-btn '.activeClass($saved).'">
+                    '.file_get_contents(__DIR__.'/../resources/icons/bookmark.svg').'
+                </button>
+                <button name="share-btn" class="share-btn">
+                    '.file_get_contents(__DIR__.'/../resources/icons/share.svg').'
+                    Share
+                </button>
+            </div>
         ';
     }
 ?>

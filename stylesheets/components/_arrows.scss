@@ -1,0 +1,55 @@
+.arrow-wrapper {
+    display: flex;
+	flex-direction: column;
+    &.horizontal {
+        display: inline;
+        float: left;
+    }
+    button {
+        border: 0;
+        background: none;
+        padding: 0;
+        width: 13px;
+        position: relative;
+        cursor: pointer;
+        svg {
+            float: left;
+            * {
+                fill: none;
+            }
+        }
+        &.upvote {
+            &.active svg * {
+                fill: #00a651;
+            }
+        }
+        &.downvote {
+            transform: rotate(180deg);
+            &.active svg * {
+                fill: #016965;
+            }
+        }
+        &:disabled {
+            cursor: not-allowed;
+            svg * {
+                stroke: gray;
+                fill: #e0e0e0;
+            }
+            &.active {
+                fill: #bfbfbf;
+            }
+        }
+        &::after {
+            content: "";
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    }
+    .like-count {
+        text-align: center;
+        margin: 3px 0 3px 0;
+    }
+}
