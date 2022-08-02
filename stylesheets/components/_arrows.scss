@@ -2,7 +2,11 @@
     display: flex;
 	flex-direction: column;
     &.horizontal {
-        display: inline;
+        display: inline-flex;
+        justify-content: space-between;
+        flex-direction: row;
+        width: 46px;
+        margin-right: 6px;
         float: left;
     }
     button {
@@ -20,23 +24,29 @@
         }
         &.upvote {
             &.active svg * {
-                fill: #00a651;
+                fill: $color-upvote;
+            }
+            &:hover svg * {
+                stroke: $color-upvote;
             }
         }
         &.downvote {
             transform: rotate(180deg);
             &.active svg * {
-                fill: #016965;
+                fill: $color-downvote;
+            }
+            &:hover svg * {
+                stroke: $color-downvote;
             }
         }
         &:disabled {
             cursor: not-allowed;
             svg * {
-                stroke: gray;
-                fill: #e0e0e0;
+                stroke: $gray-700;
+                fill: $gray-200;
             }
             &.active {
-                fill: #bfbfbf;
+                fill: $gray-300;
             }
         }
         &::after {

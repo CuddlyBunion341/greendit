@@ -1,0 +1,14 @@
+article {
+    background-color: white;
+    border: 1px solid $gray-300;
+    border-radius: 2px;
+    margin-bottom: 10px;
+    padding: 10px;
+    overflow: hidden;
+    &.titled {
+        padding-top: 0;
+    }
+    & > h2 {
+        margin: 0;
+    }
+}

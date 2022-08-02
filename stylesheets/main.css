@@ -6,8 +6,9 @@ body {
 }
 
 main {
-  padding: 0 20px 0 20px;
+  padding: 20px 0 20px 0;
   min-height: 100%;
+  width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -15,6 +16,16 @@ main {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  background-color: #d3d3d3;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+main.multicol {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
 }
 
 .arrow-wrapper {
@@ -27,7 +38,18 @@ main {
           flex-direction: column;
 }
 .arrow-wrapper.horizontal {
-  display: inline;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  width: 46px;
+  margin-right: 6px;
   float: left;
 }
 .arrow-wrapper button {
@@ -47,6 +69,9 @@ main {
 .arrow-wrapper button.upvote.active svg * {
   fill: #00a651;
 }
+.arrow-wrapper button.upvote:hover svg * {
+  stroke: #00a651;
+}
 .arrow-wrapper button.downvote {
   -webkit-transform: rotate(180deg);
           transform: rotate(180deg);
@@ -54,12 +79,15 @@ main {
 .arrow-wrapper button.downvote.active svg * {
   fill: #016965;
 }
+.arrow-wrapper button.downvote:hover svg * {
+  stroke: #016965;
+}
 .arrow-wrapper button:disabled {
   cursor: not-allowed;
 }
 .arrow-wrapper button:disabled svg * {
-  stroke: gray;
-  fill: #e0e0e0;
+  stroke: #808080;
+  fill: #ebebeb;
 }
 .arrow-wrapper button:disabled.active {
   fill: #bfbfbf;
@@ -131,7 +159,6 @@ main {
 }
 
 .create-comment {
-  background-color: white;
   border-bottom: 1px solid #b5b5b5;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -162,8 +189,7 @@ main {
   background-color: white;
   border-radius: 2px;
   margin-bottom: 10px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding: 10px 0 10px 0;
 }
 .comment-wrapper > p {
   padding-left: 10px;
@@ -200,29 +226,6 @@ main {
   margin-top: 0;
   margin-bottom: 0;
 }
-#feed {
-  padding: 0 0 0 0;
-  background-color: lightgray;
-  margin: 0 -20px 0 -20px;
-  padding: 10px 20% 10px 20%;
-  -webkit-box-flex: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
-}
-@media screen and (max-width: 600px) {
-  #feed {
-    padding: 10px 25px 10px 25px;
-  }
-}
-
-footer {
-  width: 100%;
-  background-color: rgb(31, 31, 31);
-  color: white;
-  padding: 10px;
-  text-align: center;
-}
-
 .icon {
   width: 15px;
   height: 15px;
@@ -231,40 +234,6 @@ footer {
 }
 .icon-bookmark .fill {
   fill: rgba(0, 0, 0, 0);
-}
-
-header nav {
-  overflow: hidden;
-  background-color: #1f1f1f;
-}
-header nav a {
-  float: right;
-  color: #fff;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 1em;
-}
-header nav a:first-child {
-  color: #69ff69;
-  float: left;
-}
-
-nav.tabbs {
-  overflow: hidden;
-  border-bottom: 1px solid gray;
-  margin-bottom: 10px;
-}
-nav.tabbs a {
-  float: left;
-  color: black;
-  text-align: center;
-  padding: 8px 16px;
-  text-decoration: none;
-  font-size: 1em;
-}
-nav.tabbs a.active {
-  color: #4CAF50;
 }
 
 .pfp img {
@@ -289,7 +258,6 @@ nav.tabbs a.active {
 }
 
 .create-post {
-  background-color: white;
   border-radius: 2px;
   margin-bottom: 10px;
   padding: 10px;
@@ -329,7 +297,7 @@ nav.tabbs a.active {
 }
 
 .post {
-  background-color: white;
+  padding: 0;
   border-radius: 2px;
   margin-bottom: 10px;
   display: -webkit-box;
@@ -337,13 +305,11 @@ nav.tabbs a.active {
   display: flex;
 }
 .post:hover {
-  outline: 1px solid gray;
+  border: 1px solid #808080;
 }
 .post .left {
   float: left;
   background-color: #f1f1f1;
-  border-top-left-radius: 2px;
-  border-bottom-left-radius: 2px;
   padding: 6px;
   width: 13px;
 }
@@ -409,12 +375,6 @@ nav.tabbs a.active {
   float: left;
   margin-right: 10px;
 }
-.trend .pfp img {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  border: 1px solid #ebebeb;
-}
 .trend a {
   color: #696969;
   text-decoration: none;
@@ -436,6 +396,80 @@ nav.tabbs a.active {
 }
 .trending li {
   list-style-type: none;
+}
+
+article {
+  background-color: white;
+  border: 1px solid #bfbfbf;
+  border-radius: 2px;
+  margin-bottom: 10px;
+  padding: 10px;
+  overflow: hidden;
+}
+article.titled {
+  padding-top: 0;
+}
+article > h2 {
+  margin: 0;
+}
+
+#feed {
+  padding: 0;
+  width: 500px;
+}
+@media screen and (max-width: 600px) {
+  #feed {
+    padding: 10px 25px 10px 25px;
+  }
+}
+
+header nav {
+  overflow: hidden;
+  background-color: #1f1f1f;
+}
+header nav a {
+  float: right;
+  color: #fff;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 1em;
+}
+header nav a:first-child {
+  color: #69ff69;
+  float: left;
+}
+
+nav.tabbs {
+  overflow: hidden;
+  border-bottom: 1px solid gray;
+  margin-bottom: 10px;
+}
+nav.tabbs a {
+  float: left;
+  color: black;
+  text-align: center;
+  padding: 8px 16px;
+  text-decoration: none;
+  font-size: 1em;
+}
+nav.tabbs a.active {
+  color: #4CAF50;
+}
+
+aside {
+  justify-self: flex-end;
+  -webkit-box-ordinal-group: 2;
+      -ms-flex-order: 1;
+          order: 1;
+  margin-left: 20px;
+}
+aside article > h1 {
+  margin: 0 -10px 0 -10px;
+  padding: 5px;
+  color: #fff;
+  background-color: #00A36C;
+  margin-top: 0;
 }
 
 .community-info {

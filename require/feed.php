@@ -121,17 +121,17 @@
         }
         $post_head .= $days . ' day(s) ago </div>';
         echo '
-        <div class="post" data-hash="'.$hash.'">
-            <div class="left">
+        <article class="post" data-hash="'.$hash.'">
+            <section class="left">
                 '.arrow_wrapper($liked,$disliked,$likes,false,$removed).'
-            </div>
-            <div class="right">
+            </section>
+            <section class="right">
                 '.$post_head.'
                 <h2>' . $title . '</h2>
                 '.$content.'
                 '.footerHTML($saved,$comments).'
-            </div>
-        </div>
+            </section>
+        </article>
         ';
     }
     function commentHTML($comment) {
@@ -142,20 +142,20 @@
         }
         $pfp = 'resources/pfps/'.$username.'.png';
         echo '
-        <div class="comment" data-hash="'.$hash.'" id="comment-'.$hash.'">
-            <div class="comment__header">
+        <article class="comment" data-hash="'.$hash.'" id="comment-'.$hash.'">
+            <section class="comment__header">
                 <a href="users/'.$username.'">
                     <img src="'.$pfp.'" class="pfp small">'. $username . '
                 </a>
-            </div>
+            </section>
             <p class="comment__content">'.$content.'</p>
-            <div class="comment__footer">
+            <section class="comment__footer">
                 '.arrow_wrapper($liked,$disliked,$likes,true,$removed).'
                 <button name="comment-btn" class="comment-btn">Reply</button>
                 <button name="save-btn" class="save-btn'.activeClass($saved).'"></button>
                 <button name="share-btn" class="share-btn">Share</button>
-            </div>
-        </div>
+            </section>
+        </article>
         ';
     }
     function activeClass($bool,$class='active') {
@@ -166,7 +166,7 @@
     }
     function arrow_wrapper($liked=false,$disliked=false,$count=0,$horizontal=false,$disabled=false) {
         return '
-        <div class="arrow-wrapper'.activeClass($horizontal,'horizontal').'">
+        <section class="arrow-wrapper'.activeClass($horizontal,'horizontal').'">
             <button name="upvote-btn" class="upvote'.activeClass($liked).'" '.activeClass($disabled,'disabled').'>
                 '.file_get_contents(__DIR__.'/../resources/upvote.svg').'
             </button>
@@ -176,7 +176,7 @@
             <button name="downvote-btn" class="downvote'.activeClass($disliked).'" '.activeClass($disabled,'disabled').'>
                 '.file_get_contents(__DIR__.'/../resources/upvote.svg').'
             </button>
-        </div>
+        </section>
         ';
     }
     function overviewPostHTML($post) {
@@ -185,22 +185,22 @@
         if ($removed) return;
 
         echo  '
-        <div class="post overview" data-hash="'.$hash.'">
-            <div class="left">
+        <article class="post overview" data-hash="'.$hash.'">
+            <section class="left">
                 '.arrow_wrapper($liked,$disliked,$likes).'
-            </div>
-            <div class="thumb">
+            </section>
+            <section class="thumb">
                 <i class="fa-solid fa-align-justify"></i>
-            </div>
-            <div class="right">
+            </section>
+            <section class="right">
                 <div class="head">
                     posted in <a href="subs/'.$sub.'">s/'.$sub.'</a>
                     '.$days.' day(s) ago
                 </div>
                 <h2>'.$title.'</h2>
                 '.footerHTML($saved, $comments).'
-            </div>
-        </div>
+            </section>
+        </article>
         ';
     }
     function overviewCommentHTML($comment) {
@@ -209,15 +209,15 @@
         if ($removed) return;
 
         echo '
-        <div class="comment overview" data-hash="'.$hash.'">
-            <div class="header">
+        <article class="comment overview" data-hash="'.$hash.'">
+            <section class="header">
                 <i class="fa-regular fa-message"></i>
                 <a href="users/'.$username.'">'.$username.'</a>
                 commented on <a href="subs/'.$sub.'/posts/'.$post['hash'].'">'.$title.'</a> 
                 in <a href="subs/'.$sub.'">s/'.$sub.'</a>
                 Posted by <a href="users/'.$post_author.'">u/'.$post_author.'</a>
-            </div>
-            <div class="content">
+            </section>
+            <section class="content">
                 <div class="indent">
                     <div class="header">
                         <a href="users/'.$username.'">'.$username.'</a>
@@ -225,18 +225,18 @@
                     </div>
                     <p>'.$content.'</p>
                     <div class="footer">
-                        <button name="comment-btn" class="comment-btn">Reply</button>
+                        <button name="reply-btn" class="reply-btn">Reply</button>
                         <button name="save-btn" class="save-btn'.activeClass($saved).'"></button>
                         <button name="share-btn" class="share-btn">Share</button>
                     </div>
                 </div>
-            </div>
-        </div>
+            </section>
+        </article>
         ';
     }
     function footerHTML($saved,$comments) {
         return '
-            <div class="footer">
+            <section class="footer">
                 <button name="comment-btn" class="comment-btn">
                     '.file_get_contents(__DIR__.'/../resources/icons/comment.svg').'
                     '.$comments.' comments
@@ -248,7 +248,7 @@
                     '.file_get_contents(__DIR__.'/../resources/icons/share.svg').'
                     Share
                 </button>
-            </div>
+            </section>
         ';
     }
 ?>

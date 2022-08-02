@@ -3,7 +3,7 @@
 }
 .save-btn.active {
     .icon .fill {
-        fill: #000;
+        fill: $black;
     }
     &::after {
 	    content: "Unsave";
@@ -19,14 +19,14 @@
         padding: 5px;
         float: left;
         &:hover {
-            background-color: #e9e9e9;
+            background-color: $gray-150;
         }
     }
 }
 .join-btn {
 	border-radius: 50px;
-	border: 1px solid #00A36C;
-	background-color: #00A36C;
+	border: 1px solid $dark-lime;
+	background-color: $dark-lime;
 	padding-top: 5px;
 	padding-bottom: 5px;
     padding-left: 15px;
@@ -37,7 +37,7 @@
     cursor: pointer;
 	color: white;
     &.active{
-        color: #00A36C;
+        color: $dark-lime;
         background-color: white;
         &::after {
             content: "Joined";

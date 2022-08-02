@@ -1,16 +1,14 @@
 .post {
-    background-color: white;
+    padding: 0;
     border-radius: 2px;
     margin-bottom: 10px;
     display: flex;
     &:hover {
-        outline: 1px solid gray;
+        border: 1px solid $gray-700;
     }
     .left {
         float: left;
-        background-color: #f1f1f1;
-        border-top-left-radius: 2px;
-        border-bottom-left-radius: 2px;
+        background-color: $gray-100;
         padding: 6px;
         width: 13px;
     }

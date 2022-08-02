@@ -67,16 +67,17 @@
         }
     ?>
     </ul>
-
-    <h2>Popular posts</h2>
     <div id="feed">
+        <article>
+            <h2>Popular posts</h2>
+        </article>
         <?php
             if (isset($_SESSION['user_id'])) {
                 echo '
-                <div class="create-post">
+                <article class="create-post">
                     <a href="users/'.$_SESSION['username'].'"><img class="user-pfp" src="resources/pfps/'.$_SESSION['username'].'.png"></a>
                     <button onclick="window.location=\'/greendit/post.php\'">Create post...</button>
-                </div>
+                </article>
                 ';
             }
             require 'require/feed.php';

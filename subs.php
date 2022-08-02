@@ -39,28 +39,61 @@
                 <a href="subs/' . $community['shortname'] . '">s/' . $community['shortname'] . '</a>
             </div>
         </div>
-        <div class="community-main">
+        <!--<div class="community-main">
             <div class="community-stats">
                 <p>Created ' . $community['created_at'] . '</p>
                 <p>' . $posts . ' '.plural('post',$posts).'</p>
                 <p><span id="members">' . $users . '</span> '.plural('member',$users).'</p>
             </div>
-        </div>
+        </div>-->
     </div>
     ';
 ?>
-<main>
-    <h2>Popular posts</h2>
+<main class="multicol">
+    <aside class="community__info">
+        <article class="info titled">
+            <h1 class="communtiy__info-about">About</h1>
+            <p>Programming and Memes</p>
+            <p><span class="members">10</span> Members</p>
+            <p>Created 2022-07-17</p>
+        </article>
+        <article class="community__rules titled">
+            <h1>r/main rules</h1>
+            <details>
+                <summary>1.Posts must be funny</summary>
+                <p>At least an attempt</p>
+            </details>
+            <details>
+                <summary>2.Posts must be programming realted</summary>
+                <p>Posts must be related to programming or the profession in general</p>
+            </details>
+            <details>
+                <summary>3.No Reposts</summary>
+                <p>Content that has been already posted less than a month ago will be removed</p>
+            </details>
+            <details>
+                <summary>4.No low-quality content</summary>
+                <p>Bad posts will be removed</p>
+            </details>
+            <details>
+                <summary>5.Put effort into titles</summary>
+                <p>Titles are important</p>
+            </details>
+        </article>
+    </aside>
     <div id="feed">
+        <article>
+            <h2>Popular posts</h2>
+        </article>
         <?php
             if (!isset($_GET['post'])) {
                 // show all posts
                 if (isset($_SESSION['user_id'])) {
                     echo '
-                    <div class="create-post">
+                    <article class="create-post">
                         <a href="user/'.$_SESSION['username'].'"><img class="user-pfp" src="resources/pfps/'.$_SESSION['username'].'.png"></a>
                         <button onclick="window.location=\'/greendit/post.php?id='.$community['community_id'].'\'">Create post...</button>
-                    </div>
+                    </article>
                     ';
                 }
                 $sql = 'select * from posts where community_id='.$community['community_id'].' order by post_id desc';
