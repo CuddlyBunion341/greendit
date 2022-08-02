@@ -409,6 +409,21 @@ article {
 article.titled {
   padding-top: 0;
 }
+article.titled p {
+  margin: 5px 0 5px 0;
+}
+article.titled ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+article.titled ul li {
+  border-bottom: 1px solid #ebebeb;
+  margin: 5px 0 5px 0;
+}
+article.titled ul li p {
+  margin: 0;
+}
 article > h2 {
   margin: 0;
 }
@@ -421,6 +436,16 @@ article > h2 {
   #feed {
     padding: 10px 25px 10px 25px;
   }
+}
+
+footer {
+  width: 100%;
+  background-color: rgb(31, 31, 31);
+  color: white;
+  padding: 10px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  text-align: center;
 }
 
 header nav {
@@ -463,6 +488,7 @@ aside {
       -ms-flex-order: 1;
           order: 1;
   margin-left: 20px;
+  width: 305px;
 }
 aside article > h1 {
   margin: 0 -10px 0 -10px;
