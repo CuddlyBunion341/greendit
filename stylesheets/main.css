@@ -5,6 +5,10 @@ body {
   overflow-x: hidden;
 }
 
+html, body {
+  height: 100%;
+}
+
 main {
   padding: 20px 0 20px 0;
   min-height: 100%;
@@ -226,6 +230,10 @@ main.multicol {
   margin-top: 0;
   margin-bottom: 0;
 }
+li.flair .pfp {
+  vertical-align: middle;
+}
+
 .icon {
   width: 15px;
   height: 15px;

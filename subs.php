@@ -11,8 +11,7 @@ if (!$community) {
     header('Location: /greendit/error/419');
     exit;
 }
-function plural($word, $num)
-{
+function plural($word, $num) {
     if ($num == 1) {
         return $word;
     }
@@ -55,13 +54,19 @@ echo '
         <article class="info titled">
             <h1 class="communtiy__info-about">About</h1>
             <ul>
-                <li><p>Programming and Memes</p></li>
-                <li><p><span class="members">10</span> Members</p></li>
-                <li><p>Created 2022-07-17</p></li>
+                <li>
+                    <p>Programming and Memes</p>
+                </li>
+                <li>
+                    <p><span class="members">10</span> Members</p>
+                </li>
+                <li>
+                    <p>Created 2022-07-17</p>
+                </li>
             </ul>
         </article>
         <article class="community__rules titled">
-            <h1>r/main rules</h1>
+            <h1>s/<?php echo $community['shortname'] ?> Rules</h1>
             <ul>
                 <li>
                     <details>
@@ -92,6 +97,29 @@ echo '
                         <summary>5.Put effort into titles</summary>
                         <p>Titles are important</p>
                     </details>
+                </li>
+            </ul>
+        </article>
+        <article class="titled">
+            <h1>Moderators</h1>
+            <ul>
+                <li class="flair">
+                    <a>
+                        <img class="pfp small" src="resources/pfps/admin.png" alt="admin">
+                        u/admin
+                    </a>
+                </li>
+                <li class="flair">
+                    <a>
+                        <img class="pfp small" src="resources/pfps/cb341.png" alt="cb341">
+                        u/cb341
+                    </a>
+                </li>
+                <li class="flair">
+                    <a>
+                        <img class="pfp small" src="resources/pfps/JeJe69.png" alt="JeJe69">
+                        u/JeJe69
+                    </a>
                 </li>
             </ul>
         </article>
