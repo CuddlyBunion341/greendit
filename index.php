@@ -24,9 +24,7 @@
                 echo '
                     <li>
                         <div class="trend">
-                            <div class="pfp">
-                                <img src="resources/com.png" alt="">
-                            </div>
+                            <img class="pfp small" src="resources/com.png" alt="'.$sub_name.'">
                             <div class="main">
                                 <a href="subs/'.$sub_name.'">s/'.$sub_name.'</a>
                                 <p>'.$num_posts.' posts</p>
@@ -56,9 +54,7 @@
                     echo '
                     <li>
                         <div class="trend">
-                            <div class="pfp">
-                                <img src="resources/pfps/'.$username.'.png">
-                            </div>
+                            <img class="pfp small" src="resources/pfps/'.$username.'.png" alt="'.$username.'">
                             <div class="main">
                                 <a href="users/'.$username.'">'.$username.'</a>
                                 <p>'.$num_posts.' posts</p>
