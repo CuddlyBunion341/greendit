@@ -1,6 +1,14 @@
 aside {
     justify-self: flex-end;
     order: 1;
+    box-sizing: border-box;
+    max-width: 100%;
+    @media screen and (max-width: 600px) {
+        order: 0;
+        box-sizing: border-box;
+        width: 100%;
+        margin-left: 0;
+    }
     margin-left: 20px;
     width: 305px;
     article > h1 {

@@ -24,12 +24,23 @@ main {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px 25px 10px 25px;
 }
 main.multicol {
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
+}
+@media screen and (max-width: 600px) {
+  main.multicol {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
 }
 
 .arrow-wrapper {
@@ -107,6 +118,16 @@ main.multicol {
 .arrow-wrapper .like-count {
   text-align: center;
   margin: 3px 0 3px 0;
+}
+
+button {
+  color: black;
+  font-size: 14px;
+}
+@media screen and (max-width: 600px) {
+  button {
+    font-size: 16px;
+  }
 }
 
 .save-btn::after {
@@ -439,10 +460,13 @@ article > h2 {
 #feed {
   padding: 0;
   width: 500px;
+  max-width: 100%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 @media screen and (max-width: 600px) {
   #feed {
-    padding: 10px 25px 10px 25px;
+    width: 100%;
   }
 }
 
@@ -495,8 +519,22 @@ aside {
   -webkit-box-ordinal-group: 2;
       -ms-flex-order: 1;
           order: 1;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  max-width: 100%;
   margin-left: 20px;
   width: 305px;
+}
+@media screen and (max-width: 600px) {
+  aside {
+    -webkit-box-ordinal-group: 1;
+        -ms-flex-order: 0;
+            order: 0;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    width: 100%;
+    margin-left: 0;
+  }
 }
 aside article > h1 {
   margin: 0 -10px 0 -10px;
@@ -516,6 +554,11 @@ aside article > h1 {
      object-fit: cover;
   overflow: hidden;
   border-bottom: 3px solid #dfdfdf;
+}
+@media screen and (max-width: 600px) {
+  .community-background {
+    height: 100px;
+  }
 }
 .community-pfp {
   border: 3px solid #dfdfdf;
@@ -544,6 +587,11 @@ aside article > h1 {
 .community-banner {
   padding-left: 100px;
   margin-top: -7px;
+}
+@media screen and (max-width: 600px) {
+  .community-banner {
+    padding-left: 30px;
+  }
 }
 .community-banner-main {
   padding-top: 9px;
