@@ -241,10 +241,15 @@ button {
 
 .comment {
   margin-left: 20px;
+  border: none;
   border-left: 2px solid #e5e5e5;
   padding-left: 7px;
   padding-bottom: 6px;
   padding-top: 0;
+  overflow: visible;
+}
+.comment:hover {
+  border-color: #d3d3d3;
 }
 .comment.highlighted {
   background-color: #ececec;
