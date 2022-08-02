@@ -264,6 +264,9 @@ li.flair .pfp {
 .icon-bookmark .fill {
   fill: rgba(0, 0, 0, 0);
 }
+.icon-plus * {
+  fill: #fff;
+}
 
 .pfp img {
   border-radius: 50%;
@@ -397,7 +400,6 @@ li.flair .pfp {
 }
 
 .trend {
-  border-bottom: 1px solid #cdcdcd;
   margin-bottom: 5px;
 }
 .trend .pfp {

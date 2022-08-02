@@ -1,13 +1,8 @@
 .trend {
-	border-bottom: 1px solid #cdcdcd;
 	margin-bottom: 5px;
 	.pfp {
 		float: left;
 		margin-right: 10px;
-		// width: 30px;
-		// height: 30px;
-		// border-radius: 50%;
-		// border: 1px solid #ebebeb;
 	}
 	a {
 		@include link;
