@@ -2,6 +2,24 @@
 <main class="multicol">
     <aside>
         <article class="titled">
+            <h1>About Greendit</h1>
+            <p>Greendit is lighweight and open source version of reddit. This website was built from scratch without any frameworks or external libraries and uses PHP and a MySQL database for its backend. It was created by CuddlyBunion341</p>
+            <ul class="socials">
+                <li><a href="https://github.com/CuddlyBunion341/greendit">
+                    <i class="fa-brands fa-github"></i>
+                </a></li>
+                <li><a href="https://www.youtube.com/channel/UC8EszsyKVlEzu7ftpfZSVrQ">
+                    <i class="fa-brands fa-youtube"></i>
+                </a></li>
+                <li><a href="#">
+                    <i class="fa-brands fa-discord"></i>
+                </a></li>
+                <li><a href="mailto:00cb341@gmail.com">
+                    <i class="fa-regular fa-envelope"></i>
+                </a></li>
+            </ul>
+        </article>
+        <article class="titled">
             <h1>Trending communities</h1>
             <ul class="trending">
                 <?php
