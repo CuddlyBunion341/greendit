@@ -101,78 +101,30 @@
     ';
 
     if ($tab_index == 0 || $tab_index == 1)  {
-        $posts = query('select * from posts where user_id = '.$user['user_id']);
+        $posts = query('select * from posts where user_id = '.$user_id);
         foreach ($posts as $post) {
-            $tab_index == 0 ? postHTML($post,true,false) : overviewPostHTML($post);
+            $post_id = $post['post_id'];
+            if ($tab_index == 0) {
+                postHTML($post, true, false);
+                if (exists("select * from comments where post_id=$post_id and user_id=$user_id")) {
+                    userCommentsHTML($post, $user, false);
+                }
+            } else {
+                overviewPostHTML($post);
+            }
         }
         if (!$posts && $tab_index == 1) {
             echo '<p>No posts yet!</p>';
         }
     }
-    if ($tab_index == 0) {
-        $comments = query('select * from comments where user_id = '.$user['user_id']);
-        foreach ($comments as $comment) {
-            overviewCommentHTML($comment);
-        }
-        if (!$comments && $tab_index == 2) {
-            echo '<p>No comments yet!</p>';
-        }
-    }
 
     if ($tab_index == 2) {
-        $posts = query('select posts.user_id, posts.post_id, posts.hash, posts.title, communities.shortname as sub from users inner join comments on comments.user_id = users.user_id inner join posts on posts.post_id = comments.post_id inner join communities on posts.community_id = communities.community_id where users.user_id='.$user['user_id'].' group by posts.hash;');
+        $posts = query('select posts.* from users 
+            inner join comments on comments.user_id = users.user_id 
+            inner join posts on posts.post_id = comments.post_id
+            where users.user_id='.$user_id.' group by posts.post_id');
         foreach($posts as $post) {
-            $post_comments = query('select * from comments where post_id='.$post['post_id']);
-            $author = getField('select username from users where user_id='.$post['user_id']);
-            $sub = $post['sub'];
-            $post_hash = $post['hash'];
-            $title = $post['title'];
-            echo '
-            <article class="overview-comment">
-                <section class="overview-comment__head">
-                    '.file_get_contents(__DIR__.'/resources/icons/comment2.svg').'
-                    '.linkHTML('users/'.$username,$username).'
-                    commented on 
-                    '.linkHTML('subs/'.$sub.'/posts/'.$post_hash,$title).'
-                    in '.linkHTML('subs/'.$sub,'s/'.$sub).'
-                    Posted by '.linkHTML('users/'.$author,$author).'
-                </section>
-                <section class="overview-comment__comments">
-            ';
-            foreach ($post_comments as $comment) {
-                if ($comment['user_id'] != $user_id) continue;
-                $indent = 1;
-                $alias = $comment;
-                // calculate indent
-                while ($alias['parent_id']) {
-                    $exists = false;
-                    foreach ($post_comments as $other) {
-                        if ($other['comment_id'] == $alias['parent_id']) {
-                            $alias = $other;
-                            $exists = true;
-                            break;
-                        }
-                    }
-                    if (!$exists) {
-                        exit ('ERROR FETCHING COMMENT');
-                    }
-                    $indent++;
-                    $post_comments;
-                }
-                echo '
-                <div class="comment">
-                    '.str_repeat('<div class="indent">',$indent).'
-                        <div class="comment__head">
-                            '.linkHTML('users/'.$username,$username).'
-                            '.formatDate($comment['created_at']).'
-                        </div>
-                        <p>'.$comment['content'].'</p>
-                    '.str_repeat('</div>',$indent).'
-                </div>';
-            }
-            echo '
-                </section>
-            </article>';
+            userCommentsHTML($post, $user, true);
         }
     }
 

@@ -930,45 +930,51 @@ video {
   background: #f1f1f1;
 }
 
-.overview-comment {
+.user-comment-wrapper {
   padding: 0;
   overflow: visible;
 }
-.overview-comment__head {
+.user-comment-wrapper.beheaded {
+  margin-top: -8px;
+}
+.user-comment-wrapper.beheaded .user-comment:first-child::before {
+  display: none;
+}
+.user-comment-wrapper__head {
   padding: 5px;
 }
-.overview-comment__head svg.icon {
+.user-comment-wrapper__head svg.icon {
   margin-top: 3px;
 }
-.overview-comment__head:hover {
+.user-comment-wrapper__head:hover {
   outline: 1px solid gray;
 }
-.overview-comment__comments .indent {
+.user-comment-wrapper__comments .indent {
   margin-left: 10px;
   border-left: 2px dashed #ebebeb;
   padding: 5px;
 }
-.overview-comment__comments .comment {
+.user-comment-wrapper__comments .user-comment {
   border: none;
   padding: 5px;
   margin: 0;
   position: relative;
   overflow: hidden;
 }
-.overview-comment__comments .comment__head {
+.user-comment-wrapper__comments .user-comment__head {
   margin-top: 0;
   margin-bottom: 2px;
 }
-.overview-comment__comments .comment:hover {
+.user-comment-wrapper__comments .user-comment:hover {
   outline: 1px solid gray;
 }
-.overview-comment__comments .comment:hover::before {
+.user-comment-wrapper__comments .user-comment:hover::before {
   display: none;
 }
-.overview-comment__comments .comment p {
+.user-comment-wrapper__comments .user-comment p {
   margin: 0;
 }
-.overview-comment__comments .comment::before {
+.user-comment-wrapper__comments .user-comment::before {
   content: "";
   width: calc(100% - 10px);
   position: absolute;

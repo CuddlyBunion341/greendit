@@ -42,7 +42,13 @@
         background: $gray-100;
     }
 }
-.overview-comment {
+.user-comment-wrapper {
+    &.beheaded {
+        margin-top: -8px;
+        .user-comment:first-child::before {
+            display: none;
+        }
+    }
     padding: 0;
     overflow: visible;
     &__head {
@@ -60,7 +66,7 @@
             border-left: 2px dashed $gray-200;
             padding: 5px;
         }
-        .comment {
+        .user-comment {
             border: none;
             padding: 5px;
             margin: 0;

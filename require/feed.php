@@ -76,6 +76,79 @@
             'saved' => $saved
         );
     }
+    function getUserCommentData($comment) {
+        extract($comment);
+        $user = row('select * from users where user_id='.$user_id);
+
+        // todo
+    }
+    function userCommentsHTML($post, $user, $head=true) {
+        $post_comments = query('select * from comments where post_id='.$post['post_id']);
+        if (!$post_comments) {
+            echo 'comment';
+            return;
+        };
+        $user_id = $user['user_id'];
+        $username = $user['username'];
+        echo '<article class="user-comment-wrapper'.activeClass(!$head,'beheaded').'">';
+        if ($head) {
+            $author = getField('select username from users where user_id='.$post['user_id']);
+            $sub = getField('select shortname from communities where community_id='.$post['community_id']);
+            $hash = $post['hash'];
+            $title = $post['title'];
+            echo '
+            <section class="user-comment-wrapper__head">
+                '.file_get_contents(__DIR__.'/../resources/icons/comment2.svg').'
+                '.linkHTML('users/'.$username,$username).'
+                commented on 
+                '.linkHTML('subs/'.$sub.'/posts/'.$hash,$title).'
+                in '.linkHTML('subs/'.$sub,'s/'.$sub).'
+                Posted by '.linkHTML('users/'.$author,$author).'
+            </section>
+            ';
+        }
+        echo '<section class="user-comment-wrapper__comments">';
+        foreach($post_comments as $comment) {
+            if ($comment['user_id'] != $user_id) continue;
+            $indent = 1;
+            $alias = $comment;
+            while($alias['parent_id']) {
+                foreach($post_comments as $other) {
+                    if ($other['comment_id'] == $alias['parent_id']) {
+                        $alias = $other;
+                    }
+                }
+                $indent++;
+            }
+            echo '
+            <div class="user-comment">
+                '.str_repeat('<div class="indent">',$indent).'
+                <div class="user-comment__head">
+                    '.linkHTML('users/'.$username,$username).'
+                    '.formatDate($comment['created_at']).'
+                </div>
+                <p>'.$comment['content'].'</p>
+                '.str_repeat('</div>',$indent).'                
+            </div>';
+        }
+        echo '
+            </section>
+        </article>';
+    }
+    function overviewComment($user, $comment, $indent) {
+        $username = $user['username'];
+        return '
+        <div class="comment">
+            '.str_repeat('<div class="indent">',$indent).'
+                <div class="comment__head">
+                    '.linkHTML('users/'.$username,$username).'
+                    '.formatDate($comment['created_at']).'
+                </div>
+                <p>'.$comment['content'].'</p>
+            '.str_repeat('</div>',$indent).'
+        </div>
+        ';
+    }
     function postHTML($post, $show_community = true, $show_user = true) {
         $post_data = getPostData($post);
         extract($post_data);
