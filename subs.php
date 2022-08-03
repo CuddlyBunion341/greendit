@@ -142,9 +142,9 @@ echo '
         } else {
             // show specific post
             if (isset($_GET['post'])) {
-                $post = row('select * from posts where hash = \'' . $_GET['post'] . '\'');
+                $post = row('select * from posts where hash = \'' . $_GET['post'] . '\' and community_id = '.$community['community_id']);
                 if (!$post) {
-                    echo 'Post not found :/';
+                    echo '<article>Post not found :/</article>';
                 }
             }
             if ($post) {

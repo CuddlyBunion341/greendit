@@ -90,10 +90,10 @@
         };
         $user_id = $user['user_id'];
         $username = $user['username'];
+        $sub = getField('select shortname from communities where community_id='.$post['community_id']);
         echo '<article class="user-comment-wrapper'.activeClass(!$head,'beheaded').'">';
         if ($head) {
             $author = getField('select username from users where user_id='.$post['user_id']);
-            $sub = getField('select shortname from communities where community_id='.$post['community_id']);
             $hash = $post['hash'];
             $title = $post['title'];
             echo '
@@ -107,7 +107,7 @@
             </section>
             ';
         }
-        echo '<section class="user-comment-wrapper__comments">';
+        echo '<section class="user-comment-wrapper__comments" data-hash="'.$post['hash'].'" data-sub="'.$sub.'">';
         foreach($post_comments as $comment) {
             if ($comment['user_id'] != $user_id) continue;
             $indent = 1;
@@ -121,7 +121,7 @@
                 $indent++;
             }
             echo '
-            <div class="user-comment">
+            <div class="user-comment" data-hash="'.$comment['hash'].'">
                 '.str_repeat('<div class="indent">',$indent).'
                 <div class="user-comment__head">
                     '.linkHTML('users/'.$username,$username).'
@@ -196,7 +196,7 @@
         }
         $post_head .= $age .'</div>';
         echo '
-        <article class="post" data-hash="'.$hash.'">
+        <article class="post" data-hash="'.$hash.'" data-sub="'.$sub.'">
             <section class="left">
                 '.arrow_wrapper($liked,$disliked,$likes,false,$removed).'
             </section>
@@ -260,7 +260,7 @@
         if ($removed) return;
 
         echo  '
-        <article class="post overview" data-hash="'.$hash.'">
+        <article class="post overview" data-hash="'.$hash.'" data-sub="'.$sub.'">
             <section class="left">
                 '.arrow_wrapper($liked,$disliked,$likes).'
             </section>

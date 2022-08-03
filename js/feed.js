@@ -72,16 +72,17 @@ $("#feed").click(function (e) {
 	const name = target.getAttribute("name");
 	if (target.closest(".post")) {
 		const hash = target.closest(".post").dataset.hash;
+		const sub = target.closest(".post").dataset.sub;
 		if (name == "upvote-btn" || name == "downvote-btn") {
 			return upvote(target);
 		}
 		else if (name == "comment-btn") {
-			window.location.href = `subs/main/posts/${hash}/`;
+			window.location.href = `subs/${sub}/posts/${hash}/`;
 		}
 		else if (name == "share-btn") {
 			navigator.clipboard
 				.writeText(
-					`${window.location.host}/greendit/subs/main/posts/${hash}/`
+					`${window.location.host}/greendit/subs/${sub}/posts/${hash}/`
 				)
 				.then(() => alert("post url copied to clipboard!"))
 				.catch(() => alert("something went wrong..."));
@@ -90,15 +91,16 @@ $("#feed").click(function (e) {
 			return save(target);
 		}
 		else if (target.closest(".post.overview")) {
-			window.location = `/greendit/subs/main/posts/${hash}/`;
+			window.location = `/greendit/subs/${sub}/posts/${hash}/`;
 		}
 	} else if (target.closest(".comment-wrapper")) {
 		const post = target.closest(".comment-wrapper").dataset.hash;
+		const sub = target.closest(".comment-wrapper").dataset.sub;
 		const comment = target.closest(".comment");
 		if (name == "share-btn") {
 			navigator.clipboard
 				.writeText(
-					`${window.location.host}/greendit/subs/main/posts/${post}/comment/${comment.dataset.hash}`
+					`${window.location.host}/greendit/subs/${sub}/posts/${post}/comment/${comment.dataset.hash}`
 				)
 				.then(() => alert("comment url copied to clipboard!"))
 				.catch(() => alert("something went wrong..."));
@@ -109,6 +111,11 @@ $("#feed").click(function (e) {
 		else if (name == "save-btn") {
 			return save(target);
 		}
+	} else if (target.closest(".user-comment")) {
+		const post = target.closest(".user-comment-wrapper__comments").dataset.hash;
+		const sub = target.closest(".user-comment-wrapper__comments").dataset.sub;
+		const comment = target.closest(".user-comment").dataset.hash;
+		window.location = `/greendit/subs/${sub}/posts/${post}/comment/${comment}/`;
 	}
 });
 
