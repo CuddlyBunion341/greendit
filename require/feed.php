@@ -197,7 +197,7 @@
             <section class="right">
                 <div class="head">
                     posted in <a href="subs/'.$sub.'">s/'.$sub.'</a>
-                    '.$days.' day(s) ago
+                    '.$age.'
                 </div>
                 <h2>'.$title.'</h2>
                 '.footerHTML($saved, $comments).'

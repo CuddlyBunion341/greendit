@@ -133,7 +133,7 @@
                     '.file_get_contents(__DIR__.'/resources/icons/comment2.svg').'
                     '.linkHTML('users/'.$username,$username).'
                     commented on 
-                    '.linkHTML('subs/'.$sub.'/posts/'.$post_hash,'s/'.$title).'
+                    '.linkHTML('subs/'.$sub.'/posts/'.$post_hash,$title).'
                     in '.linkHTML('subs/'.$sub,'s/'.$sub).'
                     Posted by '.linkHTML('users/'.$author,$author).'
                 </section>
@@ -159,16 +159,16 @@
                     $indent++;
                     $post_comments;
                 }
-                echo str_repeat('<div class="indent">',$indent);
                 echo '
                 <div class="comment">
-                    <div class="comment__head">
-                        '.linkHTML('users/'.$username,$username).'
-                        '.formatDate($comment['created_at']).'
-                    </div>
-                    <p>'.$comment['content'].'</p>
+                    '.str_repeat('<div class="indent">',$indent).'
+                        <div class="comment__head">
+                            '.linkHTML('users/'.$username,$username).'
+                            '.formatDate($comment['created_at']).'
+                        </div>
+                        <p>'.$comment['content'].'</p>
+                    '.str_repeat('</div>',$indent).'
                 </div>';
-                echo str_repeat('</div>',$indent);
             }
             echo '
                 </section>
