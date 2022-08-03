@@ -221,9 +221,8 @@ function error($name) {
                 <div class="post-content">
                     <div data-tab="0" <?php showTab(0); ?>>
                     <div id="content-group">
-                        <textarea name="content" id="content" cols="30" rows="10" placeholder="Text (required)">
-                            <?php value('content'); ?>
-                        </textarea>
+                        <textarea name="content" id="content" cols="30" rows="10" placeholder="Text (required)"
+                        ><?php value('content'); ?></textarea>
                         <?php error('content'); ?>
                     </div>
                     </div>
