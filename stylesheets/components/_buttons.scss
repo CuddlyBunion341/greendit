@@ -30,27 +30,31 @@ button {
         }
     }
 }
-.join-btn {
-	border-radius: 50px;
-	border: 1px solid $dark-lime;
-	background-color: $dark-lime;
-	padding-top: 5px;
-	padding-bottom: 5px;
-    padding-left: 15px;
-    padding-right: 15px;
-    width: 70px;
+@mixin roundBtn($label1,$label2,$color: $dark-lime) {
+    border-radius: 50px;
+    border: 1px solid $color;
+    background-color: $color;
+    padding: 5px 15px 6px 15px;
+    width: 74px;
     text-align: center;
     vertical-align: middle;
     cursor: pointer;
-	color: white;
-    &.active{
-        color: $dark-lime;
+    color: white;
+    &.active {
+        color: $color;
         background-color: white;
         &::after {
-            content: "Joined";
-        }   
+            content: $label2;
+        }
     }
     &::after {
-        content: "Join";
+        content: $label1;
     }
+}
+.join-btn {
+    @include roundBtn('Join', 'Joined', $dark-lime);
+}
+.follow-btn {
+    @include roundBtn('Follow', 'Unfollow', $blue);
+    width: 84px;
 }

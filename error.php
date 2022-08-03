@@ -17,6 +17,7 @@
             $code = $_SERVER['REDIRECT_STATUS'];
         }
         $codes = array(
+            400 => ['Bad Request','Your browser sent a request that this server could not understand.'],
             401 => ['Unauthorized','You are not logged in.'],
             403 => ['Forbidden','You are not allowed to access this page.'],
             404 => ['Not Found','The page you are looking for does not exist.'],

@@ -11,10 +11,10 @@
         height: 30px;
         border-radius: 2px;
         border: 1px solid black;
-        background-color: #f8f8f8;
+        background-color: $gray-100;
         &:hover {
             cursor: text;
-            border: 1px solid #00c2ff;
+            border: 1px solid $blue;
             background-color: white;
         }
     }

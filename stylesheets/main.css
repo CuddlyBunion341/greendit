@@ -25,6 +25,12 @@ html, body {
   color: #696969;
 }
 
+.growing {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
 main {
   padding: 20px 0 20px 0;
   min-height: 100%;
@@ -178,11 +184,8 @@ button {
   border-radius: 50px;
   border: 1px solid #00A36C;
   background-color: #00A36C;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  padding-left: 15px;
-  padding-right: 15px;
-  width: 70px;
+  padding: 5px 15px 6px 15px;
+  width: 74px;
   text-align: center;
   vertical-align: middle;
   cursor: pointer;
@@ -197,6 +200,29 @@ button {
 }
 .join-btn::after {
   content: "Join";
+}
+
+.follow-btn {
+  border-radius: 50px;
+  border: 1px solid #00c2ff;
+  background-color: #00c2ff;
+  padding: 5px 15px 6px 15px;
+  width: 74px;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  color: white;
+  width: 84px;
+}
+.follow-btn.active {
+  color: #00c2ff;
+  background-color: white;
+}
+.follow-btn.active::after {
+  content: "Unfollow";
+}
+.follow-btn::after {
+  content: "Follow";
 }
 
 .create-comment {
@@ -242,6 +268,7 @@ button {
 .comment {
   margin-left: 20px;
   border: none;
+  margin-bottom: 0;
   border-left: 2px solid #e5e5e5;
   padding-left: 7px;
   padding-bottom: 6px;
@@ -333,7 +360,7 @@ li.flair .pfp {
   height: 30px;
   border-radius: 2px;
   border: 1px solid black;
-  background-color: #f8f8f8;
+  background-color: #f1f1f1;
 }
 .create-post button:hover {
   cursor: text;
@@ -837,4 +864,59 @@ video {
 
 .post-content {
   margin-bottom: 5px;
+}
+
+.user {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.user__banner {
+  -ms-flex-item-align: stretch;
+      align-self: stretch;
+  background-color: #00A36C;
+  margin: 0 -10px 30px -10px;
+  border-bottom: 1px solid #bfbfbf;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.user__banner img {
+  position: relative;
+  top: 34px;
+}
+.user__main {
+  padding-top: 10px;
+  text-align: center;
+}
+.user__main h2 {
+  margin: 0;
+}
+.user__main a {
+  color: #696969;
+  text-decoration: none;
+}
+.user__main a:hover {
+  text-decoration: underline;
+}
+.user__stats {
+  padding-left: 20px;
+  margin-bottom: 10px;
+}
+.user__stats a {
+  color: black;
+  text-decoration: none;
 }

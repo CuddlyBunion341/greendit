@@ -158,9 +158,9 @@
         </article>
         ';
     }
-    function activeClass($bool,$class='active') {
+    function activeClass($bool,$class='active',$whitespace=true) {
         if ($bool) {
-            return ' '.$class;
+            return ($whitespace ? ' ' : '').$class;
         }
         return '';
     }

@@ -1,0 +1,36 @@
+.user {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    &__banner {
+        align-self: stretch;
+        background-color: $dark-lime;
+        margin: 0 -10px 30px -10px;
+        border-bottom: 1px solid $gray-300;
+        display: flex;
+        justify-content: center;
+        img {
+            position: relative;
+            top: 34px;
+        }
+    }
+    &__main {
+        padding-top: 10px;
+        text-align: center;
+        h2 {
+            margin: 0;
+        }
+        a {
+            @include link;
+        }
+    }
+    &__stats {
+        padding-left: 20px;
+        margin-bottom: 10px;
+        a {
+            color: black;
+            text-decoration: none;
+        }
+    }
+}
