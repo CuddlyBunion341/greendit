@@ -954,3 +954,21 @@ video {
   margin: 10px 0 10px 10px;
   background: #f1f1f1;
 }
+
+.followers {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  margin: 5px 0 5px 0;
+}
+.followers a {
+  color: #696969;
+  text-decoration: none;
+}
+.followers a:hover {
+  text-decoration: underline;
+}
+.followers img {
+  margin-right: 10px;
+  vertical-align: middle;
+}

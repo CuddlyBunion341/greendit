@@ -45,3 +45,16 @@
         background: $gray-100;
     }
 }
+.followers {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    margin: 5px 0 5px 0;
+    a {
+        @include link;
+    }
+    img {
+        margin-right: 10px;
+        vertical-align: middle;
+    }
+}

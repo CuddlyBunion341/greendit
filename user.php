@@ -111,11 +111,23 @@
             select follower_id,users.username from followers
             inner join users on users.user_id = followers.follower_id
             where followers.user_id = '.$user['user_id']);
-        foreach ($followers as $follower) {
-            echo '<p>'.$follower['username'].'</p>';
-        }
         if (!$followers) {
             echo '<p>No followers yet!</p>';
+        } else {
+            echo '<ul class="followers">';
+            foreach ($followers as $follower) {
+                $name = $follower['username'];
+                echo '
+                <li>
+                    <article>
+                    <a href="/greendit/users/'.$name.'">
+                        <img class="pfp small" src="resources/pfps/'.$name.'.png" alt="'.$name.'">'.$name.'
+                    </a>
+                    </article>
+                </li>
+                ';
+            }
+            echo '</ul>';
         }
     }
 ?>
