@@ -550,7 +550,7 @@ header nav a:first-child {
 nav.tabbs {
   overflow: hidden;
   border-bottom: 1px solid gray;
-  margin-bottom: 10px;
+  margin-bottom: 0;
 }
 nav.tabbs a {
   float: left;
