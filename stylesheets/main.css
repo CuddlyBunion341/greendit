@@ -9,6 +9,14 @@ html, body {
   height: 100%;
 }
 
+a {
+  color: #696969;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
 .socials {
   list-style-type: none;
 }
@@ -298,23 +306,9 @@ button {
   margin-right: 5px;
   vertical-align: middle;
 }
-.comment__header a {
-  color: #696969;
-  text-decoration: none;
-}
-.comment__header a:hover {
-  text-decoration: underline;
-}
 .comment__content {
   margin-top: 0;
   margin-bottom: 0;
-}
-li.flair a {
-  color: #696969;
-  text-decoration: none;
-}
-li.flair a:hover {
-  text-decoration: underline;
 }
 li.flair .pfp {
   vertical-align: middle;
@@ -454,13 +448,6 @@ li.flair .pfp {
   color: #696969;
   font-size: 13px;
 }
-.post .head a {
-  color: #696969;
-  text-decoration: none;
-}
-.post .head a:hover {
-  text-decoration: underline;
-}
 .post .footer {
   margin-top: 5px;
 }
@@ -473,12 +460,7 @@ li.flair .pfp {
   margin-right: 10px;
 }
 .trend a {
-  color: #696969;
-  text-decoration: none;
   color: #000;
-}
-.trend a:hover {
-  text-decoration: underline;
 }
 .trend .main p {
   margin-top: 0;
@@ -923,13 +905,6 @@ video {
 .user__main h2 {
   margin: 0;
 }
-.user__main a {
-  color: #696969;
-  text-decoration: none;
-}
-.user__main a:hover {
-  text-decoration: underline;
-}
 .user__stats {
   padding-left: 20px;
   margin-bottom: 10px;
@@ -960,13 +935,6 @@ video {
   margin: 0;
   padding: 0;
   margin: 5px 0 5px 0;
-}
-.followers a {
-  color: #696969;
-  text-decoration: none;
-}
-.followers a:hover {
-  text-decoration: underline;
 }
 .followers img {
   margin-right: 10px;

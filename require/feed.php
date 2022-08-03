@@ -1,6 +1,7 @@
 <?php
     if (!isset($_SESSION)) session_start();
     if (!isset($conn)) require_once __DIR__.'/db_connect.php';
+    require_once __DIR__.'/util.php';
     function getPostData($post) {
         extract($post);
         // ---- Objects --------------------------------------------------------------------------
@@ -12,9 +13,7 @@
         $likes = rows('select * from post_likes where post_id='.$post_id);
         $dislikes = rows('select * from post_dislikes where post_id='.$post_id);
         $total_likes = $likes - $dislikes;
-        $date = $created_at;
-        $datediff = time() - strtotime($date);
-        $date = round($datediff / (60 * 60 * 24));
+        $age = formatDate($created_at);
         // ---- User data ------------------------------------------------------------------------
         $liked = $disliked = $saved = false;
         if (isset($_SESSION['user_id'])) {
@@ -34,7 +33,7 @@
             'likes' => $total_likes,
             'comments' => $comments,
             'date' => $created_at,
-            'days' => $date,
+            'age' => $age,
             'liked' => $liked,
             'disliked' => $disliked,
             'saved' => $saved
@@ -51,6 +50,7 @@
         $likes = rows('select * from comment_likes where comment_id='.$comment_id);
         $dislikes = rows('select * from comment_dislikes where comment_id='.$comment_id);
         $total_likes = $likes - $dislikes;
+        $age = formatDate($created_at);
         // ---- User data ------------------------------------------------------------------------
         $liked = $disliked = $saved = false;
         if (isset($_SESSION['user_id'])) {
@@ -66,6 +66,8 @@
             'hash' => $hash,
             'sub' => $community['shortname'],
             'post' => $post,
+            'date' => $created_at,
+            'age' => $age,
             'title' => $post['title'],
             'post_author' => $post_author['username'],
             'likes' => $total_likes,
@@ -119,7 +121,7 @@
             u/'. $username . '
             </a>';
         }
-        $post_head .= $days . ' day(s) ago </div>';
+        $post_head .= $age .'</div>';
         echo '
         <article class="post" data-hash="'.$hash.'">
             <section class="left">

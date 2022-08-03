@@ -44,9 +44,6 @@
     .head {
         color: #696969;
         font-size: 13px;
-        a {
-            @include link;
-        }
     }
     .footer {
         margin-top: 5px;

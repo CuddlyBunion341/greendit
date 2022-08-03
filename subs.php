@@ -11,12 +11,6 @@ if (!$community) {
     header('Location: /greendit/error/419');
     exit;
 }
-function plural($word, $num) {
-    if ($num == 1) {
-        return $word;
-    }
-    return $word . 's';
-}
 require 'require/feed.php';
 $community_id = $community['community_id'];
 $posts = rows('select * from posts where community_id=' . $community_id);

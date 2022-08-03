@@ -21,9 +21,6 @@
         h2 {
             margin: 0;
         }
-        a {
-            @include link;
-        }
     }
     &__stats {
         padding-left: 20px;
@@ -50,9 +47,6 @@
     margin: 0;
     padding: 0;
     margin: 5px 0 5px 0;
-    a {
-        @include link;
-    }
     img {
         margin-right: 10px;
         vertical-align: middle;
