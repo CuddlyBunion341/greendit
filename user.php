@@ -100,7 +100,7 @@
         <div id="feed" class="'.activeClass($tab_index == 1 || $tab_index == 2,'growing',false).'">
     ';
 
-    if ($tab_index == 0 || $tab_index == 1)  {
+    if ($tab_index == 0)  {
         $posts = query('
             select *,posts.created_at as date from posts 
             where user_id='.$user_id.' 
@@ -124,7 +124,7 @@
         }
     }
     if ($tab_index == 1) {
-        $posts = query('select * from posts where user_id='.$user_id);
+        $posts = query('select * from posts where user_id='.$user_id.' order by created_at desc');
         foreach ($posts as $post) {
             overviewPostHTML($post);
         }

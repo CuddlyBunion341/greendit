@@ -85,3 +85,42 @@ $("#video-input").on("change",function(e) {
 	const source = $.createElementFromHTML(`<source src="${url}">`);
 	video.appendChild(source);
 })
+
+$("#create-post-form").on('submit',function(e) {
+	return true;
+	let error = false;
+
+	const title = $("#title").value();
+	if (/^\s*$/.test(title)) {
+		if (!$("#title-group .error")) {
+			$("#title-group").append($.createElementFromHTML(`<p class="error">Title must not be empty</p>`));
+		}
+		error = true;
+	}
+	const sub = $("#sub").value();
+	if (!sub) {
+		console.error("SUB REQUIRED");
+		error = true;
+	}
+	
+	const tab = $('#tab-val').value();
+	if (tab == 0) {
+		const text = $('#content').value();
+		if (/^\s*$/.test(text)) {
+			console.error("CONTENT REQUIRED");
+			error = true;
+		}
+	} else if (tab == 1) {
+		const file = $("#image-input").element.files[0];
+		if (!file) {
+			console.error("IMAGE REQUIRED");
+			error = true;
+		}
+	} else if (tab == 2) {
+		const file = $("#video-input").element.files[0];
+		if (!file) {
+			console.error("VIDEO REQUIRED");
+			error = true;
+		}
+	}
+})

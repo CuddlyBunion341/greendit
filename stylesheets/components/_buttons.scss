@@ -41,16 +41,9 @@ button {
         }
     }
 }
-@mixin roundBtn($label1,$label2,$color: $dark-lime) {
-    border-radius: 50px;
-    border: 1px solid $color;
-    background-color: $color;
-    padding: 5px 15px 6px 15px;
+@mixin roundActiveBtn($label1,$label2,$color: $dark-lime) {
+    @include roundBtn($color);
     width: 74px;
-    text-align: center;
-    vertical-align: middle;
-    cursor: pointer;
-    color: white;
     &.active {
         color: $color;
         background-color: white;
@@ -62,10 +55,28 @@ button {
         content: $label1;
     }
 }
+@mixin roundBtn($color,$full: true) {
+    padding: 5px 15px 6px 16px;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 50px;
+    border: 1px solid $color;
+    cursor: pointer;
+    @if $full {
+        background-color: $color;
+        color: white;
+    } @else {
+        background-color: white;
+        color: $color;
+    }
+}
 .join-btn {
-    @include roundBtn('Join', 'Joined', $dark-lime);
+    @include roundActiveBtn('Join', 'Joined', $dark-lime);
 }
 .follow-btn {
-    @include roundBtn('Follow', 'Unfollow', $blue);
+    @include roundActiveBtn('Follow', 'Unfollow', $blue);
     width: 84px;
+}
+.post-btn {
+    @include roundBtn($dark-lime);
 }

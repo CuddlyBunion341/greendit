@@ -51,7 +51,7 @@
         <?php endif; ?>
         <div class="pfp-container">
             <span>profile picture:</span>
-            <img class="pfp" id="user-pfp" alt="">
+            <img class="pfp medium" id="user-pfp" alt="">
             <button type="button" id="next-pfp-btn">random();</button>
         </div>
         <input type="text" name="username" id="username" placeholder="Username" value="<?php value('username'); ?>">
@@ -59,7 +59,7 @@
         <input type="password" name="verify" id="verify" placeholder="Verify Password">
         <input type="submit" name="submit" value="Sign Up">
         <input type="hidden" name="pfp" id="pfp" value="<?php value('pfp')?>">
-        <p>Allready a member?&nbsp;<a href="login.php">LogIn</a></p>
+        <p>Already a member?&nbsp;<a href="login.php">LogIn</a></p>
     </div>
     <script src="js/register.js"></script>
 </form>
