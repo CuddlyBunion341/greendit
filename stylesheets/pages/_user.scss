@@ -34,3 +34,14 @@
         }
     }
 }
+.post.overview {
+    .thumb {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 20px 0 20px;
+        border-radius: 5px;
+        margin: 10px 0 10px 10px;
+        background: $gray-100;
+    }
+}

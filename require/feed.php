@@ -190,7 +190,7 @@
                 '.arrow_wrapper($liked,$disliked,$likes).'
             </section>
             <section class="thumb">
-                <i class="fa-solid fa-align-justify"></i>
+                '.file_get_contents(__DIR__.'/../resources/icons/post.svg').'
             </section>
             <section class="right">
                 <div class="head">
@@ -211,7 +211,7 @@
         echo '
         <article class="comment overview" data-hash="'.$hash.'">
             <section class="header">
-                <i class="fa-regular fa-message"></i>
+                '.file_get_contents(__DIR__.'/../resources/icons/comment.svg').'
                 <a href="users/'.$username.'">'.$username.'</a>
                 commented on <a href="subs/'.$sub.'/posts/'.$post['hash'].'">'.$title.'</a> 
                 in <a href="subs/'.$sub.'">s/'.$sub.'</a>
