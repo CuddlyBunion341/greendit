@@ -105,20 +105,17 @@ echo '
             <ul>
                 <li class="flair">
                     <a href="/greendit/users/admin">
-                        <img class="pfp small" src="resources/pfps/admin.png" alt="admin">
-                        u/admin
+                        <img class="pfp small" src="resources/pfps/admin.png" alt="admin">u/admin
                     </a>
                 </li>
                 <li class="flair">
                     <a href="/greendit/users/cb341">
-                        <img class="pfp small" src="resources/pfps/cb341.png" alt="cb341">
-                        u/cb341
+                        <img class="pfp small" src="resources/pfps/cb341.png" alt="cb341">u/cb341
                     </a>
                 </li>
                 <li class="flair">
                     <a href="/greendit/users/JeJe69">
-                        <img class="pfp small" src="resources/pfps/JeJe69.png" alt="JeJe69">
-                        u/JeJe69
+                        <img class="pfp small" src="resources/pfps/JeJe69.png" alt="JeJe69">u/JeJe69
                     </a>
                 </li>
             </ul>

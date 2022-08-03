@@ -309,8 +309,16 @@ button {
   margin-top: 0;
   margin-bottom: 0;
 }
+li.flair a {
+  color: #696969;
+  text-decoration: none;
+}
+li.flair a:hover {
+  text-decoration: underline;
+}
 li.flair .pfp {
   vertical-align: middle;
+  margin-right: 10px;
 }
 
 .icon {
