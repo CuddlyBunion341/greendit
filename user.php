@@ -16,7 +16,7 @@
 
     // tabbed navigation
 
-    $tabs = array('overview','posts','comments','likes','followers');
+    $tabs = array('overview','posts','comments','likes');
     $tab_index = isset($_GET['tab']) ? array_search($_GET['tab'],$tabs) : 0;
 
     function active($index) {
@@ -32,7 +32,6 @@
         <a'.active(1).'href="users/'.$user['username'].'/posts">Posts</a>
         <a'.active(2).'href="users/'.$user['username'].'/comments">Comments</a>
         <a'.active(3).'href="users/'.$user['username'].'/likes">Likes</a>
-        <a'.active(4).'href="users/'.$user['username'].'/followers">Followers</a>
     </nav>';
 
     // user sidebar
@@ -50,6 +49,32 @@
         $session_user = $_SESSION['user_id'];
         $user_id = $user['user_id'];
         $follow_active = exists("select * from followers where user_id=$user_id and follower_id=$session_user");
+    }
+
+    {
+        $followers = query('
+        select follower_id,users.username from followers
+        inner join users on users.user_id = followers.follower_id
+        where followers.user_id = '.$user['user_id']);
+        if (!$followers) {
+            $followers_article = '';
+        } else {
+            $followers_article = '
+            <article class="titled">
+                <h1>Followers</h1>
+                <ul>';
+            foreach ($followers as $follower) {
+                $name = $follower['username'];
+                $followers_article .= '
+                <li class="flair">
+                    <a href="/greendit/users/'.$name.'">
+                        <img class="pfp small" src="resources/pfps/'.$name.'.png" alt="'.$name.'">'.$name.'
+                    </a>
+                </li>
+                ';
+            }
+            $followers_article .= '</ul></article>';
+        }
     }
 
     echo '
@@ -70,6 +95,7 @@
                 </section>
                 <button class="follow-btn'.activeClass($follow_active).'" data-username="'.$username.'"></button>
             </article>
+            '.$followers_article.'
         </aside>
         <div id="feed" class="'.activeClass($tab_index != 0,'growing',false).'">
     ';
@@ -103,31 +129,6 @@
         }
         if (!$liked_posts) {
             echo '<p>No likes yet!</p>';
-        }
-    }
-
-    if ($tab_index == 4) {
-        $followers = query('
-            select follower_id,users.username from followers
-            inner join users on users.user_id = followers.follower_id
-            where followers.user_id = '.$user['user_id']);
-        if (!$followers) {
-            echo '<p>No followers yet!</p>';
-        } else {
-            echo '<ul class="followers">';
-            foreach ($followers as $follower) {
-                $name = $follower['username'];
-                echo '
-                <li>
-                    <article>
-                    <a href="/greendit/users/'.$name.'">
-                        <img class="pfp small" src="resources/pfps/'.$name.'.png" alt="'.$name.'">'.$name.'
-                    </a>
-                    </article>
-                </li>
-                ';
-            }
-            echo '</ul>';
         }
     }
 ?>
