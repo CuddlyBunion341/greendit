@@ -16,7 +16,7 @@
 
     // tabbed navigation
 
-    $tabs = array('overview','posts','comments','likes');
+    $tabs = array('overview','posts','comments','liked');
     $tab_index = isset($_GET['tab']) ? array_search($_GET['tab'],$tabs) : 0;
 
     function active($index) {
@@ -31,7 +31,7 @@
         <a'.active(0).'href="users/'.$user['username'].'/overview">Overview</a>
         <a'.active(1).'href="users/'.$user['username'].'/posts">Posts</a>
         <a'.active(2).'href="users/'.$user['username'].'/comments">Comments</a>
-        <a'.active(3).'href="users/'.$user['username'].'/likes">Likes</a>
+        <a'.active(3).'href="users/'.$user['username'].'/liked">Liked</a>
     </nav>';
 
     // user sidebar
@@ -97,7 +97,7 @@
             </article>
             '.$followers_article.'
         </aside>
-        <div id="feed" class="'.activeClass($tab_index != 0,'growing',false).'">
+        <div id="feed" class="'.activeClass($tab_index == 1 || $tab_index == 2,'growing',false).'">
     ';
 
     if ($tab_index == 0 || $tab_index == 1)  {
@@ -109,13 +109,63 @@
             echo '<p>No posts yet!</p>';
         }
     }
-    if ($tab_index == 0 || $tab_index == 2) {
+    if ($tab_index == 0) {
         $comments = query('select * from comments where user_id = '.$user['user_id']);
         foreach ($comments as $comment) {
             overviewCommentHTML($comment);
         }
         if (!$comments && $tab_index == 2) {
             echo '<p>No comments yet!</p>';
+        }
+    }
+    if ($tab_index == 2) {
+        $posts = query('select posts.user_id, posts.post_id, posts.hash, posts.title, communities.shortname as sub from users inner join comments on comments.user_id = users.user_id inner join posts on posts.post_id = comments.post_id inner join communities on posts.community_id = communities.community_id where users.user_id='.$user['user_id'].' group by posts.hash;');
+        foreach($posts as $post) {
+            $post_comments = query('select * from comments where post_id='.$post['post_id']);
+            $author = getField('select username from users where user_id='.$post['user_id']);
+            echo '
+            <article class="overview-comment">
+                <section class="overview-comment__head">
+                '.file_get_contents(__DIR__.'/resources/icons/comment2.svg').'
+                <a href="users/'.$user['username'].'">'.$user['username'].'</a>
+                commented on <a href="/greendit/subs/'.$post['sub'].'/posts/'.$post['hash'].'">'.$post['title'].'</a> 
+                in <a href="/greendit/subs/'.$post['sub'].'">s/'.$post['sub'].'</a> Posted by <a href="/greendit/users/'.$author.'">'.$author.'</a>
+                </section>
+                <section class="overview-comment__comments">
+            ';
+            foreach ($post_comments as $comment) {
+                if ($comment['user_id'] != $user['user_id']) continue;
+                $indent = 1;
+                $alias = $comment;
+                // calculate indent
+                while ($alias['parent_id']) {
+                    $exists = false;
+                    foreach ($post_comments as $other) {
+                        if ($other['comment_id'] == $alias['parent_id']) {
+                            $alias = $other;
+                            $exists = true;
+                            break;
+                        }
+                    }
+                    if (!$exists) {
+                        exit ('ERROR FETCHING COMMENT');
+                    }
+                    $indent++;
+                    $post_comments;
+                }
+                echo str_repeat('<div class="indent">',$indent);
+                echo '
+                <div class="comment">
+                    <div class="comment__head">
+                        A x Days Ago
+                    </div>
+                    <p>'.$comment['content'].'</p>
+                </div>';
+                echo str_repeat('</div>',$indent);
+            }
+            echo '
+                </section>
+            </article>';
         }
     }
 
