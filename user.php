@@ -101,20 +101,32 @@
     ';
 
     if ($tab_index == 0 || $tab_index == 1)  {
-        $posts = query('select * from posts where user_id = '.$user_id);
+        $posts = query('
+            select *,posts.created_at as date from posts 
+            where user_id='.$user_id.' 
+            UNION
+            select posts.*,comments.created_at as date from users
+            inner join comments on comments.user_id = users.user_id
+            inner join posts on posts.post_id = comments.post_id
+            where users.user_id='.$user_id.' and posts.user_id!='.$user_id.' 
+            group by posts.post_id
+            order by date desc');
         foreach ($posts as $post) {
-            $post_id = $post['post_id'];
-            if ($tab_index == 0) {
+            if ($post['user_id'] != $user_id) {
+                userCommentsHTML($post, $user, true);
+            } else {
                 postHTML($post, true, false);
+                $post_id = $post['post_id'];
                 if (exists("select * from comments where post_id=$post_id and user_id=$user_id")) {
                     userCommentsHTML($post, $user, false);
                 }
-            } else {
-                overviewPostHTML($post);
             }
         }
-        if (!$posts && $tab_index == 1) {
-            echo '<p>No posts yet!</p>';
+    }
+    if ($tab_index == 1) {
+        $posts = query('select * from posts where user_id='.$user_id);
+        foreach ($posts as $post) {
+            overviewPostHTML($post);
         }
     }
 

@@ -83,7 +83,7 @@
         // todo
     }
     function userCommentsHTML($post, $user, $head=true) {
-        $post_comments = query('select * from comments where post_id='.$post['post_id']);
+        $post_comments = query('select * from comments where post_id='.$post['post_id'].' order by created_at desc');
         if (!$post_comments) {
             echo 'comment';
             return;
