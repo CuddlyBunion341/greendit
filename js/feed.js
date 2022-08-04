@@ -134,7 +134,7 @@ $(".create-comment")?.on("submit", function(e) {
 				const p = document.querySelector('.comment-wrapper > p');
 				if (p) wrapper.removeChild(p);
 				const comment = $.createElementFromHTML(response);
-				wrapper.appendChild(comment);
+				wrapper.append(comment);
 				input.value = "";
 			}
 			if (!status == 200) return console.error(response);

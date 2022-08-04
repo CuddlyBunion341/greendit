@@ -115,8 +115,10 @@ form.special {
 }
 
 .tabs button {
-    all: unset;
     padding: 5px;
+    border: none;
+    margin-left: 1px;
+    margin-right: 0;
     padding-left: 10px;
     padding-right: 10px;
     color: rgb(162, 162, 162);

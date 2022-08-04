@@ -1,12 +1,7 @@
 @charset "UTF-8";
-body {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  margin: 0;
-  overflow-x: hidden;
-}
-
-html, body {
-  height: 100%;
+.light {
+  color: #808080;
+  font-size: smaller;
 }
 
 a {
@@ -15,6 +10,16 @@ a {
 }
 a:hover {
   text-decoration: underline;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+html, body {
+  height: 100%;
 }
 
 .hidden {
@@ -296,6 +301,7 @@ button {
   margin-left: 10px;
   margin-right: 10px;
   border-bottom: 1px solid #ccc;
+  border-radius: 0;
 }
 
 .comment-wrapper {
@@ -949,8 +955,10 @@ form.special {
 }
 
 .tabs button {
-  all: unset;
   padding: 5px;
+  border: none;
+  margin-left: 1px;
+  margin-right: 0;
   padding-left: 10px;
   padding-right: 10px;
   color: rgb(162, 162, 162);

@@ -220,8 +220,8 @@
         <article class="comment" data-hash="'.$hash.'" id="comment-'.$hash.'">
             <section class="comment__header">
                 <a href="users/'.$username.'">
-                    <img src="'.$pfp.'" class="pfp small">'. $username . '
-                </a>
+                    <img src="'.$pfp.'" class="pfp small">'. $username . '</a>
+                <span class="light">'. $age .'</span>
             </section>
             <p class="comment__content">'.$content.'</p>
             <section class="comment__footer">
