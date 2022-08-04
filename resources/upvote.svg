@@ -1,13 +1,7 @@
-<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 34 38">
-    <defs>
-        <style>.cls-1{fill:#00a651;}.cls-2,.cls-3,.cls-4{fill:none;stroke:#231f20;stroke-width:3px;}.cls-2,.cls-3{stroke-linecap:round;}.cls-2{stroke-linejoin:round;}.cls-3,.cls-4{stroke-miterlimit:10;}</style>
-    </defs>
-    <polygon class="cls-1" points="25.06 17 25 37 9 37 9 17 1 17 17 1 33 17 25.06 17" />
-    <line class="cls-2" x1="9" y1="37" x2="9" y2="17" />
-    <line class="cls-2" x1="25" y1="37" x2="25.06" y2="17" />
-    <line class="cls-3" x1="9" y1="17" x2="1" y2="17" />
-    <polyline class="cls-4" points="25 17 25.06 17 33 17" />
-    <line class="cls-3" x1="1" y1="17" x2="17" y2="1" />
-    <line class="cls-3" x1="33" y1="17" x2="17" y2="1" />
-    <line class="cls-3" x1="9" y1="37" x2="25" y2="37" />
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 26.0.2, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 35 40" style="enable-background:new 0 0 35 40;" xml:space="preserve">
+	<style type="text/css">.fill{fill:#00A651;}.stroke{fill:none;stroke:#231F20;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}</style>
+	<polygon class="fill" points="25.6,17.5 25.5,37.5 9.5,37.5 9.5,17.5 1.5,17.5 17.5,1.5 33.5,17.5 " />
+	<polyline class="stroke" points="25.6,17.5 25.5,37.5 9.5,37.5 9.5,17.5 1.5,17.5 17.5,1.5 33.5,17.5 25.6,17.5 25.6,17.5 " />
 </svg>

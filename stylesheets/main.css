@@ -115,10 +115,10 @@ main.multicol {
 .arrow-wrapper button svg * {
   fill: none;
 }
-.arrow-wrapper button.upvote.active svg * {
+.arrow-wrapper button.upvote.active svg .fill {
   fill: #00a651;
 }
-.arrow-wrapper button.upvote:hover svg * {
+.arrow-wrapper button.upvote:hover svg .stroke {
   stroke: #00a651;
 }
 .arrow-wrapper button.downvote {
@@ -134,11 +134,13 @@ main.multicol {
 .arrow-wrapper button:disabled {
   cursor: not-allowed;
 }
-.arrow-wrapper button:disabled svg * {
+.arrow-wrapper button:disabled svg .stroke {
   stroke: #808080;
+}
+.arrow-wrapper button:disabled svg .fill {
   fill: #ebebeb;
 }
-.arrow-wrapper button:disabled.active {
+.arrow-wrapper button:disabled.active .fill {
   fill: #bfbfbf;
 }
 .arrow-wrapper button::after {

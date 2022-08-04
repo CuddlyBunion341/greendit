@@ -23,10 +23,10 @@
             }
         }
         &.upvote {
-            &.active svg * {
+            &.active svg .fill {
                 fill: $color-upvote;
             }
-            &:hover svg * {
+            &:hover svg .stroke {
                 stroke: $color-upvote;
             }
         }
@@ -41,11 +41,13 @@
         }
         &:disabled {
             cursor: not-allowed;
-            svg * {
+            svg .stroke {
                 stroke: $gray-700;
+            }
+            svg .fill {
                 fill: $gray-200;
             }
-            &.active {
+            &.active .fill {
                 fill: $gray-300;
             }
         }
