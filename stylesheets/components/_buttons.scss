@@ -80,3 +80,6 @@ button {
 .post-btn {
     @include roundBtn($dark-lime);
 }
+#next-pfp-btn {
+    @include roundBtn($gray-800);
+}

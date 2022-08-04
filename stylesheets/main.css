@@ -258,6 +258,17 @@ button {
   color: white;
 }
 
+#next-pfp-btn {
+  padding: 5px 15px 6px 16px;
+  text-align: center;
+  vertical-align: middle;
+  border-radius: 50px;
+  border: 1px solid #696969;
+  cursor: pointer;
+  background-color: #696969;
+  color: white;
+}
+
 .create-comment {
   border-bottom: 1px solid #b5b5b5;
   display: -webkit-box;
@@ -555,8 +566,44 @@ form.login {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  height: calc(100% - 48px);
+  background-color: #00A36C;
+  background: url("../resources/background.png");
+  background-size: contain;
+  -ms-interpolation-mode: nearest-neighbor;
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: -moz-crisp-edges;
+      image-rendering: -o-pixelated;
+      image-rendering: pixelated;
+  padding: 20px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+form.login p {
+  margin-top: 2px;
+  margin-bottom: 2px;
+  text-align: center;
+}
+form.login h1 {
+  width: 100%;
+  text-align: center;
+  position: relative;
+}
+form.login h1::after {
+  content: "";
+  width: 90%;
+  position: absolute;
+  bottom: -8px;
+  left: 5%;
+  height: 4px;
+  background-color: #00A36C;
 }
 form.login .container {
+  background-color: white;
+  max-width: 100%;
+  width: 300px;
+  -webkit-box-shadow: 20px 20px 10px 0px rgba(0, 0, 0, 0.3411764706);
+          box-shadow: 20px 20px 10px 0px rgba(0, 0, 0, 0.3411764706);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -570,6 +617,12 @@ form.login .container {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  border: 1px solid #ebebeb;
+  border-radius: 5px;
+  -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+  padding: 10px;
 }
 form.login input {
   width: 100%;
@@ -578,19 +631,38 @@ form.login input {
   border-bottom: 1px solid #ccc;
   margin-bottom: 1rem;
   padding: 0.5rem;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  border-radius: 0;
+}
+form.login input[type=submit] {
+  padding: 5px 15px 6px 16px;
+  text-align: center;
+  vertical-align: middle;
+  border-radius: 50px;
+  border: 1px solid #00A36C;
+  cursor: pointer;
+  background-color: #00A36C;
+  color: white;
+  -ms-flex-item-align: center;
+      align-self: center;
+  width: 50%;
 }
 form.login .pfp-container {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
   padding-bottom: 5px;
   border-bottom: 1px solid #ccc;
+}
+form.login .pfp-container .pfp {
+  margin-right: 10px;
 }
 
 header nav {
@@ -914,10 +986,17 @@ form.special {
 
 main > div.center {
   width: 600px;
+  max-width: 100%;
 }
 main > div.center h1 {
   margin-top: 10px;
   margin-bottom: 10px;
+}
+
+.below {
+  -webkit-box-ordinal-group: 3;
+      -ms-flex-order: 2;
+          order: 2;
 }
 
 .error {

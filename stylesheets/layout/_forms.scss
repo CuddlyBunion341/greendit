@@ -2,11 +2,45 @@ form.login {
     display: flex;
     justify-content: center;
     align-items: center;
+    height: calc(100% - 48px); // hack
+    background-color: $dark-lime;
+    background: url("../resources/background.png");
+    background-size: contain;
+    image-rendering: pixelated;
+    padding: 20px;
+    box-sizing: border-box;
+    p {
+        margin-top: 2px;
+        margin-bottom: 2px;
+        text-align: center;
+    }
+    h1 {
+        width: 100%;
+        text-align: center;
+        position: relative;
+        &::after {
+            content: "";
+            width: 90%;
+            position: absolute;
+            bottom: -8px;
+            left: 5%;
+            height: 4px;
+            background-color: $dark-lime;
+        }
+    }
     .container {
+        background-color: white;
+        max-width: 100%;
+        width: 300px;
+        box-shadow: 20px 20px 10px 0px #00000057;
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
+        border: 1px solid $gray-200;
+        border-radius: 5px;
+        align-items: stretch;
+        padding: 10px;
     }
     input {
         width: 100%;
@@ -15,12 +49,22 @@ form.login {
         border-bottom: 1px solid #ccc;
         margin-bottom: 1rem;
         padding: 0.5rem;
+        box-sizing: border-box;
+        border-radius: 0;
+    }
+    input[type=submit] {
+        @include roundBtn($dark-lime);
+        align-self: center;
+        width: 50%;
     }
     .pfp-container {
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
         padding-bottom: 5px;
         border-bottom: 1px solid #ccc;
+        .pfp {
+            margin-right: 10px;
+        }
     }
 }

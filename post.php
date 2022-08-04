@@ -119,15 +119,24 @@ function error($name) {
 }
 ?>
 <main class="multicol">
-    <aside class="community__info">
+    <aside class="community__info below">
         <article class="info titled">
-            <h1 class="communtiy__info-about">About</h1>
+            <h1 class="communtiy__info-about">About Greendit</h1>
             <ul>
                 <li>
                     <p>Programming and Memes</p>
                 </li>
                 <li>
-                    <p><span class="members">10</span> Members</p>
+                    <p><span class="members">99</span> Users</p>
+                </li>
+                <li>
+                    <p><span class="posts">99</span> Posts</p>
+                </li>
+                <li>
+                    <p><span class="comments">99</span> Comments</p>
+                </li>
+                <li>
+                    <p><span class="subs">99</span> Communities</p>
                 </li>
                 <li>
                     <p>Created 2022-07-17</p>

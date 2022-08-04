@@ -152,10 +152,14 @@ form.special {
 }
 main > div.center {
     width: 600px;
+    max-width: 100%;
     h1 {
         margin-top: 10px;
         margin-bottom: 10px;
     }
+}
+.below {
+    order: 2;
 }
 
 .error {

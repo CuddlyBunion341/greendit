@@ -48,7 +48,6 @@ function createPfp() {
 function updateImg(pfp) {
 	document.querySelector("img.pfp").src = pfp;
 }
-
 if (!$("#pfp").value()) nextPfp();
 updateImg($("#pfp").value());
 
