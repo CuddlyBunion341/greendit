@@ -124,3 +124,17 @@ $("#create-post-form").on('submit',function(e) {
 		}
 	}
 })
+
+// drag and drop
+document.querySelectorAll(".file-select").forEach(area => {
+	const input = area.querySelector('input[type="file"]');
+	area.addEventListener('drop', function(e) {
+		input.files = e.dataTransfer.files;
+		const event = new Event('change', {target: input});
+		input.dispatchEvent(event);
+		e.preventDefault();
+	});
+	area.addEventListener('dragover', function(e) {
+		e.preventDefault();
+	})
+})
