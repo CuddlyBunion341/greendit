@@ -79,6 +79,9 @@ main.multicol {
         -ms-flex-direction: column;
             flex-direction: column;
     padding: 10px 5px 10px 5px !important;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
   }
 }
 
