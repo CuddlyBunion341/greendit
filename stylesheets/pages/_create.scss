@@ -1,0 +1,53 @@
+.fancy-text-input {
+    display: inline-flex;
+    border: 1px solid gray;
+    overflow: hidden;
+    border-radius: 2px;
+    width: 10em;
+    .fancy-text-input__input {
+        color: $gray-800;
+        border: 0;
+        padding: 4px;
+        font-size: 1em;
+        width: 100%;
+        &:focus {
+            outline: none;
+        }
+    }
+    .fancy-text-input__prepend {
+        color: $gray-800;
+        padding: 4px;
+        border-right: 1px solid $gray-400;
+    }
+}
+.radio-icon {
+    margin-right: 6px;
+    font-size: 11px;
+    color: $gray-800;
+    vertical-align: middle;
+}
+.community-composer {
+    width: 300px;
+    align-self: center;
+    @media screen and (max-width: 600px) {
+        justify-self: flex-start;
+    }
+    p {
+        margin: 0;
+        margin-bottom: 5px;
+    }
+    label {
+        margin-top: 10px;
+    }
+    input[type=submit] {
+        @include roundBtn($dark-lime);
+        margin-top: 14px;
+    }
+    h1 {
+        margin: 0;
+        margin-bottom: 5px;
+    }
+}
+.field-group {
+    margin-bottom: 5px;
+}

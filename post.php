@@ -28,7 +28,7 @@ function create_post($title, $community, $body, $tab, $image, $video, $user_id) 
             $errors['image'] = 'Attachments cannot be empty';
         } else {
             $valid_extensions = array('png', 'jpg', 'gif', 'tiff', 'bmp', 'webp', 'heic');
-            $extension = pathinfo($image['name'])['extension'];
+            $extension = strtolower(pathinfo($image['name'])['extension']);
             if (!(in_array($extension, $valid_extensions))) {
                 $errors['image'] = 'Uploads must be images';
             }
@@ -39,7 +39,7 @@ function create_post($title, $community, $body, $tab, $image, $video, $user_id) 
             $errors['video'] = 'Attached video cannot be empty';
         } else {
             $valid_extensions = array('mov', 'mp4', 'avi', 'wmv', 'mp2');
-            $extension = pathinfo($video['name'])['extension'];
+            $extension = strtolower(pathinfo($video['name'])['extension']);
             if (!(in_array($extension, $valid_extensions))) {
                 $errors['video'] = 'Upload must be a video';
             }

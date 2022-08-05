@@ -6,7 +6,8 @@
             $username = $_SESSION['username'];
             echo '<a href="users/'.$username.'">u/'. $username . '</a>
             <a href="logout.php">Logout</a>
-            <a href="post.php">+</a>';
+            <a href="post.php">+</a>
+            <a href="create.php">create</a>';
         } else {
             echo '<a href="login.php">Login</a>
             <a href="register.php">SignUp</a>';

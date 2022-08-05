@@ -13,6 +13,7 @@ function upvote(button) {
 	const hash = container.dataset.hash;
 	const upvote = button.getAttribute("name") == "upvote-btn";
 	const data = { upvote };
+	const wrapper = button.parentNode;
 	data[isPost ? "post" : "comment"] = hash;
 	$.post(
 		"request/upvote.php?t=" + Math.random(),
@@ -26,10 +27,10 @@ function upvote(button) {
 			if (error) console.error(message);
 			if (increment > 0) button.classList.add("active");
 			else button.classList.remove("active");
-			const likeCount = container.querySelector(".like-count");
+			const likeCount = wrapper.querySelector(".like-count");
 			likeCount.innerHTML =
 				Number(likeCount.innerHTML) + increment * (upvote ? 1 : -1);
-			const other = container.querySelector(
+			const other = wrapper.querySelector(
 				`.${upvote ? "downvote" : "upvote"}`
 			);
 			other.classList.remove("active");

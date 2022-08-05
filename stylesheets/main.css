@@ -1091,6 +1091,39 @@ video {
 
 .community-composer {
   width: 300px;
+  -ms-flex-item-align: center;
+      align-self: center;
+}
+@media screen and (max-width: 600px) {
+  .community-composer {
+    justify-self: flex-start;
+  }
+}
+.community-composer p {
+  margin: 0;
+  margin-bottom: 5px;
+}
+.community-composer label {
+  margin-top: 10px;
+}
+.community-composer input[type=submit] {
+  padding: 5px 15px 6px 16px;
+  text-align: center;
+  vertical-align: middle;
+  border-radius: 50px;
+  border: 1px solid #00A36C;
+  cursor: pointer;
+  background-color: #00A36C;
+  color: white;
+  margin-top: 14px;
+}
+.community-composer h1 {
+  margin: 0;
+  margin-bottom: 5px;
+}
+
+.field-group {
+  margin-bottom: 5px;
 }
 
 .user {
