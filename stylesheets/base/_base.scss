@@ -31,7 +31,6 @@ html,body {
 }
 
 main {
-    padding: 20px 0 20px 0;
     min-height: 100%;
     width: 100%;
     display: flex;
@@ -44,6 +43,7 @@ main {
         flex-direction: row;
         @media screen and (max-width: 600px) {
             flex-direction: column;
+            padding: 10px 5px 10px 5px !important;
         }
     }
 }

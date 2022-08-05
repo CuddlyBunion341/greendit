@@ -3,6 +3,7 @@
     border-radius: 2px;
     margin-bottom: 10px;
     display: flex;
+    position: relative;
     &:hover {
         border: 1px solid $gray-700;
     }
@@ -11,6 +12,16 @@
         background-color: $gray-100;
         padding: 6px;
         width: 13px;
+        @media screen and (max-width: 600px) {
+            padding: 0;
+            width: 0;
+            .arrow-wrapper {
+                @include horizontalWrapper();
+                position: absolute;
+                bottom: 7px;
+                left: 10px
+            }
+        }
     }
     .right {
         padding: 4px;
@@ -47,5 +58,8 @@
     }
     .footer {
         margin-top: 5px;
+        @media screen and (max-width: 600px) {
+            padding-left: 50px;
+        }
     }
 }

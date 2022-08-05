@@ -1,0 +1,8 @@
+@mixin horizontalWrapper() {
+    display: inline-flex;
+    justify-content: space-between;
+    flex-direction: row;
+    width: 46px;
+    margin-right: 6px;
+    float: left;
+}
