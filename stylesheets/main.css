@@ -133,10 +133,10 @@ main.multicol {
   -webkit-transform: rotate(180deg);
           transform: rotate(180deg);
 }
-.arrow-wrapper button.downvote.active svg * {
+.arrow-wrapper button.downvote.active svg .fill {
   fill: #016965;
 }
-.arrow-wrapper button.downvote:hover svg * {
+.arrow-wrapper button.downvote:hover svg .stroke {
   stroke: #016965;
 }
 .arrow-wrapper button:disabled {
@@ -218,10 +218,10 @@ button {
   vertical-align: middle;
   border-radius: 50px;
   border: 1px solid #00A36C;
+  width: auto;
   cursor: pointer;
   background-color: #00A36C;
   color: white;
-  width: 74px;
 }
 .join-btn.active {
   color: #00A36C;
@@ -240,10 +240,10 @@ button {
   vertical-align: middle;
   border-radius: 50px;
   border: 1px solid #00c2ff;
+  width: auto;
   cursor: pointer;
   background-color: #00c2ff;
   color: white;
-  width: 74px;
   width: 84px;
 }
 .follow-btn.active {
@@ -263,6 +263,7 @@ button {
   vertical-align: middle;
   border-radius: 50px;
   border: 1px solid #00A36C;
+  width: auto;
   cursor: pointer;
   background-color: #00A36C;
   color: white;
@@ -274,6 +275,7 @@ button {
   vertical-align: middle;
   border-radius: 50px;
   border: 1px solid #696969;
+  width: auto;
   cursor: pointer;
   background-color: #696969;
   color: white;
@@ -443,30 +445,6 @@ li.flair .pfp {
   padding: 6px;
   width: 13px;
 }
-@media screen and (max-width: 600px) {
-  .post .left {
-    padding: 0;
-    width: 0;
-  }
-  .post .left .arrow-wrapper {
-    display: -webkit-inline-box;
-    display: -ms-inline-flexbox;
-    display: inline-flex;
-    -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
-            justify-content: space-between;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: row;
-            flex-direction: row;
-    width: 46px;
-    margin-right: 6px;
-    float: left;
-    position: absolute;
-    bottom: 7px;
-    left: 10px;
-  }
-}
 .post .right {
   padding: 4px;
   padding-right: 10px;
@@ -512,10 +490,51 @@ li.flair .pfp {
 }
 .post .footer {
   margin-top: 5px;
+  overflow: hidden;
+  white-space: nowrap;
 }
 @media screen and (max-width: 600px) {
-  .post .footer {
+  .post:not(.overview) .footer {
     padding-left: 50px;
+    border-top: 1px solid #bfbfbf;
+  }
+  .post:not(.overview) .left {
+    padding: 0;
+    width: 0;
+  }
+  .post:not(.overview) .left .arrow-wrapper {
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    width: 46px;
+    margin-right: 6px;
+    float: left;
+    position: absolute;
+    bottom: 7px;
+    left: 10px;
+  }
+}
+.post.overview .left {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+@media screen and (max-width: 400px) {
+  .post.overview .footer .share-btn {
+    display: none;
   }
 }
 
@@ -682,6 +701,7 @@ form.login input[type=submit] {
   vertical-align: middle;
   border-radius: 50px;
   border: 1px solid #00A36C;
+  width: auto;
   cursor: pointer;
   background-color: #00A36C;
   color: white;
@@ -841,6 +861,9 @@ aside article > h1 {
   margin: 0;
   display: inline;
   margin-right: 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 form.spetial {
@@ -1112,6 +1135,7 @@ video {
   vertical-align: middle;
   border-radius: 50px;
   border: 1px solid #00A36C;
+  width: auto;
   cursor: pointer;
   background-color: #00A36C;
   color: white;
@@ -1188,11 +1212,6 @@ video {
   border-radius: 5px;
   margin: 10px 0 10px 10px;
   background: #f1f1f1;
-}
-@media screen and (max-width: 600px) {
-  .post.overview .thumb {
-    display: none;
-  }
 }
 
 .user-comment-wrapper {

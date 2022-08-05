@@ -12,16 +12,6 @@
         background-color: $gray-100;
         padding: 6px;
         width: 13px;
-        @media screen and (max-width: 600px) {
-            padding: 0;
-            width: 0;
-            .arrow-wrapper {
-                @include horizontalWrapper();
-                position: absolute;
-                bottom: 7px;
-                left: 10px
-            }
-        }
     }
     .right {
         padding: 4px;
@@ -58,8 +48,39 @@
     }
     .footer {
         margin-top: 5px;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+    &:not(.overview) {
         @media screen and (max-width: 600px) {
-            padding-left: 50px;
+            .footer {
+                    padding-left: 50px;
+                    border-top: 1px solid $gray-300;
+            }
+            .left {
+                    padding: 0;
+                    width: 0;
+                    .arrow-wrapper {
+                        @include horizontalWrapper();
+                        position: absolute;
+                        bottom: 7px;
+                        left: 10px
+                    }
+            }
+        }
+    }
+    &.overview {
+        .left {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .footer {
+            @media screen and (max-width: 400px) {
+                .share-btn {
+                    display: none;
+                }
+            }
         }
     }
 }

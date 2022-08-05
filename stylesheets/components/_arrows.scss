@@ -27,10 +27,10 @@
         }
         &.downvote {
             transform: rotate(180deg);
-            &.active svg * {
+            &.active svg .fill {
                 fill: $color-downvote;
             }
-            &:hover svg * {
+            &:hover svg .stroke {
                 stroke: $color-downvote;
             }
         }

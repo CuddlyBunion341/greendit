@@ -43,7 +43,7 @@ button {
 }
 @mixin roundActiveBtn($label1,$label2,$color: $dark-lime) {
     @include roundBtn($color);
-    width: 74px;
+    // width: 74px;
     &.active {
         color: $color;
         background-color: white;
@@ -61,6 +61,7 @@ button {
     vertical-align: middle;
     border-radius: 50px;
     border: 1px solid $color;
+    width: auto;
     cursor: pointer;
     @if $full {
         background-color: $color;
