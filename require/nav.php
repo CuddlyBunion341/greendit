@@ -16,7 +16,5 @@
     ?>
 </nav>
 <div id="search-result__wrapper" class="hidden">
-    <div id="search-result__content">
-        Nothin yet
-    </div>
+    <div id="search-result__content"></div>
 </div>

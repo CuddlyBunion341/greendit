@@ -563,6 +563,14 @@ li.flair .pfp {
   list-style-type: none;
 }
 
+#search-result__content ul {
+  padding: 0;
+  margin: 0;
+}
+#search-result__content ul li {
+  list-style: none;
+}
+
 article {
   background-color: white;
   border: 1px solid #bfbfbf;
