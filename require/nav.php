@@ -1,5 +1,6 @@
 <nav>
     <a href="index.php">Greendit</a>
+    <input type="text" placeholder="search..." id="search">
     <?php
         session_start();
         if (isset($_SESSION['username'],$_SESSION['user_id'])) {
@@ -14,3 +15,8 @@
         }
     ?>
 </nav>
+<div id="search-result__wrapper" class="hidden">
+    <div id="search-result__content">
+        Nothin yet
+    </div>
+</div>

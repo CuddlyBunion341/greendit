@@ -23,7 +23,7 @@ html, body {
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 .socials {
@@ -729,6 +729,7 @@ form.login .pfp-container .pfp {
 header nav {
   overflow: hidden;
   background-color: #1f1f1f;
+  position: relative;
 }
 header nav a {
   float: right;
@@ -758,6 +759,25 @@ nav.tabbs a {
 }
 nav.tabbs a.active {
   color: #4CAF50;
+}
+
+#search-result__wrapper {
+  position: absolute;
+  width: 100%;
+  height: auto;
+  z-index: 999;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+#search-result__content {
+  width: 80%;
+  border: 2px solid black;
+  background-color: white;
 }
 
 aside {
