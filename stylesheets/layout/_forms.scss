@@ -4,9 +4,6 @@ form.login {
     align-items: center;
     height: calc(100% - 48px); // hack
     background-color: $dark-lime;
-    background: url("../resources/background.png");
-    background-size: contain;
-    image-rendering: pixelated;
     padding: 20px;
     box-sizing: border-box;
     p {
@@ -32,7 +29,6 @@ form.login {
         background-color: white;
         max-width: 100%;
         width: 300px;
-        box-shadow: 20px 20px 10px 0px #00000057;
         display: flex;
         justify-content: center;
         align-items: center;
