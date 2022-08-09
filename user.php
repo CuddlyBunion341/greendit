@@ -46,9 +46,13 @@
     $user_id = $user['user_id'];
 
     $follow_active = false;
+    $pfp = '<img src="resources/pfps/'.$username.'.png" alt="'.$username.'" class="pfp large edit">';
     if (isset($_SESSION['user_id'])) {
         $session_user = $_SESSION['user_id'];
         $follow_active = exists("select * from followers where user_id=$user_id and follower_id=$session_user");
+        if ($user_id == $session_user) {
+            $pfp = '<div class="pfp-select"><input type="file" id="pfp-select" class="hidden">'.$pfp.'</img></div>';
+        }
     }
 
     {
@@ -82,7 +86,7 @@
         <aside>
             <article class="user titled">
                 <section class="user__banner">
-                    <img src="resources/pfps/'.$username.'.png" alt="'.$username.'" class="pfp large">
+                    '.$pfp.'
                 </section>
                 <section class="user__main">
                     <h2>'.$username.'</h2>
