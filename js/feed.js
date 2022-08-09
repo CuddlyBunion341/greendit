@@ -39,7 +39,7 @@ function upvote(button) {
 }
 /**
  * Saves / Unsaves a post or comment
- * @param {HTMLElement} button 
+ * @param {HTMLElement} button
  */
 function save(button) {
 	var isPost, container;
@@ -52,21 +52,17 @@ function save(button) {
 	const hash = container.dataset.hash;
 	const data = {};
 	data[isPost ? "post" : "comment"] = hash;
-	$.post(
-		"request/save.php?t=" + Math.random(),
-		data,
-		(response, status) => {
-			if (status == 401)  {
-				return alert("Please login!");
-			} else if (status != 200) {
-				return alert("Unknown Error");
-			}
-			response = JSON.parse(response);
-			const {toggle,message} = response;
-			if (toggle == -1) console.error(message);
-			else button.classList.toggle("active");
+	$.post("request/save.php?t=" + Math.random(), data, (response, status) => {
+		if (status == 401) {
+			return alert("Please login!");
+		} else if (status != 200) {
+			return alert("Unknown Error");
 		}
-	)
+		response = JSON.parse(response);
+		const { toggle, message } = response;
+		if (toggle == -1) console.error(message);
+		else button.classList.toggle("active");
+	});
 }
 $("#feed").click(function (e) {
 	const target = e.target;
@@ -76,22 +72,18 @@ $("#feed").click(function (e) {
 		const sub = target.closest(".post").dataset.sub;
 		if (name == "upvote-btn" || name == "downvote-btn") {
 			return upvote(target);
-		}
-		else if (name == "comment-btn") {
+		} else if (name == "comment-btn") {
 			window.location.href = `subs/${sub}/posts/${hash}/`;
-		}
-		else if (name == "share-btn") {
+		} else if (name == "share-btn") {
 			navigator.clipboard
 				.writeText(
 					`${window.location.host}/greendit/subs/${sub}/posts/${hash}/`
 				)
 				.then(() => alert("post url copied to clipboard!"))
 				.catch(() => alert("something went wrong..."));
-		}
-		else if (name == "save-btn") {
+		} else if (name == "save-btn") {
 			return save(target);
-		}
-		else if (target.closest(".post.overview")) {
+		} else if (target.closest(".post.overview")) {
 			window.location = `/greendit/subs/${sub}/posts/${hash}/`;
 		}
 	} else if (target.closest(".comment-wrapper")) {
@@ -105,24 +97,24 @@ $("#feed").click(function (e) {
 				)
 				.then(() => alert("comment url copied to clipboard!"))
 				.catch(() => alert("something went wrong..."));
-		}
-		else if (name == "upvote-btn" || name == "downvote-btn") {
+		} else if (name == "upvote-btn" || name == "downvote-btn") {
 			upvote(target);
-		}
-		else if (name == "save-btn") {
+		} else if (name == "save-btn") {
 			return save(target);
 		}
 	} else if (target.closest(".user-comment")) {
-		const post = target.closest(".user-comment-wrapper__comments").dataset.hash;
-		const sub = target.closest(".user-comment-wrapper__comments").dataset.sub;
+		const post = target.closest(".user-comment-wrapper__comments").dataset
+			.hash;
+		const sub = target.closest(".user-comment-wrapper__comments").dataset
+			.sub;
 		const comment = target.closest(".user-comment").dataset.hash;
 		window.location = `/greendit/subs/${sub}/posts/${post}/comment/${comment}/`;
 	}
 });
 
-$(".create-comment")?.on("submit", function(e) {
+$(".create-comment")?.on("submit", function (e) {
 	e.preventDefault();
-	const wrapper = this.closest('.comment-wrapper');
+	const wrapper = this.closest(".comment-wrapper");
 	const post = wrapper.dataset.hash;
 	const composer = this.closest(".create-comment");
 	const input = composer.querySelector(".comment-content");
@@ -132,7 +124,7 @@ $(".create-comment")?.on("submit", function(e) {
 		{ post, content },
 		(response, status) => {
 			if (status == 200) {
-				const p = document.querySelector('.comment-wrapper > p');
+				const p = document.querySelector(".comment-wrapper > p");
 				if (p) wrapper.removeChild(p);
 				const comment = $.createElementFromHTML(response);
 				wrapper.append(comment);
@@ -143,42 +135,64 @@ $(".create-comment")?.on("submit", function(e) {
 	);
 });
 
-$(".join-btn")?.click(function(e) {
+$(".join-btn")?.click(function (e) {
 	const subName = this.dataset.name;
 	$.post(
 		"request/join.php?t=" + Math.random(),
-		{name: subName},
-		(response,status) => {
+		{ name: subName },
+		(response, status) => {
 			if (status == 401) {
 				return alert("Please login!");
 			} else if (status != 200) {
 				return alert("Unknown Error");
 			}
 			response = JSON.parse(response);
-			const {toggle,message} = response;
+			const { toggle, message } = response;
 			if (toggle == -1) return console.error(message);
 			this.classList.toggle("active");
 			const increment = toggle == 0 ? 1 : -1;
 			const span = $("span#members").element;
 			span.innerHTML = Number(span.innerHTML) + increment;
 		}
-	)
+	);
 });
-$(".follow-btn")?.click(function(e) {
+$(".follow-btn")?.click(function (e) {
 	const username = this.dataset.username;
 	$.post(
 		"request/follow.php?t=" + Math.random(),
-		{username},
-		(response,status) => {
+		{ username },
+		(response, status) => {
 			if (status == 401) {
 				return alert("Please login!");
 			} else if (status != 200) {
 				return alert("Unknown Error");
 			}
 			response = JSON.parse(response);
-			const {toggle,message} = response;
+			const { toggle, message } = response;
 			if (toggle == -1) return console.error(message);
 			this.classList.toggle("active");
 		}
 	);
-})
+});
+$(".pfp-select")?.click(() => {
+	$("#pfp-input").click();
+});
+$("#pfp-input")?.on("change", function (e) {
+	const file = this.files[0];
+	const formData = new FormData();
+	formData.append("file", file);
+	$.ajax({
+		url: "request/upload_pfp.php?t=" + Math.random(),
+		type: "POST",
+		data: formData,
+		enctype: "multipart/form-data; charset=utf-8; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW",
+		success: (response) => {
+			console.log(response);
+			const pfp = $(".pfp-select .pfp").element;
+			pfp.src = response;
+		},
+		error: (err) => {
+			console.log(err);
+		}
+	})
+});

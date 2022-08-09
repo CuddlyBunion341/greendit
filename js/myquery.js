@@ -5,11 +5,12 @@
 var $ = (function () {
 	const resolveElement = (selector) => {
 		if (selector instanceof HTMLElement) return selector;
-		if (typeof selector == "string") return document.querySelector(selector);
+		if (typeof selector == "string")
+			return document.querySelector(selector);
 		if (selector instanceof NodeList) return selector[0];
 		if (selector) return selector.element;
 		return null;
-	}
+	};
 	const myquery = (selector) => {
 		if (selector instanceof Document) {
 			return {
@@ -98,7 +99,7 @@ var $ = (function () {
 			},
 			/**
 			 * Appends element to a parent
-			 * @param {*} parent 
+			 * @param {*} parent
 			 * @returns myquery object
 			 */
 			appendTo(parent) {
@@ -108,11 +109,14 @@ var $ = (function () {
 			},
 			/**
 			 * Appends the element after a sibling
-			 * @param {*} element 
+			 * @param {*} element
 			 */
 			appendAfter(element) {
 				element = resolveElement(element);
-				element.parentNode.insertBefore(myquery.element, element.nextSibling);
+				element.parentNode.insertBefore(
+					myquery.element,
+					element.nextSibling
+				);
 				return myquery;
 			},
 			/**
@@ -186,15 +190,16 @@ var $ = (function () {
 			 * @returns serialized form data
 			 */
 			serialize() {
-				return new URLSearchParams(new FormData(formElement)).toString();
+				return new URLSearchParams(
+					new FormData(formElement)
+				).toString();
 			},
 			/**
 			 * Toggles the visibility of the element
 			 * @returns myquery object
 			 */
 			toggle() {
-				if (element.style.display == "none")
-					this.show();
+				if (element.style.display == "none") this.show();
 				else this.hide();
 				return myquery;
 			},
@@ -208,6 +213,33 @@ var $ = (function () {
 	myquery.wait = (time, callback) => {
 		setTimeout(callback, time);
 	};
+	myquery.ajax = ({
+		url,
+		method = "POST",
+		async = true,
+		data = {},
+		enctype = "application/x-www-form-urlencoded",
+		success = () => {},
+		error = () => {},
+	}) => {
+		const xhr = new XMLHttpRequest();
+		xhr.open(method, url, async);
+		// xhr.setRequestHeader("Content-type","multipart/form-data; charset=utf-8; boundary=" + Math.random().toString().substr(2)); // todo: fix this
+		xhr.onreadystatechange = () => {
+			if (xhr.readyState == 4) {
+				if (xhr.status == 200) {
+					success(xhr.responseText, xhr.status);
+				} else {
+					error(xhr.responseText, xhr.status);
+				}
+			}
+		}
+		if (enctype == "application/x-www-form-urlencoded") {
+			xhr.send(new URLSearchParams(data).toString());
+		} else {
+			xhr.send(data);
+		}
+	};
 	/**
 	 * Creates a POST request to the server
 	 * @param {string} url - url of the query
@@ -218,7 +250,10 @@ var $ = (function () {
 	myquery.post = (url, data = {}, callback = (data, status, xhr) => {}) => {
 		const xhr = new XMLHttpRequest();
 		xhr.open("POST", url, true);
-		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		xhr.setRequestHeader(
+			"Content-Type",
+			"application/x-www-form-urlencoded"
+		);
 		xhr.onload = () => {
 			callback(xhr.responseText, xhr.status, xhr);
 		};
@@ -265,7 +300,7 @@ var $ = (function () {
 		const element = document.createElement("div");
 		element.innerHTML = html.trim();
 		return element.firstChild;
-	}
+	};
 
 	return myquery;
 })();
