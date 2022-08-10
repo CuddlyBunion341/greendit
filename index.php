@@ -102,13 +102,14 @@
             </article>
         <?php endif;
         require 'require/feed.php';
-        $sql = 'select * from posts order by post_id desc';
+        $sql = 'select * from posts order by post_id desc limit 10';
         $posts = query($sql);
 
         foreach ($posts as $post) {
             postHTML($post);
         }
         ?>
+        <button id="fetch-btn" class="fetch-btn" name="fetch-btn" aria-label="fetch" data-sub="*" data-count="10">Fetch more</button>
         <script src="js/feed.js"></script>
     </div>
 </main>

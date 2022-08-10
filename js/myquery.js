@@ -98,6 +98,15 @@ var $ = (function () {
 				return myquery;
 			},
 			/**
+			 * Appends html to the element
+			 * @param {string} html - html to append
+			 * @returns myquery object
+			 */
+			appendHTML(html) {
+				element.innerHTML += html;
+				return myquery;
+			},
+			/**
 			 * Appends element to a parent
 			 * @param {*} parent
 			 * @returns myquery object

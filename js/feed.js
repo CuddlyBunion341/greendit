@@ -185,7 +185,8 @@ $("#pfp-input")?.on("change", function (e) {
 		url: "request/upload_pfp.php?t=" + Math.random(),
 		type: "POST",
 		data: formData,
-		enctype: "multipart/form-data; charset=utf-8; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW",
+		enctype:
+			"multipart/form-data; charset=utf-8; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW",
 		success: (response) => {
 			console.log(response);
 			const pfp = $(".pfp-select .pfp").element;
@@ -193,6 +194,27 @@ $("#pfp-input")?.on("change", function (e) {
 		},
 		error: (err) => {
 			console.log(err);
+		},
+	});
+});
+$("#fetch-btn")?.click(function (e) {
+	const sub = this.dataset.sub;
+	const count = this.dataset.count;
+	const limit = 5;
+	$.post(
+		"request/fetch_posts.php?t=" + Math.random(),
+		{ sub, start: count, limit },
+		(response, status) => {
+			if (status == 200) {
+				this.dataset.count = +this.dataset.count + limit;
+				$("#feed").element.insertAdjacentHTML("beforeend", response);
+				$("#feed").append(this);
+			} else if (status == 204) {
+				$("#feed").appendHTML('<p>No more posts to show</p>');
+				this.remove();
+			} else {
+				return console.error(response);
+			}
 		}
-	})
+	);
 });
