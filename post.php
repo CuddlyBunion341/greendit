@@ -119,7 +119,7 @@ function error($name) {
 }
 ?>
 <main class="multicol">
-    <aside class="community__info below">
+    <aside class="community__info below" id="sidebar">
         <article class="info titled">
             <h1 class="communtiy__info-about">About Greendit</h1>
             <ul>

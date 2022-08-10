@@ -9,7 +9,7 @@
         <a href="users/<?= $username ?>">u/<?= $username ?></a>
         <a href="logout.php">Logout</a>
         <a href="post.php">Post</a>
-        <a href="create.php">Create</a>';
+        <a href="create.php">Create</a>
     <?php else : ?>
         <a href="login.php">Login</a>
         <a href="register.php">SignUp</a>';

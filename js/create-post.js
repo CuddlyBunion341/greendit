@@ -1,31 +1,31 @@
 // myquery does not support querySelectorAll yet...
-document.querySelectorAll(".tabs button").forEach(button => {
-	$(button).click(function(e) {
+document.querySelectorAll(".tabs button")?.forEach((button) => {
+	$(button).click(function (e) {
 		const parent = this.parentNode;
 		const children = [...parent.children];
-		children.forEach(sibling => sibling.classList.remove("active"));
+		children.forEach((sibling) => sibling.classList.remove("active"));
 		this.classList.add("active");
 		const index = children.indexOf(this);
 
-		const contents = document.querySelectorAll('.post-content > div');
-		contents.forEach(tab => tab.classList.add("hidden"));
+		const contents = document.querySelectorAll(".post-content > div");
+		contents.forEach((tab) => tab.classList.add("hidden"));
 		contents[index].classList.remove("hidden");
 
-		$('#tab-val').value(index);
+		$("#tab-val").value(index);
 	});
-})
+});
 
-document.querySelectorAll('button[name="upload-btn"]').forEach(button => {
-	$(button).click(function(e) {
+document.querySelectorAll('button[name="upload-btn"]')?.forEach((button) => {
+	$(button).click(function (e) {
 		const parent = this.parentNode;
 		const input = parent.querySelector('input[type="file"]');
 		$(input).click();
 	});
-})
+});
 
-$('button[name="remove-btn"]').click(function(e) {
+$('button[name="remove-btn"]')?.click(function (e) {
 	const parent = this.parentNode;
-	const video = parent.querySelector('video');
+	const video = parent.querySelector("video");
 	$(this).add("hidden");
 	video.classList.add("hidden");
 	while (video.firstChild) {
@@ -39,7 +39,7 @@ $('button[name="remove-btn"]').click(function(e) {
 	input.parentNode.classList.remove("hidden");
 });
 
-$("#image-input").on("change", () => {
+$("#image-input")?.on("change", () => {
 	const preview = $("#preview").element;
 	while (preview.firstChild) {
 		preview.removeChild(preview.firstChild);
@@ -54,7 +54,7 @@ $("#image-input").on("change", () => {
 				<button type="button" class="rm-btn">✕</button>
 				<img src="${url}">
 			</picture>`);
-		$(img.querySelector('.rm-btn')).click(function(e) {
+		$(img.querySelector(".rm-btn")).click(function (e) {
 			const picture = this.parentNode;
 			picture.parentNode.removeChild(picture);
 			const dt = new DataTransfer();
@@ -68,32 +68,55 @@ $("#image-input").on("change", () => {
 			}
 
 			input.files = dt.files;
-		})
+		});
 		$(preview).append(img);
 	}
 });
 
-$("#video-input").on("change",function(e) {
+$("#video-input")?.on("change", function () {
 	this.parentNode.classList.add("hidden");
 	const file = this.files[0];
 	const url = URL.createObjectURL(file);
 
-	const video = this.parentNode.parentNode.querySelector('video');
+	const video = this.parentNode.parentNode.querySelector("video");
 
-	video.classList.remove('hidden');
+	video.classList.remove("hidden");
 	$('button[name="remove-btn"]').remove("hidden");
 	const source = $.createElementFromHTML(`<source src="${url}">`);
 	video.appendChild(source);
-})
+});
 
-$("#create-post-form").on('submit',function(e) {
+$("#sub").on('change',function() {
+	const sub = this.value;
+	$.get(
+		`request/community_sidebar.php?name=${sub}&t=${Math.random()}`, 
+		() => {
+			const sidebar = $("#sidebar").element;
+			while (sidebar.firstChild) {
+				sidebar.removeChild(sidebar.firstChild);
+			}
+			$.get(
+				`request/community_sidebar.php?name=${sub}&t=${Math.random()}`, 
+				(data) => {
+					sidebar.innerHTML = data;
+				}
+			);
+		}
+	);
+});
+
+$("#create-post-form")?.on("submit", function (e) {
 	return true;
 	let error = false;
 
 	const title = $("#title").value();
 	if (/^\s*$/.test(title)) {
 		if (!$("#title-group .error")) {
-			$("#title-group").append($.createElementFromHTML(`<p class="error">Title must not be empty</p>`));
+			$("#title-group").append(
+				$.createElementFromHTML(
+					`<p class="error">Title must not be empty</p>`
+				)
+			);
 		}
 		error = true;
 	}
@@ -102,10 +125,10 @@ $("#create-post-form").on('submit',function(e) {
 		console.error("SUB REQUIRED");
 		error = true;
 	}
-	
-	const tab = $('#tab-val').value();
+
+	const tab = $("#tab-val").value();
 	if (tab == 0) {
-		const text = $('#content').value();
+		const text = $("#content").value();
 		if (/^\s*$/.test(text)) {
 			console.error("CONTENT REQUIRED");
 			error = true;
@@ -123,18 +146,18 @@ $("#create-post-form").on('submit',function(e) {
 			error = true;
 		}
 	}
-})
+});
 
 // drag and drop
-document.querySelectorAll(".file-select").forEach(area => {
+document?.querySelectorAll(".file-select").forEach((area) => {
 	const input = area.querySelector('input[type="file"]');
-	area.addEventListener('drop', function(e) {
+	area.addEventListener("drop", function (e) {
 		input.files = e.dataTransfer.files;
-		const event = new Event('change', {target: input});
+		const event = new Event("change", { target: input });
 		input.dispatchEvent(event);
 		e.preventDefault();
 	});
-	area.addEventListener('dragover', function(e) {
+	area.addEventListener("dragover", function (e) {
 		e.preventDefault();
-	})
-})
+	});
+});

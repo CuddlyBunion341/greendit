@@ -17,6 +17,7 @@ create table if not exists communities (
     community_id int not null auto_increment,
     name varchar(45) not null,
     shortname varchar(24) not null,
+    description varchar(256) not null,
     user_id int not null,
     created_at datetime not null default current_timestamp,
     primary key (community_id),
