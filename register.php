@@ -30,9 +30,6 @@
             $user = row('select * from users where username = \'' . $_POST['username'] . '\'');
             $_SESSION['user_id'] = $user['user_id'];
             $_SESSION['username'] = $user['username'];
-            // todo: redirect
-            // $location = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : 'index.php';
-            // header('Location: '.$location);
             header('Location: index.php');
         }
     }
@@ -50,8 +47,8 @@
                 <p class="error"><?php echo $error; ?></p>
             <?php endif; ?>
             <div class="pfp-container">
-                <img class="pfp medium" id="user-pfp" alt="">
-                <button type="button" id="next-pfp-btn">random();</button>
+                <img class="pfp medium" id="user-pfp" alt="random pfp">
+                <button aria-label="next-pfp" type="button" id="next-pfp-btn">random();</button>
             </div>
             <input type="text" name="username" id="username" placeholder="Username" value="<?php value('username'); ?>">
             <input type="password" name="password" id="password" placeholder="Password">

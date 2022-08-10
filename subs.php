@@ -28,7 +28,7 @@ echo '
             <div class="community-banner-main">
                 <div class="top">
                     <h2>' . $community['name'] . '</h2>
-                    <button class="join-btn' . activeClass($joined) . '" name="join-btn" data-name="' . $community['shortname'] . '"></button>
+                    <button aria-label="join" class="join-btn' . activeClass($joined) . '" name="join-btn" data-name="' . $community['shortname'] . '"></button>
                 </div>
                 <a href="subs/' . $community['shortname'] . '">s/' . $community['shortname'] . '</a>
             </div>
@@ -125,8 +125,8 @@ echo '
             if (isset($_SESSION['user_id'])) {
                 echo '
                     <article class="create-post">
-                        <a href="user/' . $_SESSION['username'] . '"><img class="user-pfp" src="resources/pfps/' . $_SESSION['username'] . '.png"></a>
-                        <button onclick="window.location=\'/greendit/post.php?id=' . $community['community_id'] . '\'">Create post...</button>
+                        <a href="user/' . $_SESSION['username'] . '"><img class="user-pfp" alt="'.$_SESSION['username'].'" src="resources/pfps/' . $_SESSION['username'] . '.png"></a>
+                        <button aria-label="create-post" onclick="window.location=\'/greendit/post.php?id=' . $community['community_id'] . '\'">Create post...</button>
                     </article>
                     ';
             }
@@ -159,7 +159,7 @@ echo '
                                     <img src="resources/pfps/' . $username . '.png" alt="user" class="pfp medium">
                                 </a>
                                 <input type="text" class="comment-content" placeholder="Write a comment..." rows="4">
-                                <button name="comment-btn" type="submit" name="submit" class="comment-btn">Post</button>
+                                <button aria-label="publish-comment" name="comment-btn" type="submit" name="submit" class="comment-btn">Post</button>
                             </form>
                         ';
                 }

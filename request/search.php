@@ -1,6 +1,7 @@
 <?php
 if (!isset($_GET['q'])) {
-    die('err');
+    http_response_code(400);
+    exit('Missing query');
 }
 
 require __DIR__ . '/../require/db_connect.php';
@@ -8,6 +9,7 @@ require __DIR__ . '/../require/feed.php';
 
 $query = trim(htmlspecialchars($_GET['q']));
 ?>
+
 <h2>Searching for: <span class="query"><?= $query ?></span></h2>
 <?php
 $users = query("select * from users where username like '%$query%' limit 5");
@@ -58,9 +60,6 @@ if ($posts) :
             </li>
         <?php endforeach; ?>
     </ul>
-<?php
-endif;
-if (!$posts && !$users && !$subs) :
-?>
+<?php elseif (!$posts && !$users && !$subs) : ?>
     <p>No results found</p>
 <?php endif; ?>

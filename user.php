@@ -51,7 +51,7 @@
         $session_user = $_SESSION['user_id'];
         $follow_active = exists("select * from followers where user_id=$user_id and follower_id=$session_user");
         if ($user_id == $session_user) {
-            $pfp = '<div class="pfp-select"><input type="file" id="pfp-input" class="hidden">'.$pfp.'</img></div>';
+            $pfp = '<div class="pfp-select"><input type="file" id="pfp-input" class="hidden" accept="image/png,image/jpg,image/jpeg,image/gif">'.$pfp.'</img></div>';
         }
     }
 
@@ -97,7 +97,7 @@
                     <a href="'.$user_url.'/posts">'.$posts.' '.'posts'.'</a>
                     <a href="'.$user_url.'/comments">'.$comments.' '.'comments'.' </a>
                 </section>
-                <button class="follow-btn'.activeClass($follow_active).'" data-username="'.$username.'"></button>
+                <button aria-label="follow" class="follow-btn'.activeClass($follow_active).'" data-username="'.$username.'"></button>
             </article>
             '.$followers_article.'
         </aside>

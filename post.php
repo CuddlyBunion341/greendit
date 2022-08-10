@@ -48,7 +48,7 @@ function create_post($title, $community, $body, $tab, $image, $video, $user_id) 
     if (!empty($errors)) return;
     do {
         $hash = random_string(6);
-    } while (rows('select * from posts where hash = \'' . $hash . '\'') > 0);
+    } while (exists('select * from posts where hash = \'' . $hash . '\''));
     $sql = "
             insert into posts (title, content, user_id, community_id, hash) 
             values ('$title', '$body', $user_id, $community_id, '$hash')";
@@ -219,9 +219,9 @@ function error($name) {
                     <?php error('sub'); ?>
                 </div>
                 <div class="tabs">
-                    <button type="button" class="post-tab <?php activeBtn(0); ?>"><i class="fa-solid fa-font"></i></i>Post</button>
-                    <button type="button" class="image-tab <?php activeBtn(1); ?>"><i class="fa-solid fa-images"></i>Images</button>
-                    <button type="button" class="video-tab <?php activeBtn(2); ?>"><i class="fa-solid fa-film"></i>Video</button>
+                    <button aria-label="tab-post" type="button" class="post-tab <?php activeBtn(0); ?>"><i class="fa-solid fa-font"></i></i>Post</button>
+                    <button aria-label="tab-image" type="button" class="image-tab <?php activeBtn(1); ?>"><i class="fa-solid fa-images"></i>Images</button>
+                    <button aria-label="tab-video" type="button" class="video-tab <?php activeBtn(2); ?>"><i class="fa-solid fa-film"></i>Video</button>
                 </div>
                 <div id="title-group">
                     <input type="text" name="title" id="title" placeholder="Title" value="<?php value('title'); ?>">
@@ -237,7 +237,7 @@ function error($name) {
                     </div>
                     <div data-tab="1" <?php showTab(1); ?>>
                         <div class="file-select">
-                            <button type="button" name="upload-btn">Upload</button>
+                            <button aria-label="upload" type="button" name="upload-btn">Upload</button>
                             <input type="file" name="image" id="image-input" class="hidden" accept="image/*">
                         </div>
                         <?php error('image'); ?>
@@ -246,16 +246,16 @@ function error($name) {
                     </div>
                     <div data-tab="2" <?php showTab(2); ?>>
                         <div class="file-select">
-                            <button type="button" name="upload-btn">Upload</button>
+                            <button aria-label="upload" type="button" name="upload-btn">Upload</button>
                             <input type="file" name="video" id="video-input" class="hidden" accept="video/*">
                         </div>
                         <?php error('video'); ?>
                         <video class="hidden" controls></video>
-                        <button name="remove-btn" type="button" class="hidden">Remove</button>
+                        <button aria-label="remove" name="remove-btn" type="button" class="hidden">Remove</button>
                     </div>
                 </div>
                 <input type="hidden" name="tab" value="<?php echo $tab; ?>" id="tab-val">
-                <button type="submit" name="submit" class="post-btn">Post</button>
+                <button aria-label="submit" type="submit" name="submit" class="post-btn">Post</button>
             </article>
         </form>
     </div>

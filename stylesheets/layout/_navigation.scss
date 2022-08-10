@@ -4,6 +4,15 @@ header nav {
     position: relative;
     display: flex;
     align-items: center;
+    @media screen and (max-width: 600px) {
+        & {
+            flex-direction: column;
+        }
+        & .right {
+            display: flex;
+            flex-direction: row;
+        }
+    }
     & > a:first-child {
         color: #69ff69;
         float: left;
