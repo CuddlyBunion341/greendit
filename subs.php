@@ -125,7 +125,7 @@ echo '
             if (isset($_SESSION['user_id'])) {
                 echo '
                     <article class="create-post">
-                        <a href="user/' . $_SESSION['username'] . '"><img class="user-pfp" alt="'.$_SESSION['username'].'" src="resources/pfps/' . $_SESSION['username'] . '.png"></a>
+                        <a href="users/' . $_SESSION['username'] . '"><img class="user-pfp" alt="'.$_SESSION['username'].'" src="resources/pfps/' . $_SESSION['username'] . '.png"></a>
                         <button aria-label="create-post" onclick="window.location=\'/greendit/post.php?id=' . $community['community_id'] . '\'">Create post...</button>
                     </article>
                     ';

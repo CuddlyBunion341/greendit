@@ -42,7 +42,7 @@
                             <div class="trend">
                                 <img class="pfp small" src="resources/com.png" alt="<?= $sub_name ?>">
                                 <div class="main">
-                                    <a href="subs/' . $sub_name . '">s/<?= $sub_name ?></a>
+                                    <a href="subs/<?= $sub_name ?>">s/<?= $sub_name ?></a>
                                     <p><?= $num_posts ?> posts</p>
                                 </div>
                             </div>
