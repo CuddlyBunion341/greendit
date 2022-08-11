@@ -50,9 +50,9 @@
                 <img class="pfp medium" id="user-pfp" alt="random pfp">
                 <button aria-label="next-pfp" type="button" id="next-pfp-btn">random();</button>
             </div>
-            <input type="text" name="username" id="username" placeholder="Username" value="<?php value('username'); ?>">
-            <input type="password" name="password" id="password" placeholder="Password">
-            <input type="password" name="verify" id="verify" placeholder="Verify Password">
+            <input type="text" name="username" id="username" placeholder="Username" value="<?php value('username'); ?>" required>
+            <input type="password" name="password" id="password" placeholder="Password" required>
+            <input type="password" name="verify" id="verify" placeholder="Verify Password" required>
             <input type="submit" name="submit" value="Sign Up">
             <input type="hidden" name="pfp" id="pfp" value="<?php value('pfp') ?>">
             <p>Already a member?&nbsp;<a href="login.php">LogIn</a></p>

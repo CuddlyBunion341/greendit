@@ -180,7 +180,7 @@ function error($name) {
             <article class="composer titled">
                 <h1>Create a post</h1>
                 <div id="sub-group">
-                    <select name="sub" id="sub">
+                    <select name="sub" id="sub" required>
                         <option value="" selected hidden disabled>Community</option>
                         <?php
                         require_once('require/db_connect.php');
@@ -205,7 +205,7 @@ function error($name) {
                     <button aria-label="tab-video" type="button" class="video-tab <?php activeBtn(2); ?>"><i class="fa-solid fa-film"></i>Video</button>
                 </div>
                 <div id="title-group">
-                    <input type="text" name="title" id="title" placeholder="Title" value="<?php value('title'); ?>">
+                    <input type="text" name="title" id="title" placeholder="Title" value="<?php value('title'); ?>" required>
                     <?php error('title'); ?>
                 </div>
                 <div class="post-content">

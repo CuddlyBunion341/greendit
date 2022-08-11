@@ -27,8 +27,8 @@
         <?php if (isset($error)): ?>
             <p class="error"><?php echo $error; ?></p>
         <?php endif; ?>
-        <input type="text" name="username" id="username" placeholder="Username">
-        <input type="password" name="password" id="password" placeholder="Password">
+        <input type="text" name="username" id="username" placeholder="Username" required>
+        <input type="password" name="password" id="password" placeholder="Password" required>
         <input type="submit" name="submit" value="Login">
         <p>Not a member?&nbsp;<a href="register.php">SignUp</a></p>
     </div>
