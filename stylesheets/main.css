@@ -656,7 +656,7 @@ li.flair .pfp {
   font-size: smaller;
 }
 #search-result__content ul li.multirow p:first-child {
-  font-weight: bold;
+  color: black;
 }
 #search-result__content ul li img {
   vertical-align: middle;
