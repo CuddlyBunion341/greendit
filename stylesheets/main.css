@@ -829,20 +829,32 @@ form.login .pfp-container .pfp {
 header nav {
   overflow: hidden;
   background-color: #1f1f1f;
+  color: white;
   position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -ms-flex-line-pack: start;
+      align-content: flex-start;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
 }
+header nav #check, header nav .menu-icon {
+  display: none;
+}
+header nav .menu {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
 @media screen and (max-width: 600px) {
   header nav {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
   }
   header nav .right {
     display: -webkit-box;
@@ -853,6 +865,25 @@ header nav {
         -ms-flex-direction: row;
             flex-direction: row;
   }
+  header nav .menu {
+    display: none;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -ms-flex-preferred-size: 100%;
+        flex-basis: 100%;
+  }
+  header nav .menu-icon {
+    display: block;
+    margin-right: 14px;
+    padding: 14px 16px;
+  }
+  header nav #check:checked + .menu {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
 }
 header nav > a:first-child {
   color: #69ff69;
@@ -860,11 +891,15 @@ header nav > a:first-child {
 }
 header nav a {
   float: right;
-  color: #fff;
+  color: inherit;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none !important;
   font-size: 1em;
+}
+header nav a:hover {
+  background-color: rgb(193, 255, 193);
+  color: #1f1f1f;
 }
 
 nav.tabbs {
