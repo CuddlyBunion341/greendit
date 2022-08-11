@@ -11,7 +11,9 @@ header nav {
         width: 100%;
     }
     li.search-wrapper {
-        flex: 1;
+        @media screen and (max-width: 600px) {
+            flex: 1;
+        }
         & #search {
             box-sizing: border-box;
             width: 100%;

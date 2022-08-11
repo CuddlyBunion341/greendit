@@ -845,10 +845,12 @@ header nav > ul {
       flex-wrap: wrap;
   width: 100%;
 }
-header nav li.search-wrapper {
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
+@media screen and (max-width: 600px) {
+  header nav li.search-wrapper {
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
+  }
 }
 header nav li.search-wrapper #search {
   -webkit-box-sizing: border-box;
