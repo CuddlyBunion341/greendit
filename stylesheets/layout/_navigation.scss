@@ -4,9 +4,37 @@ header nav {
     color: white;
     position: relative;
     display: flex;
-    flex-wrap: wrap;
     align-content: flex-start;
     align-items: center;
+    & > ul {
+        flex-wrap: wrap;
+        width: 100%;
+    }
+    li.search-wrapper {
+        flex: 1;
+        & #search {
+            box-sizing: border-box;
+            width: 100%;
+        }
+    }
+    ul {
+        padding: 0;
+        margin: 0;
+        display: inline-flex;
+        justify-content: stretch;
+        align-items: stretch;
+        overflow: hidden;
+        li {
+            margin: 0;
+            list-style: none;
+            padding: 7px 14px;
+            text-align: center;
+            &:hover {
+                background-color: lightgreen;
+                color: #1f1f1f;
+            }
+        }
+    }
     #check, .menu-icon {
         display: none;
     }
@@ -28,8 +56,6 @@ header nav {
         }
         .menu-icon {
             display: block;
-            margin-right: 14px;
-            padding: 14px 16px;
         }
         #check:checked + .menu {
             display: flex;
@@ -37,19 +63,12 @@ header nav {
     }
     & > a:first-child {
         color: #69ff69;
-        float: left;
     }
     a {
-        float: right;
         color: inherit;
         text-align: center;
-        padding: 14px 16px;
         text-decoration: none !important;
         font-size: 1em;
-        &:hover {
-            background-color: rgb(193, 255, 193);
-            color: #1f1f1f;
-        }
     }
 }
 nav.tabbs {
