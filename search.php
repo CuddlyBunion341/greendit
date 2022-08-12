@@ -22,7 +22,38 @@
     <a <?= active(4); ?> href="search/<?= $query ?>/users">Users</a>
 </nav>
 <main>
-
+    <div id="feed">
+        <?php
+            if ($tab_index == 0) {
+                // todo: sidebar with users and communities
+            }
+            if ($tab_index == 1 || $tab_index == 0) {
+                $results = query('select * from posts where title like "%'.$query.'%" or content like "%'.$query.'%"');
+                foreach($results as $result) {
+                    overviewPostHTML($result);
+                }
+            }
+            if ($tab_index == 2 || $tab_index == 0) {
+                $results = query('select * from comments where content like "%'.$query.'%"');
+                foreach($results as $result) {
+                    // todo
+                    overviewCommentHTML($result);
+                }
+            }
+            if ($tab_index == 3) {
+                $results = query('select * from communities where shortname like "%'.$query.'%" or name like "%'.$query.'%"');
+                foreach($results as $result) {
+                    // todo community overview
+                }
+            }
+            if ($tab_index == 4) {
+                $results = query('select * from users where username like "%'.$query.'%"');
+                foreach($results as $result) {
+                    // todo user overview
+                }
+            }
+        ?>
+    </div>
 </main>
 
 <?php require 'require/footer.php'; ?>
