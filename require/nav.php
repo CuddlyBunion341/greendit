@@ -1,7 +1,8 @@
 <nav>
     <ul>
         <li><a href="index.php">Greendit</a></li>
-        <li class="search-wrapper"><input type="search" placeholder="search..." id="search" autocomplete="off"></li>
+        <?php $val = isset($_GET['q']) ? trim(htmlspecialchars($_GET['q'])) : ''; ?>
+        <li class="search-wrapper"><input type="search" placeholder="search..." id="search" autocomplete="off" value="<?= $val ?>"></li>
         <?php
         session_start();
         if (isset($_SESSION['username'], $_SESSION['user_id'])) :
