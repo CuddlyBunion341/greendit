@@ -185,7 +185,6 @@ echo '
             }
         }
         ?>
-        <script src="js/feed.js"></script>
     </div>
 </main>
 <?php require('require/footer.php'); ?>

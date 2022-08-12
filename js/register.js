@@ -1,5 +1,4 @@
 function createPfp() {
-	// big number to be used in image generation
 	let hash = Number(
 		Math.random().toString().slice(2, 15) +
 			Math.random().toString().slice(2, 15)
@@ -48,6 +47,7 @@ function createPfp() {
 function updateImg(pfp) {
 	document.querySelector("img.pfp").src = pfp;
 }
+
 if (!$("#pfp").value()) nextPfp();
 updateImg($("#pfp").value());
 

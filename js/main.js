@@ -64,7 +64,8 @@ function save(button) {
 		else button.classList.toggle("active");
 	});
 }
-$("#feed").click(function (e) {
+
+$("#feed")?.click(function (e) {
 	const target = e.target;
 	const name = target.getAttribute("name");
 	if (target.closest(".post")) {
@@ -156,6 +157,7 @@ $(".join-btn")?.click(function (e) {
 		}
 	);
 });
+
 $(".follow-btn")?.click(function (e) {
 	const username = this.dataset.username;
 	$.post(
@@ -174,9 +176,11 @@ $(".follow-btn")?.click(function (e) {
 		}
 	);
 });
+
 $(".pfp-select")?.click(() => {
 	$("#pfp-input").click();
 });
+
 $("#pfp-input")?.on("change", function (e) {
 	const file = this.files[0];
 	const formData = new FormData();
@@ -197,6 +201,7 @@ $("#pfp-input")?.on("change", function (e) {
 		},
 	});
 });
+
 $("#fetch-btn")?.click(function (e) {
 	const sub = this.dataset.sub;
 	const count = this.dataset.count;
@@ -218,3 +223,11 @@ $("#fetch-btn")?.click(function (e) {
 		}
 	);
 });
+
+$("#search")?.on('keydown',function (e) {
+	if (e.keyCode == 13) {
+		const query = this.value;
+		if (!query) return;
+		window.location = `/greendit/search/${query}`;
+	}
+})

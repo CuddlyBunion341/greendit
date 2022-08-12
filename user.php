@@ -158,6 +158,5 @@
     }
 ?>
 </div>
-<script src="js/feed.js"></script>
 </main>
 <?php require('require/footer.php'); ?>

@@ -149,7 +149,7 @@ $("#create-post-form")?.on("submit", function (e) {
 });
 
 // drag and drop
-document?.querySelectorAll(".file-select").forEach((area) => {
+document.querySelectorAll(".file-select")?.forEach((area) => {
 	const input = area.querySelector('input[type="file"]');
 	area.addEventListener("drop", function (e) {
 		input.files = e.dataTransfer.files;

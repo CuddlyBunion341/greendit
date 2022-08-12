@@ -110,7 +110,6 @@
         }
         ?>
         <button id="fetch-btn" class="fetch-btn" name="fetch-btn" aria-label="fetch" data-sub="*" data-count="10">Fetch more</button>
-        <script src="js/feed.js"></script>
     </div>
 </main>
 <?php require('require/footer.php'); ?>

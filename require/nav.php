@@ -1,7 +1,7 @@
 <nav>
     <ul>
         <li><a href="index.php">Greendit</a></li>
-        <li class="search-wrapper"><input type="text" placeholder="search..." id="search" autocomplete="off"></li>
+        <li class="search-wrapper"><input type="search" placeholder="search..." id="search" autocomplete="off"></li>
         <?php
         session_start();
         if (isset($_SESSION['username'], $_SESSION['user_id'])) :
@@ -24,6 +24,3 @@
         <?php endif; ?>
     </ul>
 </nav>
-<div id="search-result__wrapper" class="hidden">
-    <div id="search-result__content" class="article"></div>
-</div>
