@@ -306,13 +306,20 @@ function overviewPostHTML($post) {
     extract($post_data);
     if ($removed) return;
 
+    if ($media) {
+        $file_name = $media[0]['file_name'];
+        $file_hash = explode('.', $file_name)[0];
+        $thumbnail_path = 'resources/uploads/thumbnails/' . $file_hash . '.jpg';
+        $thumbnail = '<img src="' . $thumbnail_path . '" alt="TODO: description">';
+    }
+
     echo  '
         <article class="post overview" data-hash="' . $hash . '" data-sub="' . $sub . '">
             <section class="left">
                 ' . arrow_wrapper($liked, $disliked, $likes) . '
             </section>
             <section class="thumb">
-                ' . file_get_contents(__DIR__ . '/../resources/icons/post.svg') . '
+                ' . (isset($thumbnail) ? $thumbnail : file_get_contents(__DIR__ . '/../resources/icons/post.svg')) . '
             </section>
             <section class="right">
                 <div class="head">
