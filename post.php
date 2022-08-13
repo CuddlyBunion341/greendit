@@ -1,4 +1,8 @@
-<?php require 'require/header.php'; ?>
+<?php
+
+use function PHPSTORM_META\map;
+
+ require 'require/header.php'; ?>
 <?php
 require_once 'require/uuid.php';
 $tab = 0;
@@ -65,11 +69,95 @@ function get($field) {
     }
     return null;
 }
+function remove_dir($dir) {
+    if (is_dir($dir)) {
+        foreach (scandir($dir) as $file) {
+            if ($file != '.' && $file != '..') {
+                unlink($dir . '/' . $file);
+            }
+        }
+        rmdir($dir);
+    }
+}
 function add_attachments($post_id, $file) {
-    $extension = pathinfo($file['name'])['extension'];
-    $name = md5_file($file['tmp_name']) . '.' . $extension;
-    move_uploaded_file($file['tmp_name'], 'resources/uploads/' . $name);
-    execute('insert into post_media (post_id,file_name) values(' . $post_id . ',\'' . $name . '\')');
+    $tmp_dir = 'resources/uploads/temp';
+    if (is_dir($tmp_dir)) {
+        remove_dir($tmp_dir);
+    }
+    mkdir($tmp_dir);
+    $path = $file['tmp_name'];
+    $hash = md5_file($path);
+    $mime = mime_content_type($file['tmp_name']);
+    if (strpos($mime, 'video')) {
+        $output = 'resources/uploads/' . $hash . '.mp4';
+        $output_name = $hash . '.mp4';
+        $temp_path = $tmp_dir . '/' . $hash . '.jpg';
+        system("ffmpeg -i $path -q:v 0 -vcodec h264 -acodec mp2 -b 5000k $output");
+        // thumbnail
+        exec("ffmpeg -i $path --ss 00:00:01 -vframes 1 $temp_path");
+        create_thumb($temp_path, $hash);
+    } else if (strpos($mime, 'image')) {
+        $output = 'resources/uploads/' . $hash . '.' . 'webp';
+        $output_name = $hash . '.webp';
+        if ($mime == 'image/png') {
+            $pngimg = imagecreatefrompng($path);
+            $w = imagesx($pngimg);
+            $h = imagesy($pngimg);
+            $im = imagecreatetruecolor($w, $h);
+            imagealphablending($im, false);
+            imagesavealpha($im, true);
+
+            $transparent = imagecolorallocatealpha($im, 255, 255, 255, 127);
+            imagefilledrectangle($im, 0, 0, $w, $h, $transparent);
+
+            imagecopy($im, $pngimg, 0, 0, 0, 0, $w, $h);
+            imagewebp($im, $output, 100);
+            imagedestroy($im);
+        } else if ($mime == 'image/jpeg') {
+            $im = imagecreatefromjpeg($path);
+            imagewebp($im, $output, 100);
+        } else if ($mime == 'image/gif') {
+            $im = imagecreatefromgif($path);
+            imagewebp($im, $output, 100);
+        } else if ($mime == 'image/heic') {
+            die('HEIC not supported');
+        } else {
+            die('Unsupported image type');
+        }
+    }
+    create_thumb($path, $hash);
+    execute('insert into post_media (post_id,file_name) values(' . $post_id . ',\'' . $output_name . '\')');
+    remove_dir($tmp_dir);
+}
+function create_thumb($path, $hash) {
+    $img = imagecreatefromstring(file_get_contents($path));
+
+    $w = imagesx($img);
+    $h = imagesy($img);
+    $r = $w / $h;
+
+    $tw = 280;
+    $th = 210;
+    $tr = $tw / $th;
+
+    if ($r > $tr) {
+        $nw = $h * $tr;
+        $nh = $h;
+    } else {
+        $nw = $w;
+        $nh = $w / $tr;
+    }
+
+    $img = imagecrop($img, [
+        'x' => 0,
+        'y' => 0,
+        'width' => $nw,
+        'height' => $nh
+    ]);
+
+    $img = imagescale($img, $tw, $th, IMG_BICUBIC_FIXED);
+    imagejpeg($img, 'resources/uploads/thumbnails/' . $hash . '.jpg', 30);
+    imagedestroy($img);
 }
 function value($field) {
     if (!isset($_POST[$field])) return '';
