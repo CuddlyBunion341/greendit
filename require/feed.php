@@ -207,7 +207,7 @@ function postHTML($post, $show_community = true, $show_user = true) {
         if (count($post_media) > 0) {
             $file_name = $post_media[0]['file_name'];
             $extension = explode('.', $file_name)[1];
-            $image_extensions = array('png', 'jpg', 'jpeg', 'tiff', 'bmp');
+            $image_extensions = array('png', 'jpg', 'jpeg', 'tiff', 'bmp', 'webp', 'gif');
             $video_extensions = array('mp4', 'wav', 'mov');
             if (in_array($extension, $image_extensions)) {
                 // create image collage

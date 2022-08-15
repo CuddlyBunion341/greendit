@@ -70,7 +70,7 @@ function add_attachment($post_id, $file) {
     $hash = md5_file($path);
     $mime = mime_content_type($file['tmp_name']);
     if (strpos($mime, 'image/') === 0 && $mime != 'image/svg') {
-        $out = __DIR__ . 'resources/uploads/' . $hash . '.webp';
+        $out = __DIR__ . '/resources/uploads/' . $hash . '.webp';
         $img = imagecreatefromstring(file_get_contents($path));
         create_thumb($img, $hash);
         exec("magick '$path' -define webp:lossless=false -quality 50 '$out'");
