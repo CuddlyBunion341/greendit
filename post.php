@@ -78,9 +78,11 @@ function add_attachment($post_id, $file) {
     } else if (strpos($mime, 'video/' === 0)) {
         $out = __DIR__ . 'resources/uploads/' . $hash . '.mp4';
         $thumb_path = __DIR__ . 'resources/uploads/thumbnails/' . $hash . '.jpg';
+        $mask_path = __DIR__ . 'resources/video_thumb.png';
         exec("ffmpeg -i '$path' -vframes 1 '$thumb_path'");
         $img = imagecreatefromjpeg($thumb_path);
-        create_thumb($img, $hash);
+        $thumb_path = create_thumb($img, $hash);
+        exec("magick '$thumb_path' '$mask_path' -composite '$thumb_path'");
         exec("ffmpeg -i '$path' -q:v 0 -vcodec h264 -acodec mp2 '$out'");
         $out_name = $hash . '.mp4';
     } else {
