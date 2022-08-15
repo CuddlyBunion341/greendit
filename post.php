@@ -75,10 +75,10 @@ function add_attachment($post_id, $file) {
         create_thumb($img, $hash);
         exec("magick '$path' -define webp:lossless=false -quality 50 '$out'");
         $out_name = $hash . '.webp';
-    } else if (strpos($mime, 'video/' === 0)) {
-        $out = __DIR__ . 'resources/uploads/' . $hash . '.mp4';
-        $thumb_path = __DIR__ . 'resources/uploads/thumbnails/' . $hash . '.jpg';
-        $mask_path = __DIR__ . 'resources/video_thumb.png';
+    } else if (strpos($mime, 'video/') === 0) {
+        $out = __DIR__ . '/resources/uploads/' . $hash . '.mp4';
+        $thumb_path = __DIR__ . '/resources/uploads/thumbnails/' . $hash . '.jpg';
+        $mask_path = __DIR__ . '/resources/video_thumb.png';
         exec("ffmpeg -i '$path' -vframes 1 '$thumb_path'");
         $img = imagecreatefromjpeg($thumb_path);
         $thumb_path = create_thumb($img, $hash);
