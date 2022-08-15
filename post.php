@@ -1,8 +1,4 @@
-<?php
-
-use function PHPSTORM_META\map;
-
- require 'require/header.php'; ?>
+<?php require 'require/header.php'; ?>
 <?php
 require_once 'require/uuid.php';
 $tab = 0;
@@ -60,7 +56,7 @@ function create_post($title, $community, $body, $tab, $image, $video, $user_id) 
     if ($tab == 1 || $tab == 2) {
         $file = $tab == 1 ? $image : $video;
         $post_id = getField('select post_id from posts where hash = \'' . $hash . '\'');
-        add_attachments($post_id, $file);
+        add_attachment($post_id, $file);
     }
 }
 function get($field) {
@@ -69,68 +65,36 @@ function get($field) {
     }
     return null;
 }
-function remove_dir($dir) {
-    if (is_dir($dir)) {
-        foreach (scandir($dir) as $file) {
-            if ($file != '.' && $file != '..') {
-                unlink($dir . '/' . $file);
-            }
-        }
-        rmdir($dir);
-    }
-}
-function add_attachments($post_id, $file) {
-    $tmp_dir = 'resources/uploads/temp';
-    if (is_dir($tmp_dir)) {
-        remove_dir($tmp_dir);
-    }
-    mkdir($tmp_dir);
+function add_attachment($post_id, $file) {
     $path = $file['tmp_name'];
     $hash = md5_file($path);
     $mime = mime_content_type($file['tmp_name']);
-    if (strpos($mime, 'video')) {
-        $output = 'resources/uploads/' . $hash . '.mp4';
-        $output_name = $hash . '.mp4';
-        $temp_path = $tmp_dir . '/' . $hash . '.jpg';
-        system("ffmpeg -i $path -q:v 0 -vcodec h264 -acodec mp2 -b 5000k $output");
-        // thumbnail
-        exec("ffmpeg -i $path --ss 00:00:01 -vframes 1 $temp_path");
-        create_thumb($temp_path, $hash);
-    } else if (strpos($mime, 'image')) {
-        $output = 'resources/uploads/' . $hash . '.' . 'webp';
-        $output_name = $hash . '.webp';
-        if ($mime == 'image/png') {
-            $pngimg = imagecreatefrompng($path);
-            $w = imagesx($pngimg);
-            $h = imagesy($pngimg);
-            $im = imagecreatetruecolor($w, $h);
-            imagealphablending($im, false);
-            imagesavealpha($im, true);
-
-            $transparent = imagecolorallocatealpha($im, 255, 255, 255, 127);
-            imagefilledrectangle($im, 0, 0, $w, $h, $transparent);
-
-            imagecopy($im, $pngimg, 0, 0, 0, 0, $w, $h);
-            imagewebp($im, $output, 100);
-            imagedestroy($im);
-        } else if ($mime == 'image/jpeg') {
-            $im = imagecreatefromjpeg($path);
-            imagewebp($im, $output, 100);
-        } else if ($mime == 'image/gif') {
-            $im = imagecreatefromgif($path);
-            imagewebp($im, $output, 100);
-        } else if ($mime == 'image/heic') {
-            die('HEIC not supported');
-        } else {
-            die('Unsupported image type');
-        }
+    if (strpos($mime, 'image/') === 0 && $mime != 'image/svg') {
+        $out = __DIR__ . 'resources/uploads/' . $hash . '.webp';
+        $img = imagecreatefromstring(file_get_contents($path));
+        create_thumb($img, $hash);
+        exec("magick '$path' -define webp:lossless=false -quality 50 '$out'");
+        $out_name = $hash . '.webp';
+    } else if (strpos($mime, 'video/' === 0)) {
+        $out = __DIR__ . 'resources/uploads/' . $hash . '.mp4';
+        $thumb_path = __DIR__ . 'resources/uploads/thumbnails/' . $hash . '.jpg';
+        exec("ffmpeg -i '$path' -vframes 1 '$thumb_path'");
+        $img = imagecreatefromjpeg($thumb_path);
+        create_thumb($img, $hash);
+        exec("ffmpeg -i '$path' -q:v 0 -vcodec h264 -acodec mp2 '$out'");
+        $out_name = $hash . '.mp4';
+    } else {
+        echo 'UNKNOWN FILE TYPE: ' . $mime . '<br>';
+        die();
     }
-    create_thumb($path, $hash);
-    execute('insert into post_media (post_id,file_name) values(' . $post_id . ',\'' . $output_name . '\')');
-    remove_dir($tmp_dir);
+    if (isset($out_name)) {
+        execute('insert into post_media (post_id,file_name) values(' . $post_id . ',\'' . $out_name . '\')');
+    } else {
+        echo 'HELOP';
+    }
 }
-function create_thumb($path, $hash) {
-    $img = imagecreatefromstring(file_get_contents($path));
+function create_thumb($img, $hash) {
+    $thumb = __DIR__ . '/resources/uploads/thumbnails/' . $hash . '.jpg';
 
     $w = imagesx($img);
     $h = imagesy($img);
@@ -156,8 +120,9 @@ function create_thumb($path, $hash) {
     ]);
 
     $img = imagescale($img, $tw, $th, IMG_BICUBIC_FIXED);
-    imagejpeg($img, 'resources/uploads/thumbnails/' . $hash . '.jpg', 30);
+    imagejpeg($img, $thumb, 30);
     imagedestroy($img);
+    return $thumb;
 }
 function value($field) {
     if (!isset($_POST[$field])) return '';
@@ -202,7 +167,7 @@ if (isset($_POST['submit'])) {
 function error($name) {
     global $errors;
     if (isset($errors[$name])) {
-        echo '<p class="error">'.$errors[$name].'</p>';
+        echo '<p class="error">' . $errors[$name] . '</p>';
     }
 }
 ?>
@@ -260,9 +225,9 @@ function error($name) {
     </aside>
     <div class="center">
         <?php
-            if (isset($error)) {
-                echo '<article class="error">' . $error . '</article>';
-            }
+        if (isset($error)) {
+            echo '<article class="error">' . $error . '</article>';
+        }
         ?>
         <form action="post.php" method="post" id="create-post-form" enctype='multipart/form-data'>
             <article class="composer titled">
@@ -298,11 +263,10 @@ function error($name) {
                 </div>
                 <div class="post-content">
                     <div data-tab="0" <?php showTab(0); ?>>
-                    <div id="content-group">
-                        <textarea name="content" id="content" cols="30" rows="10" placeholder="Text (required)"
-                        ><?php value('content'); ?></textarea>
-                        <?php error('content'); ?>
-                    </div>
+                        <div id="content-group">
+                            <textarea name="content" id="content" cols="30" rows="10" placeholder="Text (required)"><?php value('content'); ?></textarea>
+                            <?php error('content'); ?>
+                        </div>
                     </div>
                     <div data-tab="1" <?php showTab(1); ?>>
                         <div class="file-select">
