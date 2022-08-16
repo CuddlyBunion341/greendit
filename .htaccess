@@ -8,8 +8,8 @@ RewriteRule ^/?subs/(\w+)$ /greendit/subs.php?name=$1 [P]
 RewriteRule ^/?subs/(\w+)/posts/(\w+)/?$ /greendit/subs.php?name=$1&post=$2 [P]
 RewriteRule ^/?subs/(\w+)/posts/(\w+)/comment/(\w+)/?$ /greendit/subs.php?name=$1&post=$2&comment=$3 [P]
 
-RewriteRule ^/?search/(\w+)/?$ /greendit/search.php?q=$1 [P]
-RewriteRule ^/?search/(\w+)/(\w+)/?$ /greendit/search.php?q=$1&tab=$2 [P]
+RewriteRule ^/?search/([^/]+)/?$ /greendit/search.php?q=$1 [NE]
+RewriteRule ^/?search/([^/]+)/(\w+)/?$ /greendit/search.php?q=$1&tab=$2 [NE]
 
 ErrorDocument 403 /greendit/error.php
 ErrorDocument 404 /greendit/error.php
