@@ -206,12 +206,12 @@ $("#fetch-btn")?.click(function (e) {
 	const sub = this.dataset.sub;
 	const count = this.dataset.count;
 	const limit = 5;
+	this.dataset.count = +this.dataset.count + limit;
 	$.post(
 		"request/fetch_posts.php?t=" + Math.random(),
 		{ sub, start: count, limit },
 		(response, status) => {
 			if (status == 200 || status == 204) {
-				this.dataset.count = +this.dataset.count + limit;
 				$("#feed").element.insertAdjacentHTML("beforeend", response);
 				$("#feed").append(this);
 				if (status == 204) {
