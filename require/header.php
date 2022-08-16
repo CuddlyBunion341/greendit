@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="TODO: description">
+    <meta name="description" content="Greendit is a lightweight and open source version of reddit using PHP and MySQL">
     <title>Greendit</title>
     <base href="/greendit/"/>
     <script src="https://kit.fontawesome.com/e2c8916922.js" crossorigin="anonymous"></script>
