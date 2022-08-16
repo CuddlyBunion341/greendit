@@ -216,7 +216,7 @@ $("#fetch-btn")?.click(function (e) {
 				$("#feed").append(this);
 			} else if (status == 204) {
 				$("#feed").appendHTML('<p>No more posts to show</p>');
-				this.remove();
+				$("#fetch-btn")?.element.remove(); // this.remove() doesn't work
 			} else {
 				return console.error(response);
 			}
@@ -224,10 +224,16 @@ $("#fetch-btn")?.click(function (e) {
 	);
 });
 
+window.onscroll = () => {
+    if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight - 5) {
+		$("#fetch-btn")?.click();
+    }
+};
+
 $("#search")?.on('keydown',function (e) {
 	if (e.keyCode == 13) {
 		const query = this.value;
 		if (!query) return;
 		window.location = `/greendit/search/${query}`;
 	}
-})
+});
