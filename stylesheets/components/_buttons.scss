@@ -84,3 +84,6 @@ button {
 #next-pfp-btn {
     @include roundBtn($gray-800);
 }
+#fetch-btn {
+    display: none;
+}

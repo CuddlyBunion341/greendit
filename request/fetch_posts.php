@@ -24,8 +24,8 @@ if ($sub == '*') {
 } else {
     $posts = query("
         select * from posts
-        inner join communities on community.community_id = posts.community_id
-        where community.shortname = '$sub'
+        inner join communities on communities.community_id = posts.community_id
+        where communities.shortname = '$sub'
         order by posts.created_at desc 
         limit $start, $limit");
 }

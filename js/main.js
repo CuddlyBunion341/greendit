@@ -210,13 +210,14 @@ $("#fetch-btn")?.click(function (e) {
 		"request/fetch_posts.php?t=" + Math.random(),
 		{ sub, start: count, limit },
 		(response, status) => {
-			if (status == 200) {
+			if (status == 200 || status == 204) {
 				this.dataset.count = +this.dataset.count + limit;
 				$("#feed").element.insertAdjacentHTML("beforeend", response);
 				$("#feed").append(this);
-			} else if (status == 204) {
-				$("#feed").appendHTML('<p>No more posts to show</p>');
-				$("#fetch-btn")?.element.remove(); // this.remove() doesn't work
+				if (status == 204) {
+					$("#feed").appendHTML("<p>No more posts to show</p>");
+					$("#fetch-btn")?.element.remove(); // this.remove() doesn't work
+				}
 			} else {
 				return console.error(response);
 			}
@@ -225,12 +226,12 @@ $("#fetch-btn")?.click(function (e) {
 });
 
 window.onscroll = () => {
-    if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight - 5) {
+	if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 1) {
 		$("#fetch-btn")?.click();
-    }
+	}
 };
 
-$("#search")?.on('keydown',function (e) {
+$("#search")?.on("keydown", function (e) {
 	if (e.keyCode == 13) {
 		const query = this.value;
 		if (!query) return;

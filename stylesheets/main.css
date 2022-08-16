@@ -281,6 +281,10 @@ button {
   color: white;
 }
 
+#fetch-btn {
+  display: none;
+}
+
 .create-comment {
   border-bottom: 1px solid #b5b5b5;
   display: -webkit-box;

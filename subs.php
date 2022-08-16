@@ -130,7 +130,7 @@ echo '
                     </article>
                     ';
             }
-            $sql = 'select * from posts where community_id=' . $community['community_id'] . ' order by post_id desc';
+            $sql = 'select * from posts where community_id=' . $community['community_id'] . ' order by post_id desc limit 10';
             $posts = query($sql);
 
             foreach ($posts as $post) {
@@ -139,6 +139,7 @@ echo '
             if (count($posts) == 0) {
                 echo '<div class="feed-text">No posts yet!</div>';
             }
+            echo '<button id="fetch-btn" class="fetch-btn" aria-label="fetch" data-count="10" data-sub="' . $community['shortname'] . '">Fetch more</button>';
         } else {
             // show specific post
             if (isset($_GET['post'])) {
