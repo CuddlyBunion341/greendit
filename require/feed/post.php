@@ -69,7 +69,7 @@ function postHTML($post, $show_community = true, $show_user = true) {
                 <?php endif;
                 if ($show_user) : ?>
                     posted by
-                    <a href="users/'<?= $username ?>">u/<?= $username ?></a>
+                    <a href="users/<?= $username ?>">u/<?= $username ?></a>
                 <?php endif; ?>
                 <?= $age ?>
             </header>
