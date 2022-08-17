@@ -11,4 +11,18 @@
     &-plus * {
         fill: #fff;
     }
+    &-medium {
+        width: 17px;
+        height: 17px;
+        margin-right: 10px;
+        &:hover {
+            .fill {
+                fill: rgb(38, 38, 38);
+            }
+        }
+    }
+    &-upvote {
+        margin: 0;
+        float: none !important;
+    }
 }

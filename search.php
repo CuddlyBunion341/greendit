@@ -5,7 +5,7 @@
     $tabs = array('all','posts','comments','subs','users');
     $tab_index = isset($_GET['tab']) ? array_search($_GET['tab'],$tabs) : 0;
 
-    function active($index) {
+    function activeTab($index) {
         global $tab_index;
         if ($index == $tab_index) {
             return ' class="active" ';
@@ -15,11 +15,11 @@
     $query = isset($_GET['q']) ? trim(htmlspecialchars($_GET['q'])) : '';
 ?>
 <nav class="tabbs">
-    <a <?= active(0); ?> href="search/<?= $query ?>/all">All</a>
-    <a <?= active(1); ?> href="search/<?= $query ?>/posts">Posts</a>
-    <a <?= active(2); ?> href="search/<?= $query ?>/comments">Comments</a>
-    <a <?= active(3); ?> href="search/<?= $query ?>/subs">Communities</a>
-    <a <?= active(4); ?> href="search/<?= $query ?>/users">Users</a>
+    <a <?= activeTab(0); ?> href="search/<?= $query ?>/all">All</a>
+    <a <?= activeTab(1); ?> href="search/<?= $query ?>/posts">Posts</a>
+    <a <?= activeTab(2); ?> href="search/<?= $query ?>/comments">Comments</a>
+    <a <?= activeTab(3); ?> href="search/<?= $query ?>/subs">Communities</a>
+    <a <?= activeTab(4); ?> href="search/<?= $query ?>/users">Users</a>
 </nav>
 <main>
     <div id="feed">

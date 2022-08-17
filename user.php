@@ -19,7 +19,7 @@
     $tabs = array('overview','posts','comments','liked');
     $tab_index = isset($_GET['tab']) ? array_search($_GET['tab'],$tabs) : 0;
 
-    function active($index) {
+    function activeTab($index) {
         global $tab_index;
         if ($index == $tab_index) {
             return ' class="active" ';
@@ -29,10 +29,10 @@
     $username = $user['username'];
     echo '
     <nav class="tabbs">
-        <a'.active(0).'href="users/'.$username.'/overview">Overview</a>
-        <a'.active(1).'href="users/'.$username.'/posts">Posts</a>
-        <a'.active(2).'href="users/'.$username.'/comments">Comments</a>
-        <a'.active(3).'href="users/'.$username.'/liked">Liked</a>
+        <a'.activeTab(0).'href="users/'.$username.'/overview">Overview</a>
+        <a'.activeTab(1).'href="users/'.$username.'/posts">Posts</a>
+        <a'.activeTab(2).'href="users/'.$username.'/comments">Comments</a>
+        <a'.activeTab(3).'href="users/'.$username.'/liked">Liked</a>
     </nav>';
 
     // user sidebar

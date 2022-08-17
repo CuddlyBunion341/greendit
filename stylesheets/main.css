@@ -370,6 +370,18 @@ li.flair .pfp {
 .icon-plus * {
   fill: #fff;
 }
+.icon-medium {
+  width: 17px;
+  height: 17px;
+  margin-right: 10px;
+}
+.icon-medium:hover .fill {
+  fill: rgb(38, 38, 38);
+}
+.icon-upvote {
+  margin: 0;
+  float: none !important;
+}
 
 .pfp img {
   border-radius: 50%;
