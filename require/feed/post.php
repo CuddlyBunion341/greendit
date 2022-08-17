@@ -36,13 +36,31 @@ function getPostData($post) {
         'saved' => $saved
     );
 }
+function post_footer($saved = false, $comments = 0) {
+    ?>
+    <section class="footer">
+        <button aria-label="comment" name="comment-btn" class="comment-btn">
+            <?= icon('comment') ?>
+            <?= $comments ?> comments
+        </button>
+        <button aria-label="save" name="save-btn" class="save-btn<?= active($saved) ?>">
+            <?= icon('bookmark') ?>
+        </button>
+        <button aria-label="share" name="share-btn" class="share-btn">
+            <?= icon('share') ?>
+        </button>
+    </section>
+    <?php
+}
 function postHTML($post, $show_community = true, $show_user = true) {
     $post_data = getPostData($post);
     extract($post_data);
     if ($removed) return;
 ?>
     <article class="post" data-hash="<?= $hash ?>" data-sub="<?= $sub ?>">
-        <section class="left"></section>
+        <section class="left">
+            <?= arrow_wrapper($liked, $disliked, $likes, false, false) ?>
+        </section>
         <section class="right">
             <header class="head">
                 <?php if ($show_community) :
@@ -79,8 +97,8 @@ function postHTML($post, $show_community = true, $show_user = true) {
             <?php
                 endif;
             endif;
+            post_footer($saved, $comments);
             ?>
-            footer
         </section>
     </article>
 <?php

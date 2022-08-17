@@ -2,10 +2,12 @@
 function linkHTML($url, $display) {
     return '<a href="' . $url . '">' . $display . '</a>';
 }
+
 function plural($word, $count) {
     if ($count == 1) return $word;
     return $word . 's';
 }
+
 function formatDate($date) {
     $datediff = time() - strtotime($date);
     if ($datediff > (60 * 60 * 24)) {
@@ -22,6 +24,7 @@ function formatDate($date) {
     }
     return 'moments ago';
 }
+
 function isMobile() {
     $useragent = $_SERVER['HTTP_USER_AGENT'];
 
@@ -33,12 +36,14 @@ function replace(&$subject, $pattern, $replacement) {
     $subject = preg_replace($pattern, $replacement, $subject);
 }
 
-function active($index) {
-    global $tab_index;
-    if ($index == $tab_index) {
-        return ' class="active" ';
+function active($bool, $class = 'active', $whitespace = true) {
+    if ($bool) {
+        return $whitespace ? ' ' . $class : $class;
     }
-    return ' ';
+}
+
+function icon($name) {
+    return file_get_contents(__DIR__ . '/../resources/icons/' . $name . '.svg');
 }
 
 function markdownify($text) {

@@ -2,6 +2,8 @@
 require __DIR__ . '/../require/db_connect.php';
 require __DIR__ . '/../require/feed.php';
 
+session_start(); // very important
+
 $start = 0;
 $limit = 10;
 $sub = '*';
