@@ -33,6 +33,14 @@ function replace(&$subject, $pattern, $replacement) {
     $subject = preg_replace($pattern, $replacement, $subject);
 }
 
+function active($index) {
+    global $tab_index;
+    if ($index == $tab_index) {
+        return ' class="active" ';
+    }
+    return ' ';
+}
+
 function markdownify($text) {
     replace($text, '/\*\*(.*?)\*\*/', '<b>$1</b>'); // bold
     replace($text, '/\*(.*?)\*/', '<i>$1</i>'); // italic

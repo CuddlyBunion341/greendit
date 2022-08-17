@@ -28,7 +28,7 @@ echo '
             <div class="community-banner-main">
                 <div class="top">
                     <h2>' . $community['name'] . '</h2>
-                    <button aria-label="join" class="join-btn' . activeClass($joined) . '" name="join-btn" data-name="' . $community['shortname'] . '"></button>
+                    <button aria-label="join" class="join-btn' . active($joined) . '" name="join-btn" data-name="' . $community['shortname'] . '"></button>
                 </div>
                 <a href="subs/' . $community['shortname'] . '">s/' . $community['shortname'] . '</a>
             </div>

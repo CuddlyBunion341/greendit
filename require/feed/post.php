@@ -36,7 +36,7 @@ function getPostData($post) {
         'saved' => $saved
     );
 }
-function postHTML($post, $force_show = false) {
+function postHTML($post, $show_community = true, $show_user = true) {
     $post_data = getPostData($post);
     extract($post_data);
     if ($removed) return;
@@ -45,41 +45,40 @@ function postHTML($post, $force_show = false) {
         <section class="left"></section>
         <section class="right">
             <header class="head">
-                TEST
+                <?php if ($show_community) :
+                    if (!$show_user) echo 'posted in '; ?>
+                    <a href="subs/'<?= $sub ?>">s/<?= $sub ?></a>&nbsp;
+                <?php endif;
+                if ($show_user) : ?>
+                    posted by
+                    <a href="users/'<?= $username ?>">u/<?= $username ?></a>
+                <?php endif; ?>
+                <?= $age ?>
             </header>
             <h2><?= $title ?></h2>
-            <?php
-            if (count($media) == 0) {
-            ?>
+            <?php if (count($media) == 0) : ?>
                 <p><?= $content ?></p>
-                <?php
-            } else {
+                <?php elseif (count($media) > 0) :
                 $file_name = $media[0]['file_name'];
                 $extension = explode('.', $file_name)[1];
                 $images = array('jpg', 'jpeg', 'png', 'gif', 'webp');
                 $videos = array('mp4', 'webm', 'ogv');
                 if (in_array($extension, $images)) : ?>
                     <div class="image-collage">
-                        <?php
-                        foreach ($media as $image) :
-                        ?>
+                        <?php foreach ($media as $image) : ?>
                             <img src="resources/uploads/<?= $image['file_name'] ?>" alt="TODO: media caption">
-                        <?php
-                        endforeach;
-                        ?>
+                        <?php endforeach; ?>
                     </div>
-            <?php
-                elseif (in_array($extension, $videos)) :
-                ?>
+                <?php elseif (in_array($extension, $videos)) : ?>
                     <div class="video-container">
                         <video controls>
-                            <source src="resources/uploads/<?= $media[0]['file_name']?>">
+                            <source src="resources/uploads/<?= $media[0]['file_name'] ?>">
                             Your browser does not support the video tag.
                         </video>
                     </div>
-                <?php
+            <?php
                 endif;
-            }
+            endif;
             ?>
             footer
         </section>
