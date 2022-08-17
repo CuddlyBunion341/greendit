@@ -36,11 +36,53 @@ function getPostData($post) {
         'saved' => $saved
     );
 }
-function postHTML($post) {
+function postHTML($post, $force_show = false) {
     $post_data = getPostData($post);
     extract($post_data);
-    if ($removed) {
-        $title = '[Removed] ';
-        $content = 'This post has been removed.';
-    }
+    if ($removed) return;
+?>
+    <article class="post" data-hash="<?= $hash ?>" data-sub="<?= $sub ?>">
+        <section class="left"></section>
+        <section class="right">
+            <header class="head">
+                TEST
+            </header>
+            <h2><?= $title ?></h2>
+            <?php
+            if (count($media) == 0) {
+            ?>
+                <p><?= $content ?></p>
+                <?php
+            } else {
+                $file_name = $media[0]['file_name'];
+                $extension = explode('.', $file_name)[1];
+                $images = array('jpg', 'jpeg', 'png', 'gif', 'webp');
+                $videos = array('mp4', 'webm', 'ogv');
+                if (in_array($extension, $images)) : ?>
+                    <div class="image-collage">
+                        <?php
+                        foreach ($media as $image) :
+                        ?>
+                            <img src="resources/uploads/<?= $image['file_name'] ?>" alt="TODO: media caption">
+                        <?php
+                        endforeach;
+                        ?>
+                    </div>
+            <?php
+                elseif (in_array($extension, $videos)) :
+                ?>
+                    <div class="video-container">
+                        <video controls>
+                            <source src="resources/uploads/<?= $media[0]['file_name']?>">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                <?php
+                endif;
+            }
+            ?>
+            footer
+        </section>
+    </article>
+<?php
 }
