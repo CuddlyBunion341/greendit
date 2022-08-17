@@ -123,6 +123,9 @@ form.special {
     padding-right: 10px;
     color: rgb(162, 162, 162);
     position: relative;
+    svg path {
+        fill: rgb(162, 162, 162);
+    }
 }
 
 .tabs i {
@@ -132,6 +135,9 @@ form.special {
 .tabs button.active {
     color: black;
     background-color: #cfffcf;
+    svg path {
+        fill: black;
+    }
 }
 
 .tabs button.active::after {

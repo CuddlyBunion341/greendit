@@ -375,8 +375,8 @@ li.flair .pfp {
   height: 17px;
   margin-right: 10px;
 }
-.icon-medium:hover .fill {
-  fill: rgb(38, 38, 38);
+.icon-medium:hover path {
+  fill: rgb(69, 69, 69);
 }
 .icon-upvote {
   margin: 0;
@@ -1236,6 +1236,9 @@ form.special {
   color: rgb(162, 162, 162);
   position: relative;
 }
+.tabs button svg path {
+  fill: rgb(162, 162, 162);
+}
 
 .tabs i {
   margin-right: 10px;
@@ -1244,6 +1247,9 @@ form.special {
 .tabs button.active {
   color: black;
   background-color: #cfffcf;
+}
+.tabs button.active svg path {
+  fill: black;
 }
 
 .tabs button.active::after {

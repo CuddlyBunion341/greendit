@@ -1,6 +1,7 @@
 <?php require 'require/header.php'; ?>
 <?php
-require_once 'require/uuid.php';
+require 'require/uuid.php';
+require 'require/util.php';
 $tab = 0;
 $errors = array();
 $values = array();
@@ -255,9 +256,9 @@ function error($name) {
                     <?php error('sub'); ?>
                 </div>
                 <div class="tabs">
-                    <button aria-label="tab-post" type="button" class="post-tab <?php activeBtn(0); ?>"><i class="fa-solid fa-font"></i></i>Post</button>
-                    <button aria-label="tab-image" type="button" class="image-tab <?php activeBtn(1); ?>"><i class="fa-solid fa-images"></i>Images</button>
-                    <button aria-label="tab-video" type="button" class="video-tab <?php activeBtn(2); ?>"><i class="fa-solid fa-film"></i>Video</button>
+                    <button aria-label="tab-post" type="button" class="post-tab  <?php activeBtn(0); ?>"><?= icon('font'); ?>Post</button>
+                    <button aria-label="tab-image" type="button" class="image-tab <?php activeBtn(1); ?>"><?= icon('images'); ?>Images</button>
+                    <button aria-label="tab-video" type="button" class="video-tab <?php activeBtn(2); ?>"><?= icon('film'); ?>Video</button>
                 </div>
                 <div id="title-group">
                     <input type="text" name="title" id="title" placeholder="Title" value="<?php value('title'); ?>" required>
