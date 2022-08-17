@@ -36,6 +36,7 @@ function getPostData($post) {
         'saved' => $saved
     );
 }
+
 function post_footer($saved = false, $comments = 0) {
     ?>
     <section class="footer">
@@ -47,11 +48,12 @@ function post_footer($saved = false, $comments = 0) {
             <?= icon('bookmark') ?>
         </button>
         <button aria-label="share" name="share-btn" class="share-btn">
-            <?= icon('share') ?>
+            <?= icon('share') ?> Share
         </button>
     </section>
     <?php
 }
+
 function postHTML($post, $show_community = true, $show_user = true) {
     $post_data = getPostData($post);
     extract($post_data);
@@ -102,4 +104,36 @@ function postHTML($post, $show_community = true, $show_user = true) {
         </section>
     </article>
 <?php
+}
+
+function overviewPostHTML($post) {
+    $post_data = getPostData($post);
+    extract($post_data);
+    if ($removed) return;
+    ?>
+        <article class="post overview" data-hash="<?= $hash ?>" data-sub="<?= $sub ?>">
+            <section class="left">
+                <?= arrow_wrapper($liked, $disliked, $likes, false, false) ?>
+            </section>
+            <section class="thumb">
+                <?php
+                    if (!$media) {
+                        echo icon('post');
+                    } else {
+                        $file_name = $media[0]['file_name'];
+                        $file_hash = explode('.', $file_name)[0];
+                        $thumb_path = 'resources/uploads/thumbnails/' . $file_hash . '.jpg';
+                        echo '<img src="' . $thumb_path . '" alt="TODO: media caption">';
+                    }
+                ?>
+            </section>
+            <section class="right">
+                <header class="head">
+                    posted in <a href="subs/<?= $sub ?>">s/<?= $sub ?></a>&nbsp; <?= $age ?>
+                </header>
+                <h2><?= $title ?></h2>
+                <?= post_footer($saved, $comments) ?>
+            </section>
+        </article>
+    <?php
 }

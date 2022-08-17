@@ -97,11 +97,11 @@
                     <a href="'.$user_url.'/posts">'.$posts.' '.'posts'.'</a>
                     <a href="'.$user_url.'/comments">'.$comments.' '.'comments'.' </a>
                 </section>
-                <button aria-label="follow" class="follow-btn'.activeClass($follow_active).'" data-username="'.$username.'"></button>
+                <button aria-label="follow" class="follow-btn'.active($follow_active).'" data-username="'.$username.'"></button>
             </article>
             '.$followers_article.'
         </aside>
-        <div id="feed" class="'.activeClass($tab_index == 1 || $tab_index == 2,'growing',false).'">
+        <div id="feed" class="'.active($tab_index == 1 || $tab_index == 2,'growing',false).'">
     ';
 
     if ($tab_index == 0)  {
