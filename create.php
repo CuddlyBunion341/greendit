@@ -1,5 +1,6 @@
 <?php require __DIR__ . '/require/header.php'; ?>
 <?php
+require 'require/util.php';
 if (!isset($_SESSION['user_id'])) {
     header('Location: /greendit/login.php');
     exit();
@@ -84,9 +85,9 @@ if (isset($_POST['submit'])) {
         <div class="field-group">
             <p>Community type</p>
             <input type="radio" name="type" id="radio-1" value="public" <?= checked('radio1') ?>>
-            <label for="radio-1"><i class="fa-solid fa-user radio-icon"></i>Public</label><br>
+            <label for="radio-1"><?= icon('user','radio-icon'); ?>Public</label><br>
             <input type="radio" name="type" id="radio-2" value="private" <?= checked('radio2') ?>>
-            <label for="radio-2"><i class="fa-solid fa-lock radio-icon"></i>Private</label><br>
+            <label for="radio-2"><?= icon('lock','radio-icon'); ?>Private</label><br>
         </div>
         <input type="submit" name="submit" value="Create">
     </form>

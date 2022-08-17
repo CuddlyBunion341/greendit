@@ -1328,10 +1328,13 @@ video {
 }
 
 .radio-icon {
+  width: 12px;
+  height: 12px;
   margin-right: 6px;
-  font-size: 11px;
-  color: #696969;
-  vertical-align: middle;
+  float: none;
+}
+.radio-icon path {
+  fill: #696969;
 }
 
 .community-composer {

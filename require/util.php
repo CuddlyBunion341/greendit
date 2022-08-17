@@ -42,8 +42,12 @@ function active($bool, $class = 'active', $whitespace = true) {
     }
 }
 
-function icon($name) {
-    return file_get_contents(__DIR__ . '/../resources/icons/' . $name . '.svg');
+function icon($name, $class = '') {
+    $contents = file_get_contents(__DIR__ . '/../resources/icons/' . $name . '.svg');
+    if ($class) {
+        $contents = str_replace('class="icon', 'class="icon ' . $class, $contents);
+    }
+    return $contents;
 }
 
 function markdownify($text) {
