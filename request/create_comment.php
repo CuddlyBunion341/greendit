@@ -2,6 +2,7 @@
 require __DIR__ . '/../require/db_connect.php';
 require __DIR__ . '/../require/feed.php';
 require __DIR__ . '/../require/uuid.php';
+session_start();
 if (!isset($_SESSION['user_id'])) {
     http_response_code(401);
     exit('Unauthorized');
@@ -35,4 +36,4 @@ if (!$comment) {
     http_response_code(500);
     exit('Error creating comment.');
 }
-commentHTML($comment);
+post_commentHTML($comment);

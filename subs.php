@@ -166,7 +166,7 @@ echo '
                 }
                 if (count($comments) > 0) {
                     foreach ($comments as $comment) {
-                        commentHTML($comment);
+                        post_commentHTML($comment);
                     }
                 } else {
                     echo '<p>No comments yet.</p>';

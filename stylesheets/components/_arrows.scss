@@ -12,6 +12,7 @@
         position: relative;
         display: flex;
         justify-content: center;
+        align-items: center; // horizontal footer
         cursor: pointer;
         svg {
             float: left;
