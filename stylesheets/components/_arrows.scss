@@ -10,6 +10,8 @@
         padding: 0;
         width: 13px;
         position: relative;
+        display: flex;
+        justify-content: center;
         cursor: pointer;
         svg {
             float: left;

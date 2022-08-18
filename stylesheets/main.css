@@ -119,6 +119,12 @@ main.multicol {
   padding: 0;
   width: 13px;
   position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   cursor: pointer;
 }
 .arrow-wrapper button svg {
