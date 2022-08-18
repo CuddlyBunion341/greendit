@@ -36,6 +36,7 @@ function get_comment_data($comment) {
         'saved' => $saved
     );
 }
+
 function post_commentHTML($comment) {
     $comment_data = get_comment_data($comment);
     extract($comment_data);
@@ -55,6 +56,62 @@ function post_commentHTML($comment) {
             <button aria-label="share" name="share-btn" name="share" class="share-btn">Share</button>
         </section>
     </article>
+    <?php
+}
+
+function user_commentsHTML($post, $user, $head = true) {
+    $post_comments = query('select * from comments where post_id=' . $post['post_id']);
+    if (!$post_comments) return;
+
+    $username = $user['username'];
+    $sub = getField('select shortname from communities where community_id=' . $post['community_id']);
+    echo '<article class="user-comment-wrapper' . active(!$head, 'beheaded') . '">';
+    // ---- Header ---------------------------------------------------------------------------
+    if ($head) :
+        $author = getField('select username from users where user_id=' . $post['user_id']);
+        $hash = $post['hash'];
+        $title = $post['title'];
+    ?>
+        <section class="user-comment-wrapper__head">
+            <?= icon('comment2') ?>
+            <?= linkHTMl('users/' . $username, $username) ?>
+            commented on
+            <?= linkHTML('subs/' . $sub . '/posts/' . $hash, $title) ?>
+            in <?= linkHTML('subs/' . $sub, 's/' . $sub) ?>
+            Posted by <?= linkHTML('users/' . $author, 'u/' . $author) ?>
+        </section>
+    <?php
+    endif;
+    // ---- Body -----------------------------------------------------------------------------
+    echo '<section class="user-comment-wrapper__comments" data-hash="' . $post['hash'] . '" data-sub="' . $sub . '">';
+    foreach ($post_comments as $comment) :
+        if ($comment['user_id'] != $user['user_id']) continue;
+        if ($comment['status'] == 'removed') continue;
+        $indent = 1;
+        $alias = $comment;
+        while ($alias['parent_id']) {
+            foreach ($post_comments as $other) {
+                if ($other['comment_id'] == $alias['parent_id']) {
+                    $alias = $other;
+                    $indent++;
+                    break;
+                }
+            }
+        }
+    ?>
+        <div class="user-comment" data-hash="<?= $comment['hash'] ?>">
+            <?= str_repeat('<div class="indent">', $indent) ?>
+            <div class="user-comment__head">
+                <?= linkHTML('users/' . $username, $username) ?>
+                <?= formatDate($comment['created_at']) ?>
+            </div>
+            <p><?= $comment['content'] ?></p>
+            <?= str_repeat('</div>', $indent) ?>
+        </div>
 <?php
+    endforeach;
+    echo '
+    </section>
+</article>';
 }
 ?>

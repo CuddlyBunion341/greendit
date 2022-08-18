@@ -120,12 +120,12 @@
             order by date desc');
         foreach ($posts as $post) {
             if ($post['user_id'] != $user_id) {
-                userCommentsHTML($post, $user, true);
+                user_commentsHTML($post, $user, true);
             } else {
                 postHTML($post, true, false);
                 $post_id = $post['post_id'];
                 if (exists("select * from comments where post_id=$post_id and user_id=$user_id")) {
-                    userCommentsHTML($post, $user, false);
+                    user_commentsHTML($post, $user, false);
                 }
             }
         }
@@ -143,7 +143,7 @@
             inner join posts on posts.post_id = comments.post_id
             where users.user_id='.$user_id.' group by posts.post_id');
         foreach($posts as $post) {
-            userCommentsHTML($post, $user, true);
+            user_commentsHTML($post, $user, true);
         }
     }
 
