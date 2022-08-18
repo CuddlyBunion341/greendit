@@ -1,22 +1,31 @@
 <?php require('require/header.php'); ?>
 <?php
-    require_once 'require/feed.php';
-
     if (!isset($_GET['name'])) {
         header('Location: /greendit/error/400');
         exit;
     }
 
-    require_once 'require/db_connect.php';
+    require 'require/db_connect.php';
     $user = row('select * from users where username = "'.$_GET['name'].'"');
     if (!$user) {
         header('Location: /greendit/error/418');
         exit;
     }
+    require 'require/feed.php';
+    $username = $user['username'];
+    $user_id = $user['user_id'];
+    $date = $user['created_at'];
 
-    // tabbed navigation
-
+    $own_profile = false;
     $tabs = array('overview','posts','comments','liked');
+    if (isset($_SESSION['user_id'])) {
+        $session_user = $_SESSION['user_id'];
+        if ($user_id == $session_user) {
+            $own_profile = true;
+            $tabs[] = 'saved';
+        }
+    }
+    // ---- Tabbed navigation ----------------------------------------------------------------
     $tab_index = isset($_GET['tab']) ? array_search($_GET['tab'],$tabs) : 0;
 
     function activeTab($index) {
@@ -33,54 +42,48 @@
         <a'.activeTab(1).'href="users/'.$username.'/posts">Posts</a>
         <a'.activeTab(2).'href="users/'.$username.'/comments">Comments</a>
         <a'.activeTab(3).'href="users/'.$username.'/liked">Liked</a>
+        '.($own_profile ? '<a '.activeTab(4).' href="users/'.$username.'/saved">Saved</a>' : '').'
     </nav>';
-
-    // user sidebar
-
-    $date = $user['created_at'];
+    // ---- User info -----------------------------------------------------------------------
     $datediff = time() - strtotime($date);
     $date = round($datediff / (60 * 60 * 24));
-    $posts = rows('select * from posts where user_id = '.$user['user_id']);
-    $comments = rows('select * from comments where user_id = '.$user['user_id']);
+    $posts = rows('select * from posts where user_id = '.$user_id);
+    $comments = rows('select * from comments where user_id = '.$user_id);
     $user_url = 'users/'.$username;
-    $user_id = $user['user_id'];
 
     $follow_active = false;
     $pfp = '<img src="resources/pfps/'.$username.'.png" alt="'.$username.'" class="pfp large edit">';
-    if (isset($_SESSION['user_id'])) {
-        $session_user = $_SESSION['user_id'];
+    if (isset($session_user)) {
         $follow_active = exists("select * from followers where user_id=$user_id and follower_id=$session_user");
-        if ($user_id == $session_user) {
+        if ($own_profile) {
             $pfp = '<div class="pfp-select"><input type="file" id="pfp-input" class="hidden" accept="image/png,image/jpg,image/jpeg,image/gif">'.$pfp.'</img></div>';
         }
     }
-
-    {
-        $followers = query('
-        select follower_id,users.username from followers
-        inner join users on users.user_id = followers.follower_id
-        where followers.user_id = '.$user_id);
-        if (!$followers) {
-            $followers_article = '';
-        } else {
-            $followers_article = '
-            <article class="titled">
-                <h1>Followers</h1>
-                <ul>';
-            foreach ($followers as $follower) {
-                $name = $follower['username'];
-                $followers_article .= '
-                <li class="flair">
-                    <a href="/greendit/users/'.$name.'">
-                        <img class="pfp small" src="resources/pfps/'.$name.'.png" alt="'.$name.'">'.$name.'
-                    </a>
-                </li>
-                ';
-            }
-            $followers_article .= '</ul></article>';
+    // ---- Followers ------------------------------------------------------------------------
+    $followers = query('
+    select follower_id,users.username from followers
+    inner join users on users.user_id = followers.follower_id
+    where followers.user_id = '.$user_id);
+    if (!$followers) {
+        $followers_article = '';
+    } else {
+        $followers_article = '
+        <article class="titled">
+            <h1>Followers</h1>
+            <ul>';
+        foreach ($followers as $follower) {
+            $name = $follower['username'];
+            $followers_article .= '
+            <li class="flair">
+                <a href="/greendit/users/'.$name.'">
+                    <img class="pfp small" src="resources/pfps/'.$name.'.png" alt="'.$name.'">'.$name.'
+                </a>
+            </li>
+            ';
         }
+        $followers_article .= '</ul></article>';
     }
-
+    // ---- User sidebar ---------------------------------------------------------------------
     echo '
         <main class="multicol">
         <aside>
@@ -103,7 +106,7 @@
         </aside>
         <div id="feed" class="'.active($tab_index == 1 || $tab_index == 2,'growing',false).'">
     ';
-
+    // ---- Feed -----------------------------------------------------------------------------
     if ($tab_index == 0)  {
         $posts = query('
             select *,posts.created_at as date from posts 
@@ -154,6 +157,18 @@
         }
         if (!$liked_posts) {
             echo '<p>No likes yet!</p>';
+        }
+    }
+
+    if ($tab_index == 4) {
+        $posts = query('select posts.* from saved_posts
+            inner join posts on posts.post_id = saved_posts.post_id
+            where saved_posts.user_id = '.$user_id);
+        foreach($posts as $post) {
+            overviewPostHTML($post);
+        }
+        if (!$posts) {
+            echo '<p>No saved posts yet!</p>';
         }
     }
 ?>
