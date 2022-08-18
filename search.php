@@ -21,7 +21,7 @@
     <a <?= activeTab(3); ?> href="search/<?= $query ?>/subs">Communities</a>
     <a <?= activeTab(4); ?> href="search/<?= $query ?>/users">Users</a>
 </nav>
-<main>
+<main class="single">
     <div id="feed">
         <?php
             if ($tab_index == 0) {
@@ -36,8 +36,7 @@
             if ($tab_index == 2 || $tab_index == 0) {
                 $results = query('select * from comments where content like "%'.$query.'%"');
                 foreach($results as $result) {
-                    // todo
-                    overviewCommentHTML($result);
+                    overview_commentHTML($result);
                 }
             }
             if ($tab_index == 3) {

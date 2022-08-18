@@ -26,6 +26,8 @@ function get_comment_data($comment) {
         'hash' => $hash,
         'sub' => $community['shortname'],
         'post' => $post,
+        'post_date' => $post['created_at'],
+        'post_hash' => $post['hash'],
         'date' => $created_at,
         'age' => $age,
         'title' => $post['title'],
@@ -56,6 +58,30 @@ function post_commentHTML($comment) {
             <button aria-label="share" name="share-btn" name="share" class="share-btn">Share</button>
         </section>
     </article>
+    <?php
+}
+
+function overview_commentHTML($comment) {
+    $comment_data = get_comment_data($comment);
+    extract($comment_data);
+    ?>
+        <article class="overview-comment" data-hash="<?= $post_hash ?>">
+            <section class="overview-comment__head">
+                <?= linkHTML('subs/' . $sub, "s/$sub") ?>
+                Posted by <?= linkHTML('users/' . $post_author, $post_author) ?>
+                <?= formatDate($post_date) ?>
+            </section>
+            <section class="overview-comment__title">
+                <h2><?= $title ?></h2>
+            </section>
+            <section class="overview-comment__body" data-hash="<?= $hash ?>">
+                <div class="comment__head">
+                    <?= linkHTML('users/' . $username, $username) ?>
+                    <?= formatDate($date) ?>
+                </div>
+                <p><?= $content ?></p>
+            </section>
+        </article>
     <?php
 }
 

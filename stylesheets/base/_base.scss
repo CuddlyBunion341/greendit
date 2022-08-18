@@ -39,6 +39,9 @@ main {
     justify-content: center;
     box-sizing: border-box;
     padding: 10px 25px 10px 25px;
+    &.single { // TODO: rewrite!!
+        justify-content: flex-start;
+    }
     &.multicol {
         flex-direction: row;
         @media screen and (max-width: 600px) {

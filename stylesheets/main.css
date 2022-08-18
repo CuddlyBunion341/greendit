@@ -66,6 +66,11 @@ main {
           box-sizing: border-box;
   padding: 10px 25px 10px 25px;
 }
+main.single {
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
 main.multicol {
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
