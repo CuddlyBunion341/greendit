@@ -1,8 +1,8 @@
 form.login {
     display: flex;
+    flex: 1;
     justify-content: center;
     align-items: center;
-    height: calc(100% - 48px); // hack
     background-color: $dark-lime;
     padding: 20px;
     box-sizing: border-box;

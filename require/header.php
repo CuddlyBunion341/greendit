@@ -13,8 +13,12 @@
     <script src="js/main.js" defer></script>
     <link rel="stylesheet" href="stylesheets/main.min.css">
 </head>
-
-<body>
+<?php
+$body_class = '';
+if (isset($header) && $header['flex'])
+    $body_class .= 'flex';
+?>
+<body <?= isset($body_class) ? 'class="' . $body_class . '"' : ''?>>
     <header>
         <?php require 'nav.php'; ?>
     </header>
