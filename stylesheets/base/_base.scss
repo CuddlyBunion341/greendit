@@ -43,8 +43,10 @@ main {
         flex-direction: row;
         @media screen and (max-width: 600px) {
             flex-direction: column;
-            padding: 10px 5px 10px 5px !important;
             justify-content: flex-start;
+        }
+        @media screen and (max-width: 450px) {
+            padding: 10px 5px 10px 5px !important;
         }
     }
 }
