@@ -110,6 +110,9 @@ $("#feed")?.click(function (e) {
 			.sub;
 		const comment = target.closest(".user-comment").dataset.hash;
 		window.location = `/greendit/subs/${sub}/posts/${post}/comment/${comment}/`;
+	} else if (target.closest(".community")) {
+		const name = target.closest(".community").dataset.name;
+		window.location = `/greendit/subs/${name}`;
 	}
 });
 
@@ -136,26 +139,30 @@ $(".create-comment")?.on("submit", function (e) {
 	);
 });
 
-$(".join-btn")?.click(function (e) {
-	const subName = this.dataset.name;
-	$.post(
-		"request/join.php?t=" + Math.random(),
-		{ name: subName },
-		(response, status) => {
-			if (status == 401) {
-				return alert("Please login!");
-			} else if (status != 200) {
-				return alert("Unknown Error");
+document.querySelectorAll(".join-btn")?.forEach((btn) => {
+	$(btn).click(function (e) {
+		const subName = this.dataset.name;
+		$.post(
+			"request/join.php?t=" + Math.random(),
+			{ name: subName },
+			(response, status) => {
+				if (status == 401) {
+					return alert("Please login!");
+				} else if (status != 200) {
+					return alert("Unknown Error");
+				}
+				response = JSON.parse(response);
+				const { toggle, message } = response;
+				if (toggle == -1) return console.error(message);
+				this.classList.toggle("active");
+				const span = $("span#members")?.element;
+				if (span) {
+					const increment = toggle == 0 ? 1 : -1;
+					span.innerHTML = Number(span.innerHTML) + increment;
+				}
 			}
-			response = JSON.parse(response);
-			const { toggle, message } = response;
-			if (toggle == -1) return console.error(message);
-			this.classList.toggle("active");
-			const increment = toggle == 0 ? 1 : -1;
-			const span = $("span#members").element;
-			span.innerHTML = Number(span.innerHTML) + increment;
-		}
-	);
+		);
+	});
 });
 
 $(".follow-btn")?.click(function (e) {

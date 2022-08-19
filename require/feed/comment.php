@@ -79,7 +79,9 @@ function overview_commentHTML($comment) {
                     <?= linkHTML('users/' . $username, $username) ?>
                     <?= formatDate($date) ?>
                 </div>
-                <p><?= $content ?></p>
+                <div class="comment__body">
+                    <p><?= $content ?></p>
+                </div>
             </section>
         </article>
     <?php

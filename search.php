@@ -2,6 +2,7 @@
 <?php
     require __DIR__ . '/require/db_connect.php';
     require __DIR__ . '/require/feed.php';
+
     $tabs = array('all','posts','comments','subs','users');
     $tab_index = isset($_GET['tab']) ? array_search($_GET['tab'],$tabs) : 0;
 
@@ -42,7 +43,7 @@
             if ($tab_index == 3) {
                 $results = query('select * from communities where shortname like "%'.$query.'%" or name like "%'.$query.'%"');
                 foreach($results as $result) {
-                    // todo community overview
+                    overview_communityHTML($result);
                 }
             }
             if ($tab_index == 4) {
