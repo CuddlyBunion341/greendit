@@ -1405,6 +1405,7 @@ video {
   margin-bottom: 5px;
 }
 
+.overview-user,
 .community {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1413,23 +1414,28 @@ video {
       -ms-flex-align: center;
           align-items: center;
 }
+.overview-user:hover,
 .community:hover {
   border: 1px solid #808080;
 }
+.overview-user .main,
 .community .main {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
 }
+.overview-user .pfp,
 .community .pfp {
   float: left;
   margin-right: 10px;
 }
+.overview-user p,
 .community p {
   color: black;
   margin-top: 0;
   margin-bottom: 0;
 }
+.overview-user a,
 .community a {
   color: #676767;
   font-size: 14px;
@@ -1457,6 +1463,7 @@ video {
 
 .post.overview,
 .overview-comment,
+.overview-user,
 .community {
   margin-bottom: 5px;
 }

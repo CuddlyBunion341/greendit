@@ -49,7 +49,7 @@
             if ($tab_index == 4) {
                 $results = query('select * from users where username like "%'.$query.'%"');
                 foreach($results as $result) {
-                    // todo user overview
+                    overview_userHTML($result);
                 }
             }
         ?>

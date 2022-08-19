@@ -113,6 +113,9 @@ $("#feed")?.click(function (e) {
 	} else if (target.closest(".community")) {
 		const name = target.closest(".community").dataset.name;
 		window.location = `/greendit/subs/${name}`;
+	} else if (target.closest(".overview-user")) {
+		const name = target.closest(".overview-user").dataset.name;
+		window.location = `/greendit/users/${name}`;
 	}
 });
 
@@ -165,23 +168,25 @@ document.querySelectorAll(".join-btn")?.forEach((btn) => {
 	});
 });
 
-$(".follow-btn")?.click(function (e) {
-	const username = this.dataset.username;
-	$.post(
-		"request/follow.php?t=" + Math.random(),
-		{ username },
-		(response, status) => {
-			if (status == 401) {
-				return alert("Please login!");
-			} else if (status != 200) {
-				return alert("Unknown Error");
+document.querySelectorAll(".follow-btn").forEach((btn) => {
+	$(btn).click(function (e) {
+		const username = this.dataset.username;
+		$.post(
+			"request/follow.php?t=" + Math.random(),
+			{ username },
+			(response, status) => {
+				if (status == 401) {
+					return alert("Please login!");
+				} else if (status != 200) {
+					return alert("Unknown Error");
+				}
+				response = JSON.parse(response);
+				const { toggle, message } = response;
+				if (toggle == -1) return console.error(message);
+				this.classList.toggle("active");
 			}
-			response = JSON.parse(response);
-			const { toggle, message } = response;
-			if (toggle == -1) return console.error(message);
-			this.classList.toggle("active");
-		}
-	);
+		);
+	});
 });
 
 $(".pfp-select")?.click(() => {
