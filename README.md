@@ -3,7 +3,7 @@ Greendit is a simple social media website similar to Reddit.
 This social media site uses PHP and a MySQL database for the backend.
 
 ## Live Demo
-This project will be deployed soon.
+[Live Demo](http://www.cb341.net/greendit/)
 
 ## Installation
 
