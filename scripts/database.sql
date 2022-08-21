@@ -155,3 +155,13 @@ create table if not exists post_media (
     index fk_post_idx (post_id asc) visible,
     constraint fk_post foreign key (post_id) references posts (post_id) on delete cascade
 );
+
+create table if not exists access_codes (
+    code varchar(14) not null,
+    user_id int,
+    created_at timestamp default current_timestamp,
+    updated_at datetime default current_timestamp on update current_timestamp,
+    primary key (code),
+    index fk_users9_idx (user_id asc) visible,
+    constraint fk_users9 foreign key (user_id) references users (user_id) on delete set null
+);
