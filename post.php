@@ -1,5 +1,6 @@
 <?php require 'require/header.php'; ?>
 <?php
+require_once 'require/db_connect.php';
 require 'require/uuid.php';
 require 'require/util.php';
 $tab = 0;
@@ -61,8 +62,9 @@ function create_post($title, $community, $body, $tab, $image, $video, $user_id) 
     }
 }
 function get($field) {
+    global $conn;
     if (isset($_POST[$field])) {
-        return trim(htmlspecialchars($_POST[$field]));
+        return mysqli_real_escape_string($conn, htmlspecialchars($_POST[$field]));
     }
     return null;
 }
@@ -147,7 +149,6 @@ function activeBtn($index) {
 }
 if (isset($_POST['submit'])) {
     $tab = get('tab');
-    require_once 'require/db_connect.php';
     if (!isset($_SESSION)) session_start();
     if (!isset($_SESSION['user_id'])) $error = 'You must be logged in to post';
     if (!isset($_POST['sub'])) $errors['sub'] = 'Community is required';

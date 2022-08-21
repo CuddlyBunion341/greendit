@@ -8,10 +8,11 @@
         http_response_code(400);
         exit('No community specified');
     }
+    require __DIR__ . '/../require/db_connect.php';
     require __DIR__ . '/../require/feed.php';
-    if (!exists('select * from communities where shortname = \'' . $name . '\'')) {
+    if (!($sub = row('select * from communities where shortname = \'' . $name . '\''))) {
         http_response_code(404);
         exit('Community not found');
     }
-    communitySidebarHTML($name);
+    community_sidebarHTML($sub);
 ?>
