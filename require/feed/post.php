@@ -77,8 +77,8 @@ function postHTML($post, $show_community = true, $show_user = true) {
             </header>
             <h2><?= $title ?></h2>
             <?php if (count($media) == 0) : ?>
-                <p><?= $content ?></p>
-                <?php elseif (count($media) > 0) :
+                <p><?= markdownify($content) ?></p>
+            <?php elseif (count($media) > 0) :
                 $file_name = $media[0]['file_name'];
                 $extension = explode('.', $file_name)[1];
                 $images = array('jpg', 'jpeg', 'png', 'gif', 'webp');
