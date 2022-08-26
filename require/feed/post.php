@@ -85,8 +85,11 @@ function postHTML($post, $show_community = true, $show_user = true) {
                 $videos = array('mp4', 'webm', 'ogv');
                 if (in_array($extension, $images)) : ?>
                     <div class="image-collage">
-                        <?php foreach ($media as $image) : ?>
-                            <img src="resources/uploads/<?= $image['file_name'] ?>" alt="TODO: media caption">
+                        <?php foreach ($media as $image) : 
+                            $path = 'resources/uploads/' . $image['file_name'];
+                            if (!file_exists($path)) $path = 'resources/not_found.png';
+                        ?>
+                            <img src="<?= $path ?>" alt="TODO: media caption">
                         <?php endforeach; ?>
                     </div>
                 <?php elseif (in_array($extension, $videos)) : ?>
@@ -123,6 +126,7 @@ function overviewPostHTML($post) {
                         $file_name = $media[0]['file_name'];
                         $file_hash = explode('.', $file_name)[0];
                         $thumb_path = 'resources/uploads/thumbnails/' . $file_hash . '.jpg';
+                        if (!file_exists($thumb_path)) $thumb_path = 'resources/not_found.png';
                         echo '<img src="' . $thumb_path . '" alt="TODO: media caption">';
                     }
                 ?>

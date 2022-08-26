@@ -44,7 +44,7 @@ function community_sidebarHTML($community) {
     extract($community_data);
 ?>
     <article class="info titled">
-        <h1 class="community_info-about">About s/<?= $shortname ?>'</h1>
+        <h1 class="community_info-about">About s/<?= $shortname ?></h1>
         <ul>
             <li>
                 <p><?= $description ?></p>

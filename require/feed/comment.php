@@ -44,7 +44,7 @@ function post_commentHTML($comment) {
     extract($comment_data);
     if ($removed) return;
 ?>
-    <article class="comment" data-hash="<?= $hash ?>" id="comment-'<?= $hash ?>">
+    <article class="comment" data-hash="<?= $hash ?>" id="comment-<?= $hash ?>">
         <section class="comment__header">
             <a href="users/<?= $username ?>">
                 <img src="resources/pfps/<?= $username ?>.png" class="pfp small"><?= $username ?></a>
