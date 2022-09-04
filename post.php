@@ -76,16 +76,15 @@ function add_attachment($post_id, $file) {
         $out = __DIR__ . '/resources/uploads/' . $hash . '.webp';
         $img = imagecreatefromstring(file_get_contents($path));
         create_thumb($img, $hash);
-        exec("magick '$path' -define webp:lossless=false -quality 50 '$out'");
+        imagepalettetotruecolor($img);
+        imagewebp($img, $out, 50);
         $out_name = $hash . '.webp';
     } else if (strpos($mime, 'video/') === 0) {
         $out = __DIR__ . '/resources/uploads/' . $hash . '.mp4';
         $thumb_path = __DIR__ . '/resources/uploads/thumbnails/' . $hash . '.jpg';
-        $mask_path = __DIR__ . '/resources/video_thumb.png';
         exec("ffmpeg -i '$path' -vframes 1 '$thumb_path'");
         $img = imagecreatefromjpeg($thumb_path);
-        $thumb_path = create_thumb($img, $hash);
-        exec("magick '$thumb_path' '$mask_path' -composite '$thumb_path'");
+        $thumb_path = create_thumb($img, $hash, true);
         exec("ffmpeg -i '$path' -q:v 0 -vcodec h264 -acodec mp2 '$out'");
         $out_name = $hash . '.mp4';
     } else {
@@ -98,7 +97,7 @@ function add_attachment($post_id, $file) {
         echo 'HELOP';
     }
 }
-function create_thumb($img, $hash) {
+function create_thumb($img, $hash, $overlay = false) {
     $thumb = __DIR__ . '/resources/uploads/thumbnails/' . $hash . '.jpg';
 
     $w = imagesx($img);
@@ -124,7 +123,13 @@ function create_thumb($img, $hash) {
         'height' => $nh
     ]);
 
-    $img = imagescale($img, $tw, $th, IMG_BICUBIC_FIXED);
+    $img = imagescale($img, $tw, $th);
+    if ($overlay) {
+        $overlay_path = __DIR__ . '/resources/video_thumb.png';
+        $overlay = imagecreatefrompng($overlay_path);
+        imagecopy($img, $overlay, 0, 0, 0, 0, $tw, $th);
+    }
+
     imagejpeg($img, $thumb, 30);
     imagedestroy($img);
     return $thumb;
@@ -257,18 +262,23 @@ function error($name) {
                     <?php error('sub'); ?>
                 </div>
                 <div class="tabs">
-                    <button aria-label="tab-post" type="button" class="post-tab  <?php activeBtn(0); ?>"><?= icon('font'); ?>Post</button>
-                    <button aria-label="tab-image" type="button" class="image-tab <?php activeBtn(1); ?>"><?= icon('images'); ?>Images</button>
-                    <button aria-label="tab-video" type="button" class="video-tab <?php activeBtn(2); ?>"><?= icon('film'); ?>Video</button>
+                    <button aria-label="tab-post" type="button"
+                        class="post-tab  <?php activeBtn(0); ?>"><?= icon('font'); ?>Post</button>
+                    <button aria-label="tab-image" type="button"
+                        class="image-tab <?php activeBtn(1); ?>"><?= icon('images'); ?>Images</button>
+                    <button aria-label="tab-video" type="button"
+                        class="video-tab <?php activeBtn(2); ?>"><?= icon('film'); ?>Video</button>
                 </div>
                 <div id="title-group">
-                    <input type="text" name="title" id="title" placeholder="Title" value="<?php value('title'); ?>" required>
+                    <input type="text" name="title" id="title" placeholder="Title" value="<?php value('title'); ?>"
+                        required>
                     <?php error('title'); ?>
                 </div>
                 <div class="post-content">
                     <div data-tab="0" <?php showTab(0); ?>>
                         <div id="content-group">
-                            <textarea name="content" id="content" cols="30" rows="10" placeholder="Text (required)"><?php value('content'); ?></textarea>
+                            <textarea name="content" id="content" cols="30" rows="10"
+                                placeholder="Text (required)"><?php value('content'); ?></textarea>
                             <?php error('content'); ?>
                         </div>
                     </div>
