@@ -1,4 +1,4 @@
-.DS_Store
+**/.DS_Store
 # ignore user uploaded content
 resources/pfps/**
 resources/uploads/**
