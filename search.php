@@ -37,19 +37,19 @@ $query = isset($_GET['q']) ? trim(htmlspecialchars($_GET['q'])) : '';
         if ($tab_index == 2 || $tab_index == 0) {
             $results = query('select * from comments where content like "%' . $query . '%"');
             foreach ($results as $result) {
-                overview_commentHTML($result);
+                overviewCommentHTML($result);
             }
         }
         if ($tab_index == 3) {
             $results = query('select * from communities where shortname like "%' . $query . '%" or name like "%' . $query . '%"');
             foreach ($results as $result) {
-                overview_communityHTML($result);
+                overviewCommunityHTML($result);
             }
         }
         if ($tab_index == 4) {
             $results = query('select * from users where username like "%' . $query . '%"');
             foreach ($results as $result) {
-                overview_userHTML($result);
+                overviewUserHTML($result);
             }
         }
         ?>

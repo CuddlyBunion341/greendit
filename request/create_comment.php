@@ -36,4 +36,4 @@ if (!$comment) {
     http_response_code(500);
     exit('Error creating comment.');
 }
-post_commentHTML($comment);
+postCommentHTML($comment);

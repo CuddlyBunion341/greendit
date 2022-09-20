@@ -41,19 +41,19 @@ foreach ($files as $file) {
     $hash = explode('.', $file)[0];
     $path = $directory . '/' . $file;
     $mime = mime_content_type($path);
-    if (strstr($mime,'video/')) {
+    if (strstr($mime, 'video/')) {
         $temp_path = "$tmp_dir/$hash.jpg";
         exec("ffmpeg -i $path -ss 0 -vframes 1 $temp_path");
-        create_thumb($temp_path, $hash);
-    } else if (strstr($mime,'image/')) {
-        create_thumb($path, $hash);
+        createThumbnail($temp_path, $hash);
+    } else if (strstr($mime, 'image/')) {
+        createThumbnail($path, $hash);
     } else {
         print_r($mime);
     }
 }
 
 // creates thumbnail for a given file
-function create_thumb($path, $hash) {
+function createThumbnail($path, $hash) {
     global $directory;
     $img = imagecreatefromstring(file_get_contents($path));
     $width = imagesx($img);
@@ -69,7 +69,7 @@ function create_thumb($path, $hash) {
         $new_width = $width;
         $new_height = $height / $ratio;
     }
-    
+
     $img = imagecrop($img, [
         'x' => 0,
         'y' => 0,

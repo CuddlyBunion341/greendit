@@ -37,7 +37,7 @@ function getPostData($post) {
     );
 }
 
-function post_footer($saved = false, $comments = 0) {
+function postFooterHTML($saved = false, $comments = 0) {
 ?>
 <section class="footer">
     <button aria-label="comment" name="comment-btn" class="comment-btn">
@@ -61,7 +61,7 @@ function postHTML($post, $show_community = true, $show_user = true) {
 ?>
 <article class="post" data-hash="<?= $hash ?>" data-sub="<?= $sub ?>">
     <section class="left">
-        <?= arrow_wrapper($liked, $disliked, $likes, false, false) ?>
+        <?= arrowWrapperHTML($liked, $disliked, $likes, false, false) ?>
     </section>
     <section class="right">
         <header class="head">
@@ -102,7 +102,7 @@ function postHTML($post, $show_community = true, $show_user = true) {
         <?php
                 endif;
             endif;
-            post_footer($saved, $comments);
+            postFooterHTML($saved, $comments);
             ?>
     </section>
 </article>
@@ -116,7 +116,7 @@ function overviewPostHTML($post) {
 ?>
 <article class="post overview" data-hash="<?= $hash ?>" data-sub="<?= $sub ?>">
     <section class="left">
-        <?= arrow_wrapper($liked, $disliked, $likes, false, false) ?>
+        <?= arrowWrapperHTML($liked, $disliked, $likes, false, false) ?>
     </section>
     <section class="thumb">
         <?php
@@ -136,7 +136,7 @@ function overviewPostHTML($post) {
             posted in <a href="subs/<?= $sub ?>">s/<?= $sub ?></a>&nbsp; <?= $age ?>
         </header>
         <h2><?= $title ?></h2>
-        <?= post_footer($saved, $comments) ?>
+        <?= postFooterHTML($saved, $comments) ?>
     </section>
 </article>
 <?php

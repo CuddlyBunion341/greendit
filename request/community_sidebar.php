@@ -14,5 +14,4 @@
         http_response_code(404);
         exit('Community not found');
     }
-    community_sidebarHTML($sub);
-?>
+    communitySidebarHTML($sub);

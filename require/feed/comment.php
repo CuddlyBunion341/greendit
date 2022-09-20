@@ -1,5 +1,5 @@
 <?php
-function get_comment_data($comment) {
+function getCommentData($comment) {
     extract($comment);
     // ---- Objects --------------------------------------------------------------------------
     $user = row('select * from users where user_id=' . $user_id);
@@ -39,55 +39,55 @@ function get_comment_data($comment) {
     );
 }
 
-function post_commentHTML($comment) {
-    $comment_data = get_comment_data($comment);
+function postCommentHTML($comment) {
+    $comment_data = getCommentData($comment);
     extract($comment_data);
     if ($removed) return;
 ?>
-    <article class="comment" data-hash="<?= $hash ?>" id="comment-<?= $hash ?>">
-        <section class="comment__header">
-            <a href="users/<?= $username ?>">
-                <img src="resources/pfps/<?= $username ?>.png" class="pfp small"><?= $username ?></a>
-            <span class="light"><?= $age ?></span>
-        </section>
-        <p class="comment__content"><?= $content ?></p>
-        <section class="comment__footer">
-            <?= arrow_wrapper($liked, $disliked, $likes, true, $removed) ?>
-            <button aria-label="comment" name="comment-btn" name="reply" class="comment-btn">Reply</button>
-            <button aria-label="save" name="save-btn" name="save" class="save-btn<?= active($saved) ?>"></button>
-            <button aria-label="share" name="share-btn" name="share" class="share-btn">Share</button>
-        </section>
-    </article>
-    <?php
+<article class="comment" data-hash="<?= $hash ?>" id="comment-<?= $hash ?>">
+    <section class="comment__header">
+        <a href="users/<?= $username ?>">
+            <img src="resources/pfps/<?= $username ?>.png" class="pfp small"><?= $username ?></a>
+        <span class="light"><?= $age ?></span>
+    </section>
+    <p class="comment__content"><?= $content ?></p>
+    <section class="comment__footer">
+        <?= arrowWrapperHTML($liked, $disliked, $likes, true, $removed) ?>
+        <button aria-label="comment" name="comment-btn" name="reply" class="comment-btn">Reply</button>
+        <button aria-label="save" name="save-btn" name="save" class="save-btn<?= active($saved) ?>"></button>
+        <button aria-label="share" name="share-btn" name="share" class="share-btn">Share</button>
+    </section>
+</article>
+<?php
 }
 
-function overview_commentHTML($comment) {
-    $comment_data = get_comment_data($comment);
+function overviewCommentHTML($comment) {
+    $comment_data = getCommentData($comment);
     extract($comment_data);
-    ?>
-        <article class="overview-comment" data-hash="<?= $post_hash ?>">
-            <section class="overview-comment__head">
-                <?= linkHTML('subs/' . $sub, "s/$sub") ?>
-                Posted by <?= linkHTML('users/' . $post_author, $post_author) ?>
-                <?= formatDate($post_date) ?>
-            </section>
-            <section class="overview-comment__title">
-                <h2><?= $title ?></h2>
-            </section>
-            <section class="overview-comment__body" data-hash="<?= $hash ?>">
-                <div class="comment__head">
-                    <?= linkHTML('users/' . $username, $username) ?>
-                    <?= formatDate($date) ?>
-                </div>
-                <div class="comment__body">
-                    <p><?= $content ?></p>
-                </div>
-            </section>
-        </article>
-    <?php
+?>
+<article class="overview-comment" data-hash="<?= $post_hash ?>">
+    <section class="overview-comment__head">
+        <?= linkHTML('subs/' . $sub, "s/$sub") ?>
+        Posted by <?= linkHTML('users/' . $post_author, $post_author) ?>
+        <?= formatDate($post_date) ?>
+    </section>
+    <section class="overview-comment__title">
+        <h2><?= $title ?></h2>
+    </section>
+    <section class="overview-comment__body" data-hash="<?= $hash ?>">
+        <div class="comment__head">
+            <?= linkHTML('users/' . $username, $username) ?>
+            <?= formatDate($date) ?>
+        </div>
+        <div class="comment__body">
+            <p><?= $content ?></p>
+        </div>
+    </section>
+</article>
+<?php
 }
 
-function user_commentsHTML($post, $user, $head = true) {
+function userCommentsHTML($post, $user, $head = true) {
     $post_comments = query('select * from comments where post_id=' . $post['post_id']);
     if (!$post_comments) return;
 
@@ -100,15 +100,15 @@ function user_commentsHTML($post, $user, $head = true) {
         $hash = $post['hash'];
         $title = $post['title'];
     ?>
-        <section class="user-comment-wrapper__head">
-            <?= icon('comment2') ?>
-            <?= linkHTMl('users/' . $username, $username) ?>
-            commented on
-            <?= linkHTML('subs/' . $sub . '/posts/' . $hash, $title) ?>
-            in <?= linkHTML('subs/' . $sub, 's/' . $sub) ?>
-            Posted by <?= linkHTML('users/' . $author, 'u/' . $author) ?>
-        </section>
-    <?php
+<section class="user-comment-wrapper__head">
+    <?= icon('comment2') ?>
+    <?= linkHTMl('users/' . $username, $username) ?>
+    commented on
+    <?= linkHTML('subs/' . $sub . '/posts/' . $hash, $title) ?>
+    in <?= linkHTML('subs/' . $sub, 's/' . $sub) ?>
+    Posted by <?= linkHTML('users/' . $author, 'u/' . $author) ?>
+</section>
+<?php
     endif;
     // ---- Body -----------------------------------------------------------------------------
     echo '<section class="user-comment-wrapper__comments" data-hash="' . $post['hash'] . '" data-sub="' . $sub . '">';
@@ -127,15 +127,15 @@ function user_commentsHTML($post, $user, $head = true) {
             }
         }
     ?>
-        <div class="user-comment" data-hash="<?= $comment['hash'] ?>">
-            <?= str_repeat('<div class="indent">', $indent) ?>
-            <div class="user-comment__head">
-                <?= linkHTML('users/' . $username, $username) ?>
-                <?= formatDate($comment['created_at']) ?>
-            </div>
-            <p><?= $comment['content'] ?></p>
-            <?= str_repeat('</div>', $indent) ?>
-        </div>
+<div class="user-comment" data-hash="<?= $comment['hash'] ?>">
+    <?= str_repeat('<div class="indent">', $indent) ?>
+    <div class="user-comment__head">
+        <?= linkHTML('users/' . $username, $username) ?>
+        <?= formatDate($comment['created_at']) ?>
+    </div>
+    <p><?= $comment['content'] ?></p>
+    <?= str_repeat('</div>', $indent) ?>
+</div>
 <?php
     endforeach;
     echo '

@@ -1,5 +1,5 @@
 <?php
-function get_user_data($user) {
+function getUserData($user) {
     extract($user);
     // ---- Objects --------------------------------------------------------------------------
     $followers = query('select * from followers where user_id=' . $user_id);
@@ -25,19 +25,19 @@ function get_user_data($user) {
     );
 }
 
-function overview_userHTML($user) {
-    $user_data = get_user_data($user);
+function overviewUserHTML($user) {
+    $user_data = getUserData($user);
     extract($user_data);
 
 ?>
-    <article class="overview-user" data-name="<?= $username ?>">
-        <img src="resources/pfps/<?= $username ?>.png" alt="<?= $username ?>" class="pfp small">
-        <div class="main">
-            <p><?= $username ?></p>
-            <a href="users/<?= $username ?>">u/<?= $username ?></a>
-        </div>
-        <button class="follow-btn<?= active($following) ?>" data-name="<?= $username ?>"></button>
-    </article>
+<article class="overview-user" data-name="<?= $username ?>">
+    <img src="resources/pfps/<?= $username ?>.png" alt="<?= $username ?>" class="pfp small">
+    <div class="main">
+        <p><?= $username ?></p>
+        <a href="users/<?= $username ?>">u/<?= $username ?></a>
+    </div>
+    <button class="follow-btn<?= active($following) ?>" data-name="<?= $username ?>"></button>
+</article>
 <?php
 }
 ?>

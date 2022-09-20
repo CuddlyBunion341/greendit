@@ -1,5 +1,5 @@
 <?php
-function arrow_wrapper($liked = false, $disliked = false, $count = 0, $horizontal = false, $disabled = false) {
+function arrowWrapperHTML($liked = false, $disliked = false, $count = 0, $horizontal = false, $disabled = false) {
     return '
         <section class="arrow-wrapper' . active($horizontal, 'horizontal') . '">
             <button aria-label="upvote" name="upvote-btn" name="upvote" class="upvote' . active($liked) . '" ' . active($disabled, 'disabled') . '>

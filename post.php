@@ -6,7 +6,7 @@ require 'require/util.php';
 $tab = 0;
 $errors = array();
 $values = array();
-function create_post($title, $community, $body, $tab, $image, $video, $user_id) {
+function createPost($title, $community, $body, $tab, $image, $video, $user_id) {
     global $errors;
     if (empty($title)) {
         $errors['title'] = 'Title must not be empty';
@@ -58,7 +58,7 @@ function create_post($title, $community, $body, $tab, $image, $video, $user_id) 
     if ($tab == 1 || $tab == 2) {
         $file = $tab == 1 ? $image : $video;
         $post_id = getField('select post_id from posts where hash = \'' . $hash . '\'');
-        add_attachment($post_id, $file);
+        addAttachment($post_id, $file);
     }
 }
 function get($field) {
@@ -68,14 +68,14 @@ function get($field) {
     }
     return null;
 }
-function add_attachment($post_id, $file) {
+function addAttachment($post_id, $file) {
     $path = $file['tmp_name'];
     $hash = md5_file($path);
     $mime = mime_content_type($file['tmp_name']);
     if (strpos($mime, 'image/') === 0 && $mime != 'image/svg') {
         $out = __DIR__ . '/resources/uploads/' . $hash . '.webp';
         $img = imagecreatefromstring(file_get_contents($path));
-        create_thumb($img, $hash);
+        createThumb($img, $hash);
         imagepalettetotruecolor($img);
         imagewebp($img, $out, 50);
         $out_name = $hash . '.webp';
@@ -84,7 +84,7 @@ function add_attachment($post_id, $file) {
         $thumb_path = __DIR__ . '/resources/uploads/thumbnails/' . $hash . '.jpg';
         exec("ffmpeg -i '$path' -vframes 1 '$thumb_path'");
         $img = imagecreatefromjpeg($thumb_path);
-        $thumb_path = create_thumb($img, $hash, true);
+        $thumb_path = createThumb($img, $hash, true);
         exec("ffmpeg -i '$path' -q:v 0 -vcodec h264 -acodec mp2 '$out'");
         $out_name = $hash . '.mp4';
     } else {
@@ -97,7 +97,7 @@ function add_attachment($post_id, $file) {
         echo 'HELOP';
     }
 }
-function create_thumb($img, $hash, $overlay = false) {
+function createThumb($img, $hash, $overlay = false) {
     $thumb = __DIR__ . '/resources/uploads/thumbnails/' . $hash . '.jpg';
 
     $w = imagesx($img);
@@ -158,7 +158,7 @@ if (isset($_POST['submit'])) {
     if (!isset($_POST['sub'])) $errors['sub'] = 'Community is required';
     if (!isset($_POST['title'])) $errors['title'] = 'Title is required';
     if (empty($error)) {
-        $error = create_post(
+        $error = createPost(
             get('title'),
             get('sub'),
             get('content'),

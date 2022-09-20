@@ -125,7 +125,7 @@ echo '
             if (isset($_SESSION['user_id'])) {
                 echo '
                     <article class="create-post">
-                        <a href="users/' . $_SESSION['username'] . '"><img class="user-pfp" alt="'.$_SESSION['username'].'" src="resources/pfps/' . $_SESSION['username'] . '.png"></a>
+                        <a href="users/' . $_SESSION['username'] . '"><img class="user-pfp" alt="' . $_SESSION['username'] . '" src="resources/pfps/' . $_SESSION['username'] . '.png"></a>
                         <button aria-label="create-post" onclick="window.location=\'/greendit/post.php?id=' . $community['community_id'] . '\'">Create post...</button>
                     </article>
                     ';
@@ -143,7 +143,7 @@ echo '
         } else {
             // show specific post
             if (isset($_GET['post'])) {
-                $post = row('select * from posts where hash = \'' . $_GET['post'] . '\' and community_id = '.$community['community_id']);
+                $post = row('select * from posts where hash = \'' . $_GET['post'] . '\' and community_id = ' . $community['community_id']);
                 if (!$post) {
                     echo '<article>Post not found :/</article>';
                 }
@@ -166,7 +166,7 @@ echo '
                 }
                 if (count($comments) > 0) {
                     foreach ($comments as $comment) {
-                        post_commentHTML($comment);
+                        postCommentHTML($comment);
                     }
                 } else {
                     echo '<p>No comments yet.</p>';

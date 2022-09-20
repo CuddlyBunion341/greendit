@@ -21,6 +21,6 @@ function create_access_code() {
     return $code;
 }
 
-for($i = 0; $i < 10; $i++) {
+for ($i = 0; $i < 10; $i++) {
     echo create_access_code() . PHP_EOL;
 }
