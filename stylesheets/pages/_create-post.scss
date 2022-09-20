@@ -1,186 +1,189 @@
 form.spetial {
-    align-items: initial;
+	align-items: initial;
 }
 
 #content {
-    resize: vertical;
-    font-family: Arial, Helvetica, sans-serif
+	resize: vertical;
+	font-family: Arial, Helvetica, sans-serif;
 }
 
 main.center {
-    display: flex;
-    min-height: 0;
-    align-items: center;
+	display: flex;
+	min-height: 0;
+	align-items: center;
 }
 
 form.special {
-    width: 50%;
+	width: 50%;
 }
 
 #title {
-    padding: 0;
-    border-radius: 2px;
-    border: 1px solid gray;
-    padding-left: 5px;
+	padding: 0;
+	border-radius: 2px;
+	border: 1px solid gray;
+	padding-left: 5px;
 }
 
-#title, #content {
-    width: calc(100% - 10px);
+#title,
+#content {
+	width: calc(100% - 10px);
 }
 
-#content, #title, #sub {
-    padding: 4px;
-    margin-bottom: 5px;
+#content,
+#title,
+#sub {
+	padding: 4px;
+	margin-bottom: 5px;
 }
 
 #preview {
-    padding-top: 5px;
+	padding-top: 5px;
 }
 
 .file-select {
-    width: calc(100% - 10px);
-    height: 200px;
-    border: 1px dashed #b5b5b5;
-    border-radius: 2px;
-    margin-bottom: 5px;
-    padding: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	width: calc(100% - 10px);
+	height: 200px;
+	border: 1px dashed #b5b5b5;
+	border-radius: 2px;
+	margin-bottom: 5px;
+	padding: 5px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 .file-select.hidden {
-    display: none;
+	display: none;
 }
 .file-select::before {
-    content: "Drag and drop media or \00a0";
+	content: "Drag and drop media or \00a0";
 }
 
 #preview img {
-    width: 100px;
-    height: 100px;
-    background-size: contain;
-    object-fit: cover;
-    border-radius: 5px;
+	width: 100px;
+	height: 100px;
+	background-size: contain;
+	object-fit: cover;
+	border-radius: 5px;
 }
 
 #preview picture {
-    opacity: 0.6;
-    position: relative;
+	opacity: 0.6;
+	position: relative;
 }
 
 #preview picture:hover {
-    opacity: 1;
+	opacity: 1;
 }
 #preview picture:hover .rm-btn {
-    display: flex;
+	display: flex;
 }
 
 #preview picture .rm-btn {
-    all:unset;
-    position: absolute;
-    margin: 7px;
-    right: 0;
-    font-weight: bold;
-    width: 13px;
-    height: 13px;
-    border-radius: 50%;
-    color:white;
-    justify-content: center;
-    align-items: center;
-    font-size: 7px;
-    background-color: black;
-    display: none;
+	all: unset;
+	position: absolute;
+	margin: 7px;
+	right: 0;
+	font-weight: bold;
+	width: 13px;
+	height: 13px;
+	border-radius: 50%;
+	color: white;
+	justify-content: center;
+	align-items: center;
+	font-size: 7px;
+	background-color: black;
+	display: none;
 }
 
 #preview picture.selected {
-    border: 2px solid coral;
-    padding: 5px;
+	border: 2px solid coral;
+	padding: 5px;
 }
 
 .dragdrop {
-    width: 100%;
-    height: 100px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: $gray-200;
+	width: 100%;
+	height: 100px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: $gray-200;
 }
 
 .tabs {
-    margin-left: -10px;
-    width: calc(100% + 20px);
-    background-color: #f6f6f6;
-    border-bottom: $gray-200;
-    margin-bottom: 5px;
+	margin-left: -10px;
+	width: calc(100% + 20px);
+	background-color: #f6f6f6;
+	border-bottom: $gray-200;
+	margin-bottom: 5px;
 }
 
 .tabs button {
-    padding: 5px;
-    border: none;
-    margin-left: 1px;
-    margin-right: 0;
-    padding-left: 10px;
-    padding-right: 10px;
-    color: rgb(162, 162, 162);
-    position: relative;
-    svg path {
-        fill: rgb(162, 162, 162);
-    }
+	padding: 5px;
+	border: none;
+	margin-left: 1px;
+	margin-right: 0;
+	padding-left: 10px;
+	padding-right: 10px;
+	color: rgb(162, 162, 162);
+	position: relative;
+	.icon {
+		fill: rgb(162, 162, 162);
+	}
 }
 
 .tabs i {
-    margin-right: 10px;
+	margin-right: 10px;
 }
 
 .tabs button.active {
-    color: black;
-    background-color: #cfffcf;
-    svg path {
-        fill: black;
-    }
+	color: black;
+	background-color: #cfffcf;
+	.icon {
+		fill: black;
+	}
 }
 
 .tabs button.active::after {
-    content: " ";
-    position: absolute;
-    left: 0px;
-    right: 0px;
-    bottom: -1px;
-    height: 1px;
-    background-color: black;
+	content: " ";
+	position: absolute;
+	left: 0px;
+	right: 0px;
+	bottom: -1px;
+	height: 1px;
+	background-color: black;
 }
 
 .composer {
-    background-color: white;
-    box-sizing: border-box;
-    border-radius: 5px;
-    padding: 10px;
-    width: 100%;
-    border: 1px solid #dedede;
+	background-color: white;
+	box-sizing: border-box;
+	border-radius: 5px;
+	padding: 10px;
+	width: 100%;
+	border: 1px solid #dedede;
 }
 main > div.center {
-    width: 600px;
-    max-width: 100%;
-    h1 {
-        margin-top: 10px;
-        margin-bottom: 10px;
-    }
+	width: 600px;
+	max-width: 100%;
+	h1 {
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
 }
 .below {
-    order: 2;
+	order: 2;
 }
 
 .error {
-    color: $color-error;
-    font-size: .7em;
-    margin: -5px 0 5px 0 !important;
+	color: $color-error;
+	font-size: 0.7em;
+	margin: -5px 0 5px 0 !important;
 }
 
 video {
-    max-width: 100%;
-    max-height: 600px;
+	max-width: 100%;
+	max-height: 600px;
 }
 
 .post-content {
-    margin-bottom: 5px;
+	margin-bottom: 5px;
 }

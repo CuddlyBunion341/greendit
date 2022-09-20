@@ -19,35 +19,33 @@
 		justify-content: center;
 		align-items: center; // horizontal footer
 		cursor: pointer;
-		svg {
+		.icon {
 			float: left;
 		}
 		&.upvote {
-			&.active .icon-upvote {
+			&.active .icon {
 				fill: $color-upvote !important;
 			}
-			&:hover .icon-upvote {
+			&:hover .icon {
 				stroke: $color-upvote;
 			}
 		}
 		&.downvote {
 			transform: rotate(180deg);
-			&.active .icon-upvote {
+			&.active .icon {
 				fill: $color-downvote !important;
 			}
-			&:hover .icon-upvote {
+			&:hover .icon {
 				stroke: $color-downvote;
 			}
 		}
 		&:disabled {
 			cursor: not-allowed;
-			svg .stroke {
+			.icon {
 				stroke: $gray-700;
-			}
-			svg .fill {
 				fill: $gray-200;
 			}
-			&.active .fill {
+			&.active .icon {
 				fill: $gray-300;
 			}
 		}

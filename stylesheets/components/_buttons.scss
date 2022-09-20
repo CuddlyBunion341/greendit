@@ -8,8 +8,8 @@ button {
 .save-btn::after {
 	content: "Save";
 }
-.bookmark-icon {
-	fill: none !important;
+.icon-bookmark {
+	fill: none;
 }
 .save-btn.active {
 	.icon {

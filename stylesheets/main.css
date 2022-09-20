@@ -155,35 +155,33 @@ main.multicol {
           align-items: center;
   cursor: pointer;
 }
-.arrow-wrapper button svg {
+.arrow-wrapper button .icon {
   float: left;
 }
-.arrow-wrapper button.upvote.active .icon-upvote {
+.arrow-wrapper button.upvote.active .icon {
   fill: #00a651 !important;
 }
-.arrow-wrapper button.upvote:hover .icon-upvote {
+.arrow-wrapper button.upvote:hover .icon {
   stroke: #00a651;
 }
 .arrow-wrapper button.downvote {
   -webkit-transform: rotate(180deg);
           transform: rotate(180deg);
 }
-.arrow-wrapper button.downvote.active .icon-upvote {
+.arrow-wrapper button.downvote.active .icon {
   fill: #016965 !important;
 }
-.arrow-wrapper button.downvote:hover .icon-upvote {
+.arrow-wrapper button.downvote:hover .icon {
   stroke: #016965;
 }
 .arrow-wrapper button:disabled {
   cursor: not-allowed;
 }
-.arrow-wrapper button:disabled svg .stroke {
+.arrow-wrapper button:disabled .icon {
   stroke: #808080;
-}
-.arrow-wrapper button:disabled svg .fill {
   fill: #ebebeb;
 }
-.arrow-wrapper button:disabled.active .fill {
+.arrow-wrapper button:disabled.active .icon {
   fill: #bfbfbf;
 }
 .arrow-wrapper button::after {
@@ -213,8 +211,8 @@ button {
   content: "Save";
 }
 
-.bookmark-icon {
-  fill: none !important;
+.icon-bookmark {
+  fill: none;
 }
 
 .save-btn.active .icon {
@@ -1155,11 +1153,14 @@ form.special {
   padding-left: 5px;
 }
 
-#title, #content {
+#title,
+#content {
   width: calc(100% - 10px);
 }
 
-#content, #title, #sub {
+#content,
+#title,
+#sub {
   padding: 4px;
   margin-bottom: 5px;
 }
@@ -1277,7 +1278,7 @@ form.special {
   color: rgb(162, 162, 162);
   position: relative;
 }
-.tabs button svg path {
+.tabs button .icon {
   fill: rgb(162, 162, 162);
 }
 
@@ -1289,7 +1290,7 @@ form.special {
   color: black;
   background-color: #cfffcf;
 }
-.tabs button.active svg path {
+.tabs button.active .icon {
   fill: black;
 }
 
@@ -1544,7 +1545,7 @@ video {
   background: #f1f1f1;
   overflow: hidden;
 }
-.post.overview .thumb svg {
+.post.overview .thumb .icon {
   margin: 0;
 }
 .post.overview .thumb img {
@@ -1567,7 +1568,7 @@ video {
 .user-comment-wrapper__head {
   padding: 5px;
 }
-.user-comment-wrapper__head svg.icon {
+.user-comment-wrapper__head .icon {
   margin-top: 3px;
 }
 .user-comment-wrapper__head:hover {
