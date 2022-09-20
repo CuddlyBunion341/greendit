@@ -1,89 +1,92 @@
 button {
-    color: black;
-    font-size: 14px;
-    @media screen and (max-width: 600px) {
-        font-size: 16px;
-    }
+	color: black;
+	font-size: 14px;
+	@media screen and (max-width: 600px) {
+		font-size: 16px;
+	}
 }
 .save-btn::after {
 	content: "Save";
 }
+.bookmark-icon {
+	fill: none !important;
+}
 .save-btn.active {
-    .icon .fill {
-        fill: $black;
-    }
-    &::after {
-	    content: "Unsave";
-    }
+	.icon {
+		fill: $black;
+	}
+	&::after {
+		content: "Unsave";
+	}
 }
 .footer,
 .comment__footer {
-    overflow: auto;
-    & > button {
-        background-color: white;
-        border: none;
-        border-radius: 2px;
-        padding: 5px;
-        position: relative;
-        float: left;
-        &:hover {
-            background-color: $gray-150;
-        }
-        &::before {
-            // this before to prevent clicking svg inside a button 
-            // and changing event.target from button to svg
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-        }
-    }
+	overflow: auto;
+	& > button {
+		background-color: white;
+		border: none;
+		border-radius: 2px;
+		padding: 5px;
+		position: relative;
+		float: left;
+		&:hover {
+			background-color: $gray-150;
+		}
+		&::before {
+			// this before to prevent clicking svg inside a button
+			// and changing event.target from button to svg
+			content: "";
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+		}
+	}
 }
-@mixin roundActiveBtn($label1,$label2,$color: $dark-lime) {
-    @include roundBtn($color);
-    // width: 74px;
-    &.active {
-        color: $color;
-        background-color: white;
-        &::after {
-            content: $label2;
-        }
-    }
-    &::after {
-        content: $label1;
-    }
+@mixin roundActiveBtn($label1, $label2, $color: $dark-lime) {
+	@include roundBtn($color);
+	// width: 74px;
+	&.active {
+		color: $color;
+		background-color: white;
+		&::after {
+			content: $label2;
+		}
+	}
+	&::after {
+		content: $label1;
+	}
 }
-@mixin roundBtn($color,$full: true) {
-    padding: 5px 15px 6px 16px;
-    text-align: center;
-    vertical-align: middle;
-    border-radius: 50px;
-    border: 1px solid $color;
-    width: auto;
-    cursor: pointer;
-    @if $full {
-        background-color: $color;
-        color: white;
-    } @else {
-        background-color: white;
-        color: $color;
-    }
+@mixin roundBtn($color, $full: true) {
+	padding: 5px 15px 6px 16px;
+	text-align: center;
+	vertical-align: middle;
+	border-radius: 50px;
+	border: 1px solid $color;
+	width: auto;
+	cursor: pointer;
+	@if $full {
+		background-color: $color;
+		color: white;
+	} @else {
+		background-color: white;
+		color: $color;
+	}
 }
 .join-btn {
-    @include roundActiveBtn('Join', 'Joined', $dark-lime);
+	@include roundActiveBtn("Join", "Joined", $dark-lime);
 }
 .follow-btn {
-    @include roundActiveBtn('Follow', 'Unfollow', $blue);
-    width: 84px;
+	@include roundActiveBtn("Follow", "Unfollow", $blue);
+	width: 84px;
 }
 .post-btn {
-    @include roundBtn($dark-lime);
+	@include roundBtn($dark-lime);
 }
 #next-pfp-btn {
-    @include roundBtn($gray-800);
+	@include roundBtn($gray-800);
 }
 #fetch-btn {
-    display: none;
+	display: none;
 }

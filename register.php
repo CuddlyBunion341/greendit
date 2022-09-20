@@ -1,8 +1,4 @@
 <?php
-$header['flex'] = true;
-require('require/header.php');
-?>
-<?php
 require_once 'require/db_connect.php';
 function register($username, $password, $verify, $code) {
     if (!preg_match('/([a-zA-Z0-9]{4}-){2}[a-zA-Z0-9]{4}/', $code)) return 'Access Code format invalid';
@@ -36,6 +32,7 @@ if (isset($_POST['username'], $_POST['password'], $_POST['verify'], $_POST['code
             file_put_contents('resources/pfps/' . $username . '.png', $image_data);
         }
         $user = row('select * from users where username = \'' . $_POST['username'] . '\'');
+        session_start();
         $_SESSION['user_id'] = $user['user_id'];
         $_SESSION['username'] = $user['username'];
         header('Location: index.php');
@@ -46,6 +43,9 @@ function value($field) {
         return htmlspecialchars($_POST[$field]);
     }
 }
+
+$header['flex'] = true;
+require('require/header.php');
 ?>
 
 <form action="register.php" method="post" class="login" enctype="multipart/form-data">
@@ -58,20 +58,13 @@ function value($field) {
             <img class="pfp medium" id="user-pfp" alt="random pfp">
             <button aria-label="next-pfp" type="button" id="next-pfp-btn">random();</button>
         </div>
-        <input 
-            type="text" id="username" name="username" placeholder="Username"
-            required pattern="\w{3,25}" title="must consist of 3 to 25 letters, numbers and underscores" 
-            value="<?= value('username') ?>">
-        <input 
-            type="password" id="password" name="password" placeholder="Password" 
-            required pattern=".{6,}" title="must be at least 6 characters long">
-        <input 
-            type="password" id="verify" name="verify" placeholder="Verify Password" 
-            required>
-        <input 
-            type="text" id="code" name="code" placeholder="Access code"
-            required pattern="([a-zA-Z0-9]{4}-){2}[a-zA-Z0-9]{4}" 
-            title="XXXX-XXXX-XXXX" value="<?= value('code') ?>">
+        <input type="text" id="username" name="username" placeholder="Username" required pattern="\w{3,25}"
+            title="must consist of 3 to 25 letters, numbers and underscores" value="<?= value('username') ?>">
+        <input type="password" id="password" name="password" placeholder="Password" required pattern=".{6,}"
+            title="must be at least 6 characters long">
+        <input type="password" id="verify" name="verify" placeholder="Verify Password" required>
+        <input type="text" id="code" name="code" placeholder="Access code" required
+            pattern="([a-zA-Z0-9]{4}-){2}[a-zA-Z0-9]{4}" title="XXXX-XXXX-XXXX" value="<?= value('code') ?>">
         <input type="submit" name="submit" value="Sign Up">
         <input type="hidden" name="pfp" id="pfp" value="<?= value('pfp') ?>">
         <p>Already a member?&nbsp;<a href="login.php">LogIn</a></p>

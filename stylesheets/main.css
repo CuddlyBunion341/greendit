@@ -18,7 +18,8 @@ body {
   overflow-x: hidden;
 }
 
-html, body {
+html,
+body {
   height: 100%;
 }
 
@@ -30,6 +31,10 @@ body.flex {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+}
+
+#icon-defs {
+  display: none;
 }
 
 .hidden {
@@ -104,6 +109,11 @@ main.multicol {
   }
 }
 
+.icon-upvote {
+  fill: none;
+  stroke: black;
+}
+
 .arrow-wrapper {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -148,23 +158,20 @@ main.multicol {
 .arrow-wrapper button svg {
   float: left;
 }
-.arrow-wrapper button svg * {
-  fill: none;
+.arrow-wrapper button.upvote.active .icon-upvote {
+  fill: #00a651 !important;
 }
-.arrow-wrapper button.upvote.active svg .fill {
-  fill: #00a651;
-}
-.arrow-wrapper button.upvote:hover svg .stroke {
+.arrow-wrapper button.upvote:hover .icon-upvote {
   stroke: #00a651;
 }
 .arrow-wrapper button.downvote {
   -webkit-transform: rotate(180deg);
           transform: rotate(180deg);
 }
-.arrow-wrapper button.downvote.active svg .fill {
-  fill: #016965;
+.arrow-wrapper button.downvote.active .icon-upvote {
+  fill: #016965 !important;
 }
-.arrow-wrapper button.downvote:hover svg .stroke {
+.arrow-wrapper button.downvote:hover .icon-upvote {
   stroke: #016965;
 }
 .arrow-wrapper button:disabled {
@@ -206,7 +213,11 @@ button {
   content: "Save";
 }
 
-.save-btn.active .icon .fill {
+.bookmark-icon {
+  fill: none !important;
+}
+
+.save-btn.active .icon {
   fill: #000;
 }
 .save-btn.active::after {

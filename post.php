@@ -154,7 +154,6 @@ function activeBtn($index) {
 }
 if (isset($_POST['submit'])) {
     $tab = get('tab');
-    if (!isset($_SESSION)) session_start();
     if (!isset($_SESSION['user_id'])) $error = 'You must be logged in to post';
     if (!isset($_POST['sub'])) $errors['sub'] = 'Community is required';
     if (!isset($_POST['title'])) $errors['title'] = 'Title is required';

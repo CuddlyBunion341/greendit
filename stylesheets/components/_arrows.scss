@@ -1,65 +1,67 @@
+.icon-upvote {
+	fill: none;
+	stroke: black;
+}
+
 .arrow-wrapper {
-    display: flex;
+	display: flex;
 	flex-direction: column;
-    &.horizontal {
-        @include horizontalWrapper;
-    }
-    button {
-        border: 0;
-        background: none;
-        padding: 0;
-        width: 13px;
-        position: relative;
-        display: flex;
-        justify-content: center;
-        align-items: center; // horizontal footer
-        cursor: pointer;
-        svg {
-            float: left;
-            * {
-                fill: none;
-            }
-        }
-        &.upvote {
-            &.active svg .fill {
-                fill: $color-upvote;
-            }
-            &:hover svg .stroke {
-                stroke: $color-upvote;
-            }
-        }
-        &.downvote {
-            transform: rotate(180deg);
-            &.active svg .fill {
-                fill: $color-downvote;
-            }
-            &:hover svg .stroke {
-                stroke: $color-downvote;
-            }
-        }
-        &:disabled {
-            cursor: not-allowed;
-            svg .stroke {
-                stroke: $gray-700;
-            }
-            svg .fill {
-                fill: $gray-200;
-            }
-            &.active .fill {
-                fill: $gray-300;
-            }
-        }
-        &::after {
-            content: "";
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-    }
-    .like-count {
-        text-align: center;
-        margin: 3px 0 3px 0;
-    }
+	&.horizontal {
+		@include horizontalWrapper;
+	}
+	button {
+		border: 0;
+		background: none;
+		padding: 0;
+		width: 13px;
+		position: relative;
+		display: flex;
+		justify-content: center;
+		align-items: center; // horizontal footer
+		cursor: pointer;
+		svg {
+			float: left;
+		}
+		&.upvote {
+			&.active .icon-upvote {
+				fill: $color-upvote !important;
+			}
+			&:hover .icon-upvote {
+				stroke: $color-upvote;
+			}
+		}
+		&.downvote {
+			transform: rotate(180deg);
+			&.active .icon-upvote {
+				fill: $color-downvote !important;
+			}
+			&:hover .icon-upvote {
+				stroke: $color-downvote;
+			}
+		}
+		&:disabled {
+			cursor: not-allowed;
+			svg .stroke {
+				stroke: $gray-700;
+			}
+			svg .fill {
+				fill: $gray-200;
+			}
+			&.active .fill {
+				fill: $gray-300;
+			}
+		}
+		&::after {
+			content: "";
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+	}
+	.like-count {
+		text-align: center;
+		margin: 3px 0 3px 0;
+	}
 }
