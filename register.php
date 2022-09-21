@@ -43,6 +43,17 @@ function value($field) {
         return htmlspecialchars($_POST[$field]);
     }
 }
+function createCaptcha($code, $width = 200, $height = 50, $font_size = 30) {
+    $img = new Imagick();
+    $img->newImage($width, $height, '#fff');
+    $img->addNoiseImage(3);
+    ///...
+    $img->swirlImage(20);
+    $img->setImageFormat('png');
+    $data = $img->getImageBlob();
+    $data = base64_encode($data);
+    return $data;
+}
 
 $header['flex'] = true;
 require('require/header.php');
@@ -52,19 +63,16 @@ require('require/header.php');
     <div class="container">
         <h1>Sign Up</h1>
         <?php if (isset($error)) : ?>
-        <p class="error"><?= $error ?></p>
+            <p class="error"><?= $error ?></p>
         <?php endif; ?>
         <div class="pfp-container">
             <img class="pfp medium" id="user-pfp" alt="random pfp">
             <button aria-label="next-pfp" type="button" id="next-pfp-btn">random();</button>
         </div>
-        <input type="text" id="username" name="username" placeholder="Username" required pattern="\w{3,25}"
-            title="must consist of 3 to 25 letters, numbers and underscores" value="<?= value('username') ?>">
-        <input type="password" id="password" name="password" placeholder="Password" required pattern=".{6,}"
-            title="must be at least 6 characters long">
+        <input type="text" id="username" name="username" placeholder="Username" required pattern="\w{3,25}" title="must consist of 3 to 25 letters, numbers and underscores" value="<?= value('username') ?>">
+        <input type="password" id="password" name="password" placeholder="Password" required pattern=".{6,}" title="must be at least 6 characters long">
         <input type="password" id="verify" name="verify" placeholder="Verify Password" required>
-        <input type="text" id="code" name="code" placeholder="Access code" required
-            pattern="([a-zA-Z0-9]{4}-){2}[a-zA-Z0-9]{4}" title="XXXX-XXXX-XXXX" value="<?= value('code') ?>">
+        <input type="text" id="code" name="code" placeholder="Access code" required pattern="([a-zA-Z0-9]{4}-){2}[a-zA-Z0-9]{4}" title="XXXX-XXXX-XXXX" value="<?= value('code') ?>">
         <input type="submit" name="submit" value="Sign Up">
         <input type="hidden" name="pfp" id="pfp" value="<?= value('pfp') ?>">
         <p>Already a member?&nbsp;<a href="login.php">LogIn</a></p>
