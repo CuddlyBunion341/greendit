@@ -1,43 +1,42 @@
 .comment-wrapper {
-    background-color: white;
-    border-radius: 2px;
-    margin-bottom: 10px;
-    padding: 10px 0 10px 0;
-    & > p {
-        padding-left: 10px;
-    }
-    &:hover {
-        outline: 1px solid gray;
-    }
+	background-color: white;
+	border-radius: 2px;
+	margin-bottom: 10px;
+	padding: 10px 0 10px 0;
+	& > p {
+		padding-left: 10px;
+	}
+	&:hover {
+		outline: 1px solid gray;
+	}
 }
 
 .comment {
-    margin-left: 20px;
-    border: none; // reset border from article element
-    margin-bottom: 0; // reset margin from article element
-    border-left: 2px solid #e5e5e5;
-    padding-left: 7px;
-    padding-bottom: 6px;
-    padding-top: 0;
-    overflow: visible;
-    &:hover {
-        border-color: $gray-250;
-    }
-    &.highlighted {
-        background-color: #ececec;
-    }
-    &__header {
-        margin-left: -24px;
-        .pfp {
-            margin-right: 5px;
-            vertical-align: middle
-        }
-    }
-    &__content {
-        margin-top: 0;
-        margin-bottom: 0;
-    }
-    &__footer {
-        
-    }
+	margin-left: 20px;
+	border: none; // reset border from article element
+	margin-bottom: 0; // reset margin from article element
+	border-left: 2px solid #e5e5e5;
+	padding-left: 7px;
+	padding-bottom: 6px;
+	padding-top: 0;
+	overflow: visible;
+	&:hover {
+		border-color: $gray-250;
+	}
+	&.highlighted {
+		background-color: #ececec;
+	}
+	&__header {
+		margin-left: -24px;
+		.pfp {
+			margin-right: 5px;
+			vertical-align: middle;
+		}
+	}
+	&__content {
+		margin-top: 0;
+		margin-bottom: 0;
+	}
+	&__footer {
+	}
 }

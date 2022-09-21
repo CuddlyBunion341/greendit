@@ -1,28 +1,28 @@
 .icon {
-    width: 15px;
-    height: 15px;
-    float: left;
-    margin-right: 5px;
-    &-bookmark {
-        .fill {
-            fill: #0000
-        }
-    }
-    &-plus * {
-        fill: #fff;
-    }
-    &-medium {
-        width: 17px;
-        height: 17px;
-        margin-right: 10px;
-        &:hover {
-            path {
-                fill: rgb(69, 69, 69);
-            }
-        }
-    }
-    &-upvote {
-        margin: 0;
-        float: none !important;
-    }
+	width: 15px;
+	height: 15px;
+	float: left;
+	margin-right: 5px;
+	&-bookmark {
+		.fill {
+			fill: #0000;
+		}
+	}
+	&-plus * {
+		fill: #fff;
+	}
+	&-medium {
+		width: 17px;
+		height: 17px;
+		margin-right: 10px;
+		&:hover {
+			path {
+				fill: rgb(69, 69, 69);
+			}
+		}
+	}
+	&-upvote {
+		margin: 0;
+		float: none !important;
+	}
 }

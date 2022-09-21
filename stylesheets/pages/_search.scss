@@ -1,53 +1,53 @@
 .overview-user,
 .community {
-    display: flex;
-    align-items: center;
-    &:hover {
-        border: 1px solid $gray-700;
-    }
-    .main {
-        flex: 1;
-    }
-    .pfp {
-        float: left;
-        margin-right: 10px;
-    }
-    p {
-        color: black;
-        margin-top: 0;
-        margin-bottom: 0;
-    }
-    a {
-        color: #676767;
-        font-size: 14px;
-    }
+	display: flex;
+	align-items: center;
+	&:hover {
+		border: 1px solid $gray-700;
+	}
+	.main {
+		flex: 1;
+	}
+	.pfp {
+		float: left;
+		margin-right: 10px;
+	}
+	p {
+		color: black;
+		margin-top: 0;
+		margin-bottom: 0;
+	}
+	a {
+		color: #676767;
+		font-size: 14px;
+	}
 }
 .overview-comment {
-    h2 {
-        margin: 0;
-        font-size: 20px;
-    }
-    p {
-        margin: 10px 0;
-    }
-    &:hover {
-        border: 1px solid $gray-700;
-    }
-    &__body {
-        padding: 5px;
-        background-color: $gray-200;
-        border-radius: 5px;
-        margin-top: 5px;
-        .comment {
-            &__body {
-                margin-left: 10px;
-            }
-        }
-    }
+	h2 {
+		margin: 0;
+		font-size: 20px;
+	}
+	p {
+		margin: 10px 0;
+	}
+	&:hover {
+		border: 1px solid $gray-700;
+	}
+	&__body {
+		padding: 5px;
+		background-color: $gray-200;
+		border-radius: 5px;
+		margin-top: 5px;
+		.comment {
+			&__body {
+				margin-left: 10px;
+			}
+		}
+	}
 }
 .post.overview,
 .overview-comment,
 .overview-user,
 .community {
-    margin-bottom: 5px;
+	margin-bottom: 5px;
 }

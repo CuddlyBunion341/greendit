@@ -122,6 +122,9 @@ main.multicol {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 .arrow-wrapper.horizontal {
   display: -webkit-inline-box;
@@ -530,8 +533,7 @@ li.flair .pfp {
 .post .left {
   float: left;
   background-color: #f1f1f1;
-  padding: 6px;
-  width: 13px;
+  width: 32px;
 }
 .post .right {
   padding: 4px;
@@ -560,7 +562,8 @@ li.flair .pfp {
       -ms-flex-align: center;
           align-items: center;
 }
-.post .right .image-collage img, .post .right .image-collage video,
+.post .right .image-collage img,
+.post .right .image-collage video,
 .post .right .video-container img,
 .post .right .video-container video {
   max-width: 100%;
@@ -1543,6 +1546,7 @@ video {
   border-radius: 5px;
   margin: 10px 0 10px 10px;
   background: #f1f1f1;
+  border: 1px solid #ebebeb;
   overflow: hidden;
 }
 .post.overview .thumb .icon {
