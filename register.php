@@ -1,4 +1,11 @@
 <?php
+if (!isset($_SESSION['captcha'])) {
+    $chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $code = substr(str_shuffle(str_repeat($chars, 6)), 0, 6);
+    $hash = hash('md5', $code);
+    $data = createCaptcha($code);
+    $captcha = '<img class="captcha" src="data:image/png;base64,' . $data . '" alt="Captcha">';
+}
 require_once 'require/db_connect.php';
 function register($username, $password, $verify, $code) {
     if (!preg_match('/([a-zA-Z0-9]{4}-){2}[a-zA-Z0-9]{4}/', $code)) return 'Access Code format invalid';
@@ -32,7 +39,6 @@ if (isset($_POST['username'], $_POST['password'], $_POST['verify'], $_POST['code
             file_put_contents('resources/pfps/' . $username . '.png', $image_data);
         }
         $user = row('select * from users where username = \'' . $_POST['username'] . '\'');
-        session_start();
         $_SESSION['user_id'] = $user['user_id'];
         $_SESSION['username'] = $user['username'];
         header('Location: index.php');
@@ -43,12 +49,35 @@ function value($field) {
         return htmlspecialchars($_POST[$field]);
     }
 }
-function createCaptcha($code, $width = 200, $height = 50, $font_size = 30) {
+function createCaptcha($code, $width = 130, $height = 50, $font_size = 30) {
+    // create base image
     $img = new Imagick();
     $img->newImage($width, $height, '#fff');
+
+    // draw font
+    $draw = new ImagickDraw();
+    $draw->setFont(__DIR__ . '/resources/fonts/Monaco.ttf');
+    $draw->setFontSize($font_size);
+    $img->annotateImage($draw, 10, $height / 2 + $font_size / 2, 0, $code);
+
+    // add noise
+    $img->waveImage(2, 20);
     $img->addNoiseImage(3);
-    ///...
-    $img->swirlImage(20);
+
+    // add lines
+    $draw = new ImagickDraw();
+    $draw->setStrokeColor(new ImagickPixel('#000'));
+    $img->drawImage($draw);
+    for ($i = 0; $i < 5; $i++) {
+        $x1 = rand(0, $width);
+        $x2 = rand(0, $width);
+        $y1 = rand(0, $height);
+        $y2 = rand(0, $height);
+        $draw->line($x1, $y1, $x2, $y2);
+    }
+
+    // export image
+    $img->drawImage($draw);
     $img->setImageFormat('png');
     $data = $img->getImageBlob();
     $data = base64_encode($data);
@@ -63,16 +92,22 @@ require('require/header.php');
     <div class="container">
         <h1>Sign Up</h1>
         <?php if (isset($error)) : ?>
-            <p class="error"><?= $error ?></p>
+        <p class="error"><?= $error ?></p>
         <?php endif; ?>
         <div class="pfp-container">
             <img class="pfp medium" id="user-pfp" alt="random pfp">
             <button aria-label="next-pfp" type="button" id="next-pfp-btn">random();</button>
         </div>
-        <input type="text" id="username" name="username" placeholder="Username" required pattern="\w{3,25}" title="must consist of 3 to 25 letters, numbers and underscores" value="<?= value('username') ?>">
-        <input type="password" id="password" name="password" placeholder="Password" required pattern=".{6,}" title="must be at least 6 characters long">
+        <input type="text" id="username" name="username" placeholder="Username" required pattern="\w{3,25}"
+            title="must consist of 3 to 25 letters, numbers and underscores" value="<?= value('username') ?>">
+        <input type="password" id="password" name="password" placeholder="Password" required pattern=".{6,}"
+            title="must be at least 6 characters long">
         <input type="password" id="verify" name="verify" placeholder="Verify Password" required>
-        <input type="text" id="code" name="code" placeholder="Access code" required pattern="([a-zA-Z0-9]{4}-){2}[a-zA-Z0-9]{4}" title="XXXX-XXXX-XXXX" value="<?= value('code') ?>">
+        <input type="text" id="code" name="code" placeholder="Access code" required
+            pattern="([a-zA-Z0-9]{4}-){2}[a-zA-Z0-9]{4}" title="XXXX-XXXX-XXXX" value="<?= value('code') ?>">
+        <?= $captcha ?>
+        <input type="text" id="captcha" name="captcha" placeholder="Captcha Code" required pattern="[a-zA-Z0-9]{6}">
+
         <input type="submit" name="submit" value="Sign Up">
         <input type="hidden" name="pfp" id="pfp" value="<?= value('pfp') ?>">
         <p>Already a member?&nbsp;<a href="login.php">LogIn</a></p>

@@ -1420,6 +1420,10 @@ video {
   margin-bottom: 5px;
 }
 
+img.captcha {
+  width: 50% !important;
+}
+
 .overview-user,
 .community {
   display: -webkit-box;
