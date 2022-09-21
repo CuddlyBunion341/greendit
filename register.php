@@ -1,6 +1,6 @@
 <?php
 if (!isset($_SESSION['captcha'])) {
-    $chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $code = substr(str_shuffle(str_repeat($chars, 6)), 0, 6);
     $hash = hash('md5', $code);
     $data = createCaptcha($code);
@@ -62,19 +62,13 @@ function createCaptcha($code, $width = 130, $height = 50, $font_size = 30) {
 
     // add noise
     $img->waveImage(2, 20);
-    $img->addNoiseImage(3);
+    $img->addNoiseImage(4);
+    $img->setImageType(IMG_FILTER_GRAYSCALE);
 
-    // add lines
     $draw = new ImagickDraw();
-    $draw->setStrokeColor(new ImagickPixel('#000'));
-    $img->drawImage($draw);
-    for ($i = 0; $i < 5; $i++) {
-        $x1 = rand(0, $width);
-        $x2 = rand(0, $width);
-        $y1 = rand(0, $height);
-        $y2 = rand(0, $height);
-        $draw->line($x1, $y1, $x2, $y2);
-    }
+    $y1 = rand(0, $height);
+    $y2 = rand(0, $height);
+    $draw->line(0, $y1, $width, $y2);
 
     // export image
     $img->drawImage($draw);
