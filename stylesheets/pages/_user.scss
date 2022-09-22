@@ -32,6 +32,10 @@
 	}
 }
 .post.overview {
+	.left {
+		padding: 0;
+		width: 32px;
+	}
 	.thumb {
 		display: flex;
 		width: 80px;
