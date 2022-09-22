@@ -6,7 +6,7 @@ function createCaptcha($code, $width = 130, $height = 50, $font_size = 30) {
 
     // draw font
     $draw = new ImagickDraw();
-    $draw->setFont('resources/fonts/Monaco.ttf');
+    $draw->setFont(__DIR__ . '/../resources/fonts/Monaco.ttf');
     $draw->setFontSize($font_size);
     $img->annotateImage($draw, 10, $height / 2 + $font_size / 2, 0, $code);
 

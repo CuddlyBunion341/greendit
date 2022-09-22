@@ -60,7 +60,6 @@ require 'require/captcha.php';
 $session_code = isset($_SESSION['captcha']) ? $_SESSION['captcha'] : createCaptchaCode();
 if (!isset($_SESSION['captcha'])) {
     $session_code = createCaptchaCode();
-    // $hash = hash('md5', $code);
     $_SESSION['captcha'] = $session_code;
 }
 $data = createCaptcha($session_code);
@@ -85,7 +84,7 @@ $captcha = '<img class="captcha" src="data:image/png;base64,' . $data . '" alt="
             value="<?= value('verify') ?>">
         <div class="captcha-container">
             <?= $captcha ?>
-            <button type="button" id="next-captcha-btn" disabled>New</button>
+            <button type="button" id="next-captcha-btn">New</button>
         </div>
         <input type="text" id="captcha" name="code" placeholder="Captcha Code" required>
 

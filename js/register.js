@@ -1,3 +1,5 @@
+// ---- Profile Picture ------------------------------------------------------------------
+
 function createPfp() {
 	let hash = Number(
 		Math.random().toString().slice(2, 15) +
@@ -57,5 +59,12 @@ function nextPfp() {
 	updateImg(pfp);
 	return pfp;
 }
-
 $("#next-pfp-btn").click(nextPfp);
+
+// ---- Captcha --------------------------------------------------------------------------
+
+$("#next-captcha-btn").click(() => {
+	$.get("request/new_captcha.php", (base64) => {
+		$(".captcha").element.src = `data:image/png;base64,${base64}`;
+	});
+});
