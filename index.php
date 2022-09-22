@@ -1,7 +1,7 @@
-<?php 
-    require('require/header.php');
-    require('require/feed.php');
-    require('require/db_connect.php');
+<?php
+require('require/header.php');
+require('require/feed.php');
+require('require/db_connect.php');
 ?>
 <main class="multicol">
     <aside>
