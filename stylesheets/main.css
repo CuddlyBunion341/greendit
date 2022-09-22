@@ -56,6 +56,9 @@ body.flex {
 .socials li a:hover {
   color: #696969;
 }
+.socials li a:hover .icon {
+  fill: #696969;
+}
 
 .growing {
   -webkit-box-flex: 1;

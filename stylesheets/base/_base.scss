@@ -30,6 +30,9 @@ body.flex {
 			color: black;
 			&:hover {
 				color: $gray-800;
+				.icon {
+					fill: $gray-800;
+				}
 			}
 		}
 		border: none !important;
