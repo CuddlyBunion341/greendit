@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-<?php session_start(); ?>
+<?php
+if (!isset($_SESSION)) {
+    session_start();
+}
+?>
 <!-- Some icons used on greendit are from Font Awesome Pro 6.1.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc.-->
 
 <head>

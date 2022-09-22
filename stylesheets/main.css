@@ -1424,6 +1424,17 @@ img.captcha {
   width: 50% !important;
 }
 
+.captcha-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
 .overview-user,
 .community {
   display: -webkit-box;
