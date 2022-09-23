@@ -86,7 +86,7 @@ $captcha = '<img class="captcha" src="data:image/png;base64,' . $data . '" alt="
             <?= $captcha ?>
             <button type="button" id="next-captcha-btn">New</button>
         </div>
-        <input type="text" id="captcha" name="code" placeholder="Captcha Code" required>
+        <input type="text" id="captcha" name="code" placeholder="Captcha Code" required value="<?= value('code') ?>">
 
         <input type="submit" name="submit" value="Sign Up">
         <input type="hidden" name="pfp" id="pfp" value="<?= value('pfp') ?>">
