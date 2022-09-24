@@ -1,5 +1,9 @@
-<?php require 'require/header.php'; ?>
 <?php
+session_start();
+if (!isset($_SESSION['username'])) {
+    header('Location: login.php');
+    exit();
+}
 require_once 'require/db_connect.php';
 require 'require/uuid.php';
 require 'require/util.php';
@@ -179,6 +183,7 @@ function error($name) {
     }
 }
 ?>
+<?php require 'require/header.php'; ?>
 <main class="multicol">
     <aside class="community__info below" id="sidebar">
         <article class="info titled">

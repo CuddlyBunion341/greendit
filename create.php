@@ -1,10 +1,10 @@
-<?php require __DIR__ . '/require/header.php'; ?>
 <?php
-require 'require/util.php';
+session_start();
 if (!isset($_SESSION['user_id'])) {
     header('Location: /greendit/login.php');
     exit();
 }
+require 'require/util.php';
 $values = array(
     'name' => '',
     'display' => '',
@@ -65,6 +65,7 @@ if (isset($_POST['submit'])) {
     }
 }
 ?>
+<?php require __DIR__ . '/require/header.php'; ?>
 <main>
     <article class="community-composer">
         <form action="create.php" method="post">
@@ -73,7 +74,8 @@ if (isset($_POST['submit'])) {
                 <label for="name">Community name</label><br>
                 <div class="fancy-text-input">
                     <span class="fancy-text-input__prepend">s/</span>
-                    <input class="fancy-text-input__input" type="text" name="name" id="name" maxlength="24" value="<?= $values['name'] ?>">
+                    <input class="fancy-text-input__input" type="text" name="name" id="name" maxlength="24"
+                        value="<?= $values['name'] ?>">
                 </div>
                 <?= error('name'); ?>
             </div>
